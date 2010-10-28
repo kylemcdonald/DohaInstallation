@@ -1,0 +1,7 @@
+!.gitignore
+*.depend
+*.layout
+obj/
+bin/
+!data/
+
