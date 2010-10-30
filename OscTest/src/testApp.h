@@ -1,28 +1,33 @@
 #pragma once
 
 #include "ofxXmlSettings.h"
+#include "ofxVectorMath.h"
 #include "ofxOsc.h"
 #include "ofMain.h"
 
 class testApp : public ofBaseApp {
 public:
-    void setup();
-    void update();
-    void draw();
+	void setup();
+	void update();
+	void draw();
+	void drawInsideViewport();
+	void drawOutsideViewport();
 
-    int mx, my;
+	vector<ofPoint> points;
 
-    bool master;
-    ofxOscSender oscSender;
-    ofxOscReceiver oscReceiver;
+	ofxVec2f offset;
 
-    stringstream scout;
+	bool master;
+	ofxOscSender oscSender;
+	ofxOscReceiver oscReceiver;
 
-    void keyPressed  (int key);
-    void keyReleased(int key);
-    void mouseMoved(int x, int y );
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
-    void windowResized(int w, int h);
+	stringstream scout;
+
+	void keyPressed  (int key);
+	void keyReleased(int key);
+	void mouseMoved(int x, int y);
+	void mouseDragged(int x, int y, int button);
+	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void windowResized(int w, int h);
 };
