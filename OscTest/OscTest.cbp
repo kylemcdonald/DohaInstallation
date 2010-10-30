@@ -65,6 +65,11 @@
 			<Add directory="../../../libs/gstappsink/include" />
 			<Add directory="../../../addons" />
 			<Add directory="../../../libs/poco/include" />
+			<Add directory="../../../addons/ofxOsc/libs/oscpack/include/ip" />
+			<Add directory="../../../addons/ofxOsc/libs/oscpack/include/osc" />
+			<Add directory="../../../addons/ofxOsc/src" />
+			<Add directory="../../../addons/ofxXmlSettings/src" />
+			<Add directory="../../../addons/ofxXmlSettings/libs" />
 		</Compiler>
 		<Linker>
 			<Add library="fmodex" />
@@ -79,6 +84,7 @@
 			<Add library="RtAudio" />
 			<Add library="GLee" />
 			<Add library="oFappsink" />
+			<Add library="../../../addons/ofxOsc/libs/oscpack/lib/linux64/liboscpack.a" />
 			<Add directory="../../../libs/freetype/lib/linux64" />
 			<Add directory="../../../libs/FreeImage/lib/linux64" />
 			<Add directory="../../../libs/rtAudio/lib/linux64" />
@@ -93,7 +99,37 @@
 			<Add after="#      copy libs and shell script to bin directory:" />
 			<Add after="#" />
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
+			<Add after="cd ../scripts/; ./update.pl" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/ip/IpEndpointName.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/ip/NetworkingUtils.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/ip/PacketListener.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/ip/TimerListener.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/ip/UdpSocket.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/MessageMappingOscPacketListener.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscException.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscHostEndianness.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscOutboundPacketStream.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscPacketListener.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscPrintReceivedElements.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscReceivedElements.h" />
+		<Unit filename="../../../addons/ofxOsc/libs/oscpack/include/osc/OscTypes.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOsc.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscArg.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscBundle.cpp" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscBundle.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscMessage.cpp" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscMessage.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscReceiver.cpp" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscReceiver.h" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscSender.cpp" />
+		<Unit filename="../../../addons/ofxOsc/src/ofxOscSender.h" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.h" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />

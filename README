@@ -1,0 +1,19 @@
+install ubuntu 10.10 on 6 computers
+named 3rdi_ where _ is 0 (master) and 1-5 (clients)
+
+all: install NVIDIA drivers
+all: enable remote desktop
+all: disable screensaver
+all: disable idle mode
+all: disable "turn off display" in power management
+
+all: sudo apt-get install openssh-server
+all: ssh-keygen
+all: ssh-copy-id 3rdi0.local
+master: ssh-copy-id 3rdi_.local
+
+master: sudo apt-get install git
+master: git clone http://github.com/openframeworks/openFrameworks.git
+master: run OF install scripts
+
+master: get ptgrey SDK, install libusb and 10.04 install
