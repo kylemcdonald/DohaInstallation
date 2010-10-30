@@ -3,9 +3,6 @@
 *.depend
 *.layout
 
-!data/
-
 obj/
-bin/*
-libs/*
-*.so
+bin/
+!data/
