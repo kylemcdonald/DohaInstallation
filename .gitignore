@@ -1,7 +1,11 @@
 !.gitignore
+
 *.depend
 *.layout
-obj/
-bin/
+
 !data/
 
+obj/
+bin/*
+libs/*
+*.so
