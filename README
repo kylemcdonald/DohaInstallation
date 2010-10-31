@@ -1,5 +1,10 @@
-install ubuntu 10.10 on 6 computers
-named 3rdi_ where _ is 0 (master) and 1-5 (clients)
+1 alienware area-51 with NVIDA 480
+5 alienware aurora with dual NVIDIA 460
+
+all: plug in one monitor
+all: plug into 8-port gigabit ethernet with internet connection
+all: install ubuntu 10.10
+all: named 3rdi_ where _ is 0 (master) and 1-5 (slaves)
 
 all: install NVIDIA drivers
 all: enable remote desktop
@@ -10,10 +15,14 @@ all: disable "turn off display" in power management
 all: sudo apt-get install openssh-server
 all: ssh-keygen
 all: ssh-copy-id 3rdi0.local
-master: ssh-copy-id 3rdi_.local
+master: ssh-copy-id 3rdi_.local where _ is 1-5
 
 master: sudo apt-get install git
 master: git clone http://github.com/openframeworks/openFrameworks.git
 master: run OF install scripts
 
-master: get ptgrey SDK, install libusb and 10.04 install
+master: get ptgrey SDK, install libusb and 10.04 SDK installer
+
+slaves: plug in all monitors with one DH2G on each port
+slaves: for secondary ports, use TwinView
+slaves: for all ports, enable Xinerama

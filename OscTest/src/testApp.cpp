@@ -1,33 +1,7 @@
 #include "testApp.h"
 
-// app is master by default, client by args
-bool testApp::master = true;
-int testApp::pipe = 0;
-
 void testApp::setup() {
-	ofxXmlSettings settings, unique;
-	settings.loadFile("settings.xml");
-
 	ofSetLogLevel(OF_LOG_VERBOSE);
-
-	if(master) {
-		cout << "This computer is running as master." << endl;
-	} else {
-		cout << "This computer is running as a client on pipe " << pipe << "." << endl;
-	}
-
-	settings.pushTag("osc");
-	string address = settings.getValue("address", "255.255.255.255");
-	int port = settings.getValue("port", 8888);
-	settings.popTag();
-
-	if(master) {
-		cout << "Connecting to " << address << ":" << port << endl;
-		oscSender.setup(address, port);
-	} else {
-		cout << "Listening on port " << port << endl;
-		oscReceiver.setup(port);
-	}
 }
 
 void testApp::update() {
@@ -52,17 +26,6 @@ void testApp::update() {
 	}
 }
 
-void testApp::draw() {
-	ofBackground(0, 0, 0);
-
-	glPushMatrix();
-	glTranslatef(-offset.x, -offset.y, 0);
-	drawInsideViewport();
-	glPopMatrix();
-
-	drawOutsideViewport();
-}
-
 void testApp::drawInsideViewport() {
 	ofSetColor(255, 255, 255);
 	glBegin(GL_LINE_STRIP);
@@ -74,22 +37,6 @@ void testApp::drawInsideViewport() {
 }
 
 void testApp::drawOutsideViewport() {
-	if(master)
-		ofSetColor(255, 0, 0);
-	else
-		ofSetColor(0, 255, 0);
-	ofRect(0, 0, 64, 64);
-
-	int checksum = 0;
-	for(int i = 0; i < points.size(); i++) {
-		ofPoint& cur = points[i];
-		checksum ^= (int) cur.x;
-		checksum ^= (int) cur.y;
-	}
-
-	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(ofToString((int) ofGetFrameRate()) + " " + ofToString(checksum), ofGetWidth() - 100, 20);
-	ofDrawBitmapString(scout.str(), 10, 20);
 }
 
 void testApp::keyPressed(int key) {

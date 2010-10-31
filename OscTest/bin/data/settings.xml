@@ -3,31 +3,35 @@
 	<port>8888</port>
 </osc>
 
-<!-- default channel parameters -->
-<channel width="1920" height="1080" mode="relative"/>
+<defaults>
+	<window width="1" height="1" mode="relative"/>
+	<screen width="1920" height="1080" mode="relative"/>
+</defaults>
 
-<node address="3rdi1.local">
-	<pipe>
-		<channel x="0" y="0"/>
-	</pipe>
-</node>
-<node address="3rdi2.local">
-	<pipe>
-		<channel x="1" y="0"/>
-	</pipe>
-</node>
-<node address="3rdi3.local">
-	<pipe>
-		<channel x="2" y="0"/>
-	</pipe>
-</node>
-<node address="3rdi4.local">
-	<pipe>
-		<channel x="1" y="1"/>
-	</pipe>
-</node>
-<node address="3rdi5.local">
-	<pipe>
-		<channel x="2" y="1"/>
-	</pipe>
-</node>
+<computers>
+	<computer address="3rdi1.local">
+		<window>
+			<screen x="0" y="0"/>
+		</window>
+	</computer>
+	<computer address="3rdi2.local">
+		<window>
+			<screen x="1" y="0"/>
+		</window>
+	</computer>
+	<computer address="3rdi3.local">
+		<window>
+			<screen x="2" y="0"/>
+		</window>
+	</computer>
+	<computer address="3rdi4.local">
+		<window>
+			<screen x="1" y="1"/>
+		</window>
+	</computer>
+	<computer address="3rdi5.local">
+		<window>
+			<screen x="2" y="1"/>
+		</window>
+	</computer>
+</computers>

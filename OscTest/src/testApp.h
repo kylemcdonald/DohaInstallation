@@ -1,28 +1,16 @@
 #pragma once
 
-#include "ofxXmlSettings.h"
-#include "ofxVectorMath.h"
-#include "ofxOsc.h"
-#include "ofMain.h"
+#include "ofxMultiscreen.h"
 
-class testApp : public ofBaseApp {
+class testApp : public ofxMultiscreen {
 public:
 	void setup();
 	void update();
-	void draw();
+
 	void drawInsideViewport();
 	void drawOutsideViewport();
 
 	vector<ofPoint> points;
-
-	ofxVec2f offset;
-
-	static bool master;
-	static int pipe;
-	ofxOscSender oscSender;
-	ofxOscReceiver oscReceiver;
-
-	stringstream scout;
 
 	void keyPressed(int key);
 	void keyReleased(int key);
