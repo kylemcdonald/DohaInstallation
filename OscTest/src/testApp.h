@@ -17,13 +17,14 @@ public:
 
 	ofxVec2f offset;
 
-	bool master;
+	static bool master;
+	static int pipe;
 	ofxOscSender oscSender;
 	ofxOscReceiver oscReceiver;
 
 	stringstream scout;
 
-	void keyPressed  (int key);
+	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y);
 	void mouseDragged(int x, int y, int button);

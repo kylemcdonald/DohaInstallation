@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,11 +39,11 @@ ofxOscBundle::~ofxOscBundle()
 
 ofxOscBundle& ofxOscBundle::copy( const ofxOscBundle& other )
 {
-	for ( int i=0; i<other.bundles.size(); i++ )
+	for (unsigned int i=0; i<other.bundles.size(); i++ )
 	{
 		bundles.push_back( other.bundles[i] );
 	}
-	for ( int i=0; i<other.messages.size(); i++ )
+	for (unsigned int i=0; i<other.messages.size(); i++ )
 	{
 		messages.push_back( other.messages[i] );
 	}

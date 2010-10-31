@@ -1,22 +1,20 @@
 #include "testApp.h"
 
+// app is master by default, client by args
+bool testApp::master = true;
+int testApp::pipe = 0;
+
 void testApp::setup() {
 	ofxXmlSettings settings, unique;
 	settings.loadFile("settings.xml");
-	unique.loadFile("unique.xml");
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
-	master = unique.getValue("master", 0);
 	if(master) {
 		cout << "This computer is running as master." << endl;
 	} else {
-		cout << "This computer is running as a client." << endl;
+		cout << "This computer is running as a client on pipe " << pipe << "." << endl;
 	}
-
-	unique.pushTag("viewport");
-	offset.set(unique.getValue("x", 0), unique.getValue("y", 0));
-	unique.popTag();
 
 	settings.pushTag("osc");
 	string address = settings.getValue("address", "255.255.255.255");

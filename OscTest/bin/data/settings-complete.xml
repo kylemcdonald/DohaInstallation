@@ -1,0 +1,78 @@
+<osc>
+	<address>192.168.8.255</address>
+	<port>8888</port>
+</osc>
+
+<!-- default channel parameters -->
+<channel width="1920" height="1080" mode="relative"/>
+
+<node address="3rdi1.local">
+	<pipe>
+		<channel x="0" y="0"/>
+		<channel x="0" y="1"/>
+		<channel x="0" y="2"/>
+		<channel x="0" y="3"/>
+	</pipe>
+	<pipe>
+		<channel x="0" y="4"/>
+		<channel x="0" y="5"/>
+		<channel x="0" y="6"/>
+		<channel x="0" y="7"/>
+	</pipe>
+</node>
+<node address="3rdi2.local">
+	<pipe>
+		<channel x="1" y="0"/>
+		<channel x="1" y="1"/>
+		<channel x="1" y="2"/>
+		<channel x="1" y="3"/>
+	</pipe>
+	<pipe>
+		<channel x="1" y="4"/>
+		<channel x="1" y="5"/>
+		<channel x="1" y="6"/>
+		<channel x="1" y="7"/>
+	</pipe>
+</node>
+<node address="3rdi3.local">
+	<pipe>
+		<channel x="2" y="0"/>
+		<channel x="2" y="1"/>
+		<channel x="2" y="2"/>
+		<channel x="2" y="3"/>
+	</pipe>
+	<pipe>
+		<channel x="2" y="4"/>
+		<channel x="2" y="5"/>
+		<channel x="2" y="6"/>
+		<channel x="2" y="7"/>
+	</pipe>
+</node>
+<node address="3rdi4.local">
+	<pipe>
+		<channel x="3" y="0"/>
+		<channel x="3" y="1"/>
+		<channel x="3" y="2"/>
+		<channel x="3" y="3"/>
+	</pipe>
+	<pipe>
+		<channel x="3" y="4"/>
+		<channel x="3" y="5"/>
+		<channel x="3" y="6"/>
+		<channel x="3" y="7"/>
+	</pipe>
+</node>
+<node address="3rdi5.local">
+	<pipe>
+		<channel x="4" y="0"/>
+		<channel x="4" y="1"/>
+		<channel x="4" y="2"/>
+		<channel x="4" y="3"/>
+	</pipe>
+	<pipe>
+		<channel x="4" y="4"/>
+		<channel x="4" y="5"/>
+		<channel x="4" y="6"/>
+		<channel x="4" y="7"/>
+	</pipe>
+</node>
