@@ -7,6 +7,7 @@ ofxVec2f ofxMultiscreen::windowSize(1920, 1080);
 ofxVec2f ofxMultiscreen::offset(0, 0);
 ofxOscSender ofxMultiscreen::oscSender;
 ofxOscReceiver ofxMultiscreen::oscReceiver;
+vector<MultiComputer> ofxMultiscreen::computers;
 
 void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 	if(argc > 1) {
@@ -32,14 +33,36 @@ void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 	if(master) {
 		cout << "Connecting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
+		loadScreens(settings);
+		startScreens();
 	} else {
 		cout << "Listening on port " << port << endl;
 		oscReceiver.setup(port);
 	}
 }
 
-void ofxMultiscreen::setup() {
-	ofSetWindowPosition(0, 0);
+void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
+	settings.pushTag("defaults");
+	MultiWindow defaultWindow(settings, MultiWindow());
+	MultiScreen defaultScreen(settings, MultiScreen());
+	settings.popTag();
+
+	settings.pushTag("computers");
+	int nComputers = settings.getNumTags("computer");
+	for(int whichComputer = 0; whichComputer < nComputers; whichComputer++) {
+		MultiComputer computer(settings, whichComputer);
+		settings.pushTag("computer", whichComputer);
+		int nWindows = settings.getNumTags("window");
+		for(int whichWindow = 0; whichWindow < nWindows; whichWindow++) {
+			MultiWindow window(settings, defaultWindow, whichWindow);
+		}
+		settings.popTag();
+		computers.push_back(computer);
+	}
+	settings.popTag();
+}
+
+void ofxMultiscreen::startScreens() {
 }
 
 void ofxMultiscreen::draw() {
@@ -62,5 +85,4 @@ void ofxMultiscreen::draw() {
 
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidth() - 60, ofGetHeight() - 10);
-	ofDrawBitmapString(scout.str(), 10, 20);
 }

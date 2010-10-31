@@ -4,8 +4,8 @@
 </osc>
 
 <defaults>
-	<window width="1" height="1" mode="relative"/>
-	<screen width="1920" height="1080" mode="relative"/>
+	<window width="1" height="1" mode="1"/>
+	<screen width="1920" height="1080" mode="1"/>
 </defaults>
 
 <computers>

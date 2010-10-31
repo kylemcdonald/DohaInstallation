@@ -15,12 +15,8 @@ void testApp::update() {
 				int my = message.getArgAsInt32(1);
 				ofPoint cur(mx, my);
 				points.push_back(cur);
-
-				scout << "got message at /" << address << " " << mx << " " << my << endl;
 			} else if(address.compare("reset") == 0) {
 				points.clear();
-
-				scout << "got reset" << endl;
 			}
 		}
 	}
@@ -55,7 +51,6 @@ void testApp::mouseMoved(int x, int y) {
 		message.addIntArg(x);
 		message.addIntArg(y);
 		oscSender.sendMessage(message);
-		scout << "sent message at /mouse " << " " << x << " " << y << endl;
 
 		ofPoint cur(x, y);
 		points.push_back(cur);
