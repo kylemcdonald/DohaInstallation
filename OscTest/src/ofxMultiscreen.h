@@ -72,14 +72,14 @@ public:
 
 class MultiComputer {
 public:
-	string address;
+	string hostname;
 	vector<MultiWindow> windows;
 
 	MultiComputer(ofxXmlSettings& settings, int which = 0) {
-		address = settings.getAttribute("computer", "address", "", which);
+		hostname = settings.getAttribute("computer", "hostname", "", which);
 	}
 	int execute(string command) {
-		command = "ssh " + address + " \"" + command + "\"";
+		command = "ssh " + hostname + ".local \"" + command + "\"";
 		return system(command.c_str());
 	}
 	void launch(string appName) {
@@ -90,7 +90,7 @@ public:
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {
-		out << computer.address << "{" << computer.windows.size() << ": ";
+		out << computer.hostname << "{" << computer.windows.size() << ": ";
 		for(unsigned int i = 0; i < computer.windows.size(); i++) {
 			out << computer.windows[i] << " ";
 		}
@@ -103,25 +103,26 @@ class ofxMultiscreen : public ofBaseApp {
 public:
 	static const string appName, appDirectory;
 
-	static bool master;
-	static int window;
-
-	static ofxVec2f windowSize;
-	static ofxVec2f offset;
-
 	static vector<MultiComputer> computers;
+	static bool master;
+	static string hostname;
+	static int display;
+	static MultiWindow window;
 
 	static ofxOscSender oscSender;
 	static ofxOscReceiver oscReceiver;
 
 	static int maxScoutLines;
 
-	static void multiSetup(int argc, char* argv[]);
+	static void multiSetup();
 	static void loadScreens(ofxXmlSettings& settings);
 	static void startScreens();
 	static void stopScreens();
 	static void execute(string command);
 	static void launch(string appName);
+
+	static string getHostname();
+	static int getDisplay();
 
 	~ofxMultiscreen();
 

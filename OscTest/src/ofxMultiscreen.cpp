@@ -3,36 +3,26 @@
 const string ofxMultiscreen::appName = "OscTest";
 const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaInstallation";
 
-// app is master by default, client by args
-bool ofxMultiscreen::master = true;
-int ofxMultiscreen::window = 0;
-ofxVec2f ofxMultiscreen::windowSize(1920, 1080);
-ofxVec2f ofxMultiscreen::offset(0, 0);
-ofxOscSender ofxMultiscreen::oscSender;
-ofxOscReceiver ofxMultiscreen::oscReceiver;
+bool ofxMultiscreen::master = true; // app is master by default
+int ofxMultiscreen::display = 0;
+string ofxMultiscreen::hostname;
+MultiWindow ofxMultiscreen::window;
 vector<MultiComputer> ofxMultiscreen::computers;
 
-void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
-	if(argc > 1) {
-		master = false;
-		window = ofToInt(argv[1]);
-	}
+ofxOscSender ofxMultiscreen::oscSender;
+ofxOscReceiver ofxMultiscreen::oscReceiver;
 
+void ofxMultiscreen::multiSetup() {
 	ofxXmlSettings settings;
 	settings.loadFile("settings.xml");
 
-	if(master) {
-		cout << "This computer is running as master." << endl;
-	} else {
-		cout << "This computer is running as a client on pipe " << window << "." << endl;
-	}
-
-	settings.pushTag("osc");\
+	settings.pushTag("osc");
 	string address = settings.getValue("address", "255.255.255.255");
 	int port = settings.getValue("port", 8888);
 	settings.popTag();
 
 	loadScreens(settings);
+
 	if(master) {
 		cout << "Connecting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
@@ -40,8 +30,15 @@ void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 	} else {
 		cout << "Listening on port " << port << endl;
 		oscReceiver.setup(port);
-		for(unsigned int i = 0; i < computers.size(); i++) {
+	}
+
+	if(ofLogLevel() == OF_LOG_VERBOSE) {
+		if(master) {
+			cout << "This computer is running as master." << endl;
+		} else {
+			cout << "This computer is running as a client." << endl;
 		}
+		cout << "Running on computer " << hostname << " on display " << display << endl;
 	}
 }
 
@@ -50,25 +47,33 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	MultiScreen defaultScreen(settings, MultiScreen());
 	settings.popTag();
 
+	hostname = getHostname();
+	display = getDisplay();
+
 	settings.pushTag("computers");
 	int nComputers = settings.getNumTags("computer");
 	for(int whichComputer = 0; whichComputer < nComputers; whichComputer++) {
-		MultiComputer computer(settings, whichComputer);
+		MultiComputer curComputer(settings, whichComputer);
 		settings.pushTag("computer", whichComputer);
 		int nWindows = settings.getNumTags("window");
 		for(int whichWindow = 0; whichWindow < nWindows; whichWindow++) {
-			MultiWindow window;
+			MultiWindow curWindow;
 			settings.pushTag("window", whichWindow);
 			int nScreens = settings.getNumTags("screen");
 			for(int whichScreen = 0; whichScreen < nScreens; whichScreen++) {
 				MultiScreen screen(settings, defaultScreen, whichScreen);
-				window.screens.push_back(screen);
+				curWindow.screens.push_back(screen);
 			}
 			settings.popTag();
-			computer.windows.push_back(window);
+			curComputer.windows.push_back(curWindow);
+
+			if(whichWindow == display && curComputer.hostname.compare(hostname) == 0) {
+				master = false;
+				window = curWindow;
+			}
 		}
 		settings.popTag();
-		computers.push_back(computer);
+		computers.push_back(curComputer);
 	}
 	settings.popTag();
 
@@ -104,7 +109,8 @@ void ofxMultiscreen::draw() {
 	ofBackground(0, 0, 0);
 
 	glPushMatrix();
-	glTranslatef(-offset.x, -offset.y, 0);
+	if(!master)
+		glTranslatef(-window.screens[0].absoluteX(), -window.screens[0].absoluteY(), 0);
 	drawInsideViewport();
 	glPopMatrix();
 
@@ -124,4 +130,17 @@ void ofxMultiscreen::draw() {
 
 ofxMultiscreen::~ofxMultiscreen() {
 	stopScreens();
+}
+
+#define MAX_HOSTNAME_LENGTH 256
+string ofxMultiscreen::getHostname() {
+	char hostname[MAX_HOSTNAME_LENGTH];
+	gethostname(hostname, MAX_HOSTNAME_LENGTH);
+	return hostname;
+}
+
+int ofxMultiscreen::getDisplay() {
+	string display(getenv("DISPLAY"));
+	vector<string> parts = ofSplitString(display, ".");
+	return ofToInt(parts[1]);
 }

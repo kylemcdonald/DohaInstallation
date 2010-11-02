@@ -8,27 +8,27 @@
 </defaults>
 
 <computers>
-	<computer address="3rdi1.local">
+	<computer hostname="3rdi1">
 		<window>
 			<screen x="0" y="0"/>
 		</window>
 	</computer>
-	<computer address="3rdi2.local">
+	<computer hostname="3rdi2">
 		<window>
 			<screen x="1" y="0"/>
 		</window>
 	</computer>
-	<computer address="3rdi3.local">
+	<computer hostname="3rdi3">
 		<window>
 			<screen x="2" y="0"/>
 		</window>
 	</computer>
-	<computer address="3rdi4.local">
+	<computer hostname="3rdi4">
 		<window>
 			<screen x="1" y="1"/>
 		</window>
 	</computer>
-	<computer address="3rdi5.local">
+	<computer hostname="3rdi5">
 		<window>
 			<screen x="2" y="1"/>
 		</window>

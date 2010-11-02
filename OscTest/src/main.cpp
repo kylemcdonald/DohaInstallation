@@ -1,8 +1,8 @@
 #include "testApp.h"
 
-int main(int argc, char* argv[]) {
-	testApp::multiSetup(argc, argv);
+int main() {
+	testApp::multiSetup();
 	ofAppGlutWindow window;
-	ofSetupOpenGL(&window, testApp::windowSize.x, testApp::windowSize.y, OF_FULLSCREEN);
+	ofSetupOpenGL(&window, testApp::window.getWidth(), testApp::window.getHeight(), OF_FULLSCREEN);
 	ofRunApp(new testApp());
 }

@@ -103,6 +103,7 @@
 			<Add after="#      copy libs and shell script to bin directory:" />
 			<Add after="#" />
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
+			<Add after="cd ../scripts; ./rsync-update.pl" />
 		</ExtraCommands>
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.cpp" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.h" />
