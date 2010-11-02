@@ -29,7 +29,7 @@
 */
 #include "OscTypes.h"
 
-namespace osc{
+namespace osc {
 
 BundleInitiator BeginBundleImmediate(1);
 BundleTerminator EndBundle;

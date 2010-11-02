@@ -37,7 +37,7 @@
 #endif /* INCLUDED_OSCRECEIVEDELEMENTS_H */
 
 
-namespace osc{
+namespace osc {
 
 std::ostream& operator<<( std::ostream & os, const ReceivedPacket& p );
 std::ostream& operator<<( std::ostream & os, const ReceivedMessageArgument& arg );

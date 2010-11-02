@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -41,8 +41,12 @@ class ofxOscMessage
 public:
 	ofxOscMessage();
 	~ofxOscMessage();
-	ofxOscMessage( const ofxOscMessage& other ){ copy ( other ); }
-	ofxOscMessage& operator= ( const ofxOscMessage& other ) { return copy( other ); }
+	ofxOscMessage( const ofxOscMessage& other ) {
+		copy ( other );
+	}
+	ofxOscMessage& operator= ( const ofxOscMessage& other ) {
+		return copy( other );
+	}
 	/// for operator= and copy constructor
 	ofxOscMessage& copy( const ofxOscMessage& other );
 
@@ -50,12 +54,18 @@ public:
 	void clear();
 
 	/// return the address
-	string getAddress() const { return address; }
+	string getAddress() const {
+		return address;
+	}
 
 	/// return the remote ip
-	string getRemoteIp() { return remote_host; }
+	string getRemoteIp() {
+		return remote_host;
+	}
 	/// return the remote port
-	int getRemotePort() { return remote_port; }
+	int getRemotePort() {
+		return remote_port;
+	}
 
 	/// return number of argumentsļ
 	int getNumArgs() const;
@@ -74,9 +84,14 @@ public:
 	string getArgAsString( int index ) const;
 
 	/// message construction
-	void setAddress( string _address ) { address = _address; };
+	void setAddress( string _address ) {
+		address = _address;
+	};
 	/// host and port of the remote endpoint
-	void setRemoteEndpoint( string host, int port ) { remote_host = host; remote_port = port; }
+	void setRemoteEndpoint( string host, int port ) {
+		remote_host = host;
+		remote_port = port;
+	}
 	void addIntArg( int32_t argument );
 	void addFloatArg( float argument );
 	void addStringArg( string argument );

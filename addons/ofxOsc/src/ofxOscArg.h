@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -57,8 +57,12 @@ public:
 	ofxOscArg() {};
 	virtual ~ofxOscArg() {};
 
-	virtual ofxOscArgType getType() { return OFXOSC_TYPE_NONE; }
-	virtual string getTypeName() { return "none"; }
+	virtual ofxOscArgType getType() {
+		return OFXOSC_TYPE_NONE;
+	}
+	virtual string getTypeName() {
+		return "none";
+	}
 
 private:
 };
@@ -78,17 +82,27 @@ typedef long int32_t;
 class ofxOscArgInt32 : public ofxOscArg
 {
 public:
-	ofxOscArgInt32( int32_t _value ) { value = _value; }
+	ofxOscArgInt32( int32_t _value ) {
+		value = _value;
+	}
 	~ofxOscArgInt32() {};
 
 	/// return the type of this argument
-	ofxOscArgType getType() { return OFXOSC_TYPE_INT32; }
-	string getTypeName() { return "int32"; }
+	ofxOscArgType getType() {
+		return OFXOSC_TYPE_INT32;
+	}
+	string getTypeName() {
+		return "int32";
+	}
 
 	/// return value
-	int32_t get() const { return value; }
+	int32_t get() const {
+		return value;
+	}
 	/// set value
-	void set( int32_t _value ) { value = _value; }
+	void set( int32_t _value ) {
+		value = _value;
+	}
 
 private:
 	int32_t value;
@@ -97,36 +111,56 @@ private:
 class ofxOscArgFloat : public ofxOscArg
 {
 public:
-	ofxOscArgFloat( float _value ) { value = _value; }
+	ofxOscArgFloat( float _value ) {
+		value = _value;
+	}
 	~ofxOscArgFloat() {};
 
 	/// return the type of this argument
-	ofxOscArgType getType() { return OFXOSC_TYPE_FLOAT; }
-	string getTypeName() { return "float"; }
+	ofxOscArgType getType() {
+		return OFXOSC_TYPE_FLOAT;
+	}
+	string getTypeName() {
+		return "float";
+	}
 
 	/// return value
-	float get() const { return value; }
+	float get() const {
+		return value;
+	}
 	/// set value
-	void set( float _value ) { value = _value; }
+	void set( float _value ) {
+		value = _value;
+	}
 
 private:
-		float value;
+	float value;
 };
 
 class ofxOscArgString : public ofxOscArg
 {
 public:
-	ofxOscArgString( string _value ) { value = _value; }
+	ofxOscArgString( string _value ) {
+		value = _value;
+	}
 	~ofxOscArgString() {};
 
 	/// return the type of this argument
-	ofxOscArgType getType() { return OFXOSC_TYPE_STRING; }
-	string getTypeName() { return "string"; }
+	ofxOscArgType getType() {
+		return OFXOSC_TYPE_STRING;
+	}
+	string getTypeName() {
+		return "string";
+	}
 
 	/// return value
-	string get() const { return value; }
+	string get() const {
+		return value;
+	}
 	/// set value
-	void set( const char* _value ) { value = _value; }
+	void set( const char* _value ) {
+		value = _value;
+	}
 
 private:
 	std::string value;

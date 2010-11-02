@@ -1,5 +1,8 @@
 #include "ofxMultiscreen.h"
 
+const string ofxMultiscreen::appName = "OscTest";
+const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaInstallation";
+
 // app is master by default, client by args
 bool ofxMultiscreen::master = true;
 int ofxMultiscreen::window = 0;
@@ -13,7 +16,6 @@ void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 	if(argc > 1) {
 		master = false;
 		window = ofToInt(argv[1]);
-		windowSize.set(1920, 1080);
 	}
 
 	ofxXmlSettings settings;
@@ -25,19 +27,21 @@ void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 		cout << "This computer is running as a client on pipe " << window << "." << endl;
 	}
 
-	settings.pushTag("osc");
+	settings.pushTag("osc");\
 	string address = settings.getValue("address", "255.255.255.255");
 	int port = settings.getValue("port", 8888);
 	settings.popTag();
 
+	loadScreens(settings);
 	if(master) {
 		cout << "Connecting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
-		loadScreens(settings);
 		startScreens();
 	} else {
 		cout << "Listening on port " << port << endl;
 		oscReceiver.setup(port);
+		for(unsigned int i = 0; i < computers.size(); i++) {
+		}
 	}
 }
 
@@ -77,6 +81,23 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 }
 
 void ofxMultiscreen::startScreens() {
+	launch("cd " + appDirectory + "/" + appName + "/bin; ./" + appName);
+}
+
+void ofxMultiscreen::stopScreens() {
+	execute("killall -9 " + appName);
+}
+
+void ofxMultiscreen::execute(string command) {
+	for(unsigned int i = 0; i < computers.size(); i++) {
+		computers[i].execute(command);
+	}
+}
+
+void ofxMultiscreen::launch(string appName) {
+	for(unsigned int i = 0; i < computers.size(); i++) {
+		computers[i].launch(appName);
+	}
 }
 
 void ofxMultiscreen::draw() {
@@ -99,4 +120,8 @@ void ofxMultiscreen::draw() {
 
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidth() - 60, ofGetHeight() - 10);
+}
+
+ofxMultiscreen::~ofxMultiscreen() {
+	stopScreens();
 }

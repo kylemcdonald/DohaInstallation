@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -49,7 +49,7 @@ void ofxOscSender::setup( std::string hostname, int port )
 {
 	if ( socket )
 		shutdown();
-	
+
 	socket = new UdpTransmitSocket( IpEndpointName( hostname.c_str(), port ) );
 }
 
@@ -76,7 +76,7 @@ void ofxOscSender::sendMessage( ofxOscMessage& message )
 {
 	static const int OUTPUT_BUFFER_SIZE = 16384;
 	char buffer[OUTPUT_BUFFER_SIZE];
-    osc::OutboundPacketStream p( buffer, OUTPUT_BUFFER_SIZE );
+	osc::OutboundPacketStream p( buffer, OUTPUT_BUFFER_SIZE );
 
 	// serialise the message
 	p << osc::BeginBundleImmediate;
@@ -103,7 +103,7 @@ void ofxOscSender::appendBundle( ofxOscBundle& bundle, osc::OutboundPacketStream
 
 void ofxOscSender::appendMessage( ofxOscMessage& message, osc::OutboundPacketStream& p )
 {
-    p << osc::BeginMessage( message.getAddress().c_str() );
+	p << osc::BeginMessage( message.getAddress().c_str() );
 	for ( int i=0; i< message.getNumArgs(); ++i )
 	{
 		if ( message.getArgType(i) == OFXOSC_TYPE_INT32 )

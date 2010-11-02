@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,7 +29,7 @@
 #include "ofxOscReceiver.h"
 
 #ifndef TARGET_WIN32
-        #include <pthread.h>
+#include <pthread.h>
 #endif
 #include <iostream>
 #include <assert.h>
@@ -44,31 +44,31 @@ void ofxOscReceiver::setup( int listen_port )
 	// if we're already running, shutdown before running again
 	if ( listen_socket )
 		shutdown();
-	
+
 	// create the mutex
-	#ifdef TARGET_WIN32
+#ifdef TARGET_WIN32
 	mutex = CreateMutexA( NULL, FALSE, NULL );
-	#else
+#else
 	pthread_mutex_init( &mutex, NULL );
-	#endif
-	
+#endif
+
 	// create socket
 	socketHasShutdown = false;
 	listen_socket = new UdpListeningReceiveSocket( IpEndpointName( IpEndpointName::ANY_ADDRESS, listen_port ), this );
 
 	// start thread
-	#ifdef TARGET_WIN32
+#ifdef TARGET_WIN32
 	thread	= CreateThread(
-							   NULL,              // default security attributes
-							   0,                 // use default stack size
+							NULL,              // default security attributes
+							0,                 // use default stack size
 							&ofxOscReceiver::startThread,        // thread function
-							   (void*)this,             // argument to thread function
-							   0,                 // use default creation flags
-							   NULL);             // we don't the the thread id
+							(void*)this,             // argument to thread function
+							0,                 // use default creation flags
+							NULL);             // we don't the the thread id
 
-	#else
+#else
 	pthread_create( &thread, NULL, &ofxOscReceiver::startThread, (void*)this );
-	#endif
+#endif
 }
 
 void ofxOscReceiver::shutdown()
@@ -80,23 +80,23 @@ void ofxOscReceiver::shutdown()
 		// wait for shutdown to complete
 		while (!socketHasShutdown)
 		{
-			#ifdef TARGET_WIN32
+#ifdef TARGET_WIN32
 			Sleep(1);
-			#else
+#else
 			// sleep 0.1ms
 			usleep(100);
-			#endif
+#endif
 		}
-		
+
 		// thread will clean up itself
-		
+
 		// clean up the mutex
-		#ifdef TARGET_WIN32
+#ifdef TARGET_WIN32
 		ReleaseMutex( mutex );
-		#else
-		pthread_mutex_destroy( &mutex );	
-		#endif
-		
+#else
+		pthread_mutex_destroy( &mutex );
+#endif
+
 		// delete the socket
 		delete listen_socket;
 		listen_socket = NULL;
@@ -113,7 +113,7 @@ DWORD WINAPI
 #else
 void*
 #endif
-		ofxOscReceiver::startThread( void* receiverInstance )
+ofxOscReceiver::startThread( void* receiverInstance )
 {
 	// cast the instance
 	ofxOscReceiver* instance = (ofxOscReceiver*)receiverInstance;
@@ -122,11 +122,11 @@ void*
 	// socket listener has finished - remember this fact
 	instance->socketHasShutdown = true;
 	// return
-    #ifdef TARGET_WIN32
+#ifdef TARGET_WIN32
 	return 0;
-    #else
+#else
 	return NULL;
-    #endif
+#endif
 }
 
 void ofxOscReceiver::ProcessMessage( const osc::ReceivedMessage &m, const IpEndpointName& remoteEndpoint )
@@ -140,12 +140,12 @@ void ofxOscReceiver::ProcessMessage( const osc::ReceivedMessage &m, const IpEndp
 	// set the sender ip/host
 	char endpoint_host[ IpEndpointName::ADDRESS_STRING_LENGTH ];
 	remoteEndpoint.AddressAsString( endpoint_host );
-    ofMessage->setRemoteEndpoint( endpoint_host, remoteEndpoint.port );
+	ofMessage->setRemoteEndpoint( endpoint_host, remoteEndpoint.port );
 
 	// transfer the arguments
 	for ( osc::ReceivedMessage::const_iterator arg = m.ArgumentsBegin();
-		  arg != m.ArgumentsEnd();
-		  ++arg )
+				arg != m.ArgumentsEnd();
+				++arg )
 	{
 		if ( arg->IsInt32() )
 			ofMessage->addIntArg( arg->AsInt32Unchecked() );

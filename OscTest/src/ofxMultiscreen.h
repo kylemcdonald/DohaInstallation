@@ -12,11 +12,11 @@ public:
 	string mode;
 
 	MultiScreen() :
-	x(0),
-	y(0),
-	width(0),
-	height(0),
-	mode("relative") {
+		x(0),
+		y(0),
+		width(0),
+		height(0),
+		mode("relative") {
 	}
 	MultiScreen(ofxXmlSettings& settings, MultiScreen defaultScreen, int which = 0) {
 		x = settings.getAttribute("screen", "x", defaultScreen.x, which);
@@ -78,6 +78,17 @@ public:
 	MultiComputer(ofxXmlSettings& settings, int which = 0) {
 		address = settings.getAttribute("computer", "address", "", which);
 	}
+	int execute(string command) {
+		command = "ssh " + address + " \"" + command + "\"";
+		return system(command.c_str());
+	}
+	void launch(string appName) {
+		for(unsigned int i = 0; i < windows.size(); i++) {
+			string window = ofToString((int) i);
+			execute("export DISPLAY=:0." + window + "; " + appName + " " + window + " 0>/dev/null 1>&0 2>&0 &");
+		}
+	}
+
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {
 		out << computer.address << "{" << computer.windows.size() << ": ";
 		for(unsigned int i = 0; i < computer.windows.size(); i++) {
@@ -90,8 +101,11 @@ public:
 
 class ofxMultiscreen : public ofBaseApp {
 public:
+	static const string appName, appDirectory;
+
 	static bool master;
 	static int window;
+
 	static ofxVec2f windowSize;
 	static ofxVec2f offset;
 
@@ -105,6 +119,11 @@ public:
 	static void multiSetup(int argc, char* argv[]);
 	static void loadScreens(ofxXmlSettings& settings);
 	static void startScreens();
+	static void stopScreens();
+	static void execute(string command);
+	static void launch(string appName);
+
+	~ofxMultiscreen();
 
 	void draw();
 

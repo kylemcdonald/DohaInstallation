@@ -1,8 +1,8 @@
 /*
- 
+
  Copyright (c) 2007-2009, Damian Stewart
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
  * Neither the name of the developer nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY DAMIAN STEWART ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -34,30 +34,45 @@
 
 class ofxOscBundle
 {
-public:	
+public:
 	ofxOscBundle();
 	~ofxOscBundle();
-	ofxOscBundle( const ofxOscBundle& other ) { copy ( other ); }
-	ofxOscBundle& operator= ( const ofxOscBundle& other ) { return copy( other ); }
+	ofxOscBundle( const ofxOscBundle& other ) {
+		copy ( other );
+	}
+	ofxOscBundle& operator= ( const ofxOscBundle& other ) {
+		return copy( other );
+	}
 	/// for operator= and copy constructor
 	ofxOscBundle& copy( const ofxOscBundle& other );
-	
+
 	/// erase contents
-	void clear() { messages.clear(); bundles.clear(); }
+	void clear() {
+		messages.clear();
+		bundles.clear();
+	}
 
 	/// add bundle elements
 	void addBundle( const ofxOscBundle& element );
 	void addMessage( const ofxOscMessage& message );
-	
+
 	/// get bundle elements
-	int getBundleCount() const { return bundles.size(); }
-	int getMessageCount() const { return messages.size(); }
+	int getBundleCount() const {
+		return bundles.size();
+	}
+	int getMessageCount() const {
+		return messages.size();
+	}
 	/// return the bundle or message at the given index
-	ofxOscBundle& getBundleAt( int i ) { return bundles[i]; }
-	ofxOscMessage& getMessageAt( int i ) { return messages[i]; }
-	
+	ofxOscBundle& getBundleAt( int i ) {
+		return bundles[i];
+	}
+	ofxOscMessage& getMessageAt( int i ) {
+		return messages[i];
+	}
+
 private:
-		
+
 	std::vector< ofxOscMessage > messages;
 	std::vector< ofxOscBundle > bundles;
 };
