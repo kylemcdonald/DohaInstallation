@@ -20,8 +20,6 @@ void testApp::update() {
 			}
 		}
 	}
-	
-	ofNoise()
 }
 
 void testApp::drawInsideViewport() {

@@ -43,7 +43,6 @@ void ofxMultiscreen::multiSetup(int argc, char* argv[]) {
 
 void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	settings.pushTag("defaults");
-	MultiWindow defaultWindow(settings, MultiWindow());
 	MultiScreen defaultScreen(settings, MultiScreen());
 	settings.popTag();
 
@@ -54,12 +53,27 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 		settings.pushTag("computer", whichComputer);
 		int nWindows = settings.getNumTags("window");
 		for(int whichWindow = 0; whichWindow < nWindows; whichWindow++) {
-			MultiWindow window(settings, defaultWindow, whichWindow);
+			MultiWindow window;
+			settings.pushTag("window", whichWindow);
+			int nScreens = settings.getNumTags("screen");
+			for(int whichScreen = 0; whichScreen < nScreens; whichScreen++) {
+				MultiScreen screen(settings, defaultScreen, whichScreen);
+				window.screens.push_back(screen);
+			}
+			settings.popTag();
+			computer.windows.push_back(window);
 		}
 		settings.popTag();
 		computers.push_back(computer);
 	}
 	settings.popTag();
+
+	if(ofLogLevel() == OF_LOG_VERBOSE) {
+		cout << "Loaded " << computers.size() << " computers:" << endl;
+		for(unsigned int i = 0; i < computers.size(); i++) {
+			cout << computers[i] << endl;
+		}
+	}
 }
 
 void ofxMultiscreen::startScreens() {

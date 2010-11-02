@@ -9,14 +9,14 @@ class MultiScreen {
 public:
 	float x, y;
 	float width, height;
-	int mode;
+	string mode;
 
 	MultiScreen() :
 	x(0),
 	y(0),
 	width(0),
 	height(0),
-	mode(1) {
+	mode("relative") {
 	}
 	MultiScreen(ofxXmlSettings& settings, MultiScreen defaultScreen, int which = 0) {
 		x = settings.getAttribute("screen", "x", defaultScreen.x, which);
@@ -25,23 +25,48 @@ public:
 		height = settings.getAttribute("screen", "height", defaultScreen.height, which);
 		mode = settings.getAttribute("screen", "mode", defaultScreen.mode, which);
 	}
+	bool relative() const {
+		return mode.compare("relative") == 0;
+	}
+	float absoluteX() const {
+		return (relative() ? width : 1) * x;
+	}
+	float absoluteY() const {
+		return (relative() ? height : 1) * y;
+	}
+
+	friend ostream& operator<<(ostream& out, const MultiScreen& screen) {
+		out << screen.width << "x" << screen.height << "@" << screen.x << "/" << screen.y << ":" << screen.mode;
+		return out;
+	}
 };
 
 class MultiWindow {
 public:
-	float width, height;
-	int mode;
 	vector<MultiScreen> screens;
 
-	MultiWindow() :
-	width(0),
-	height(0),
-	mode(1) {
+	MultiWindow() {
 	}
-	MultiWindow(ofxXmlSettings& settings, MultiWindow defaultWindow, int which = 0) {
-		width = settings.getAttribute("window", "width", defaultWindow.width, which);
-		height = settings.getAttribute("window", "height", defaultWindow.height, which);
-		mode = settings.getAttribute("window", "mode", defaultWindow.mode, which);
+	float getWidth() const {
+		float width = 0;
+		for(unsigned int i = 0; i < screens.size(); i++)
+			width += screens[i].width;
+		return width;
+	}
+	float getHeight() const {
+		float height = 0;
+		for(unsigned int i = 0; i < screens.size(); i++)
+			height += screens[i].height;
+		return height;
+	}
+
+	friend ostream& operator<<(ostream& out, const MultiWindow& window) {
+		out << window.getWidth() << "x" << window.getHeight() << " { ";
+		for(unsigned int i = 0; i < window.screens.size(); i++) {
+			out << window.screens[i] << " ";
+		}
+		out << "}";
+		return out;
 	}
 };
 
@@ -52,6 +77,14 @@ public:
 
 	MultiComputer(ofxXmlSettings& settings, int which = 0) {
 		address = settings.getAttribute("computer", "address", "", which);
+	}
+	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {
+		out << computer.address << "{" << computer.windows.size() << ": ";
+		for(unsigned int i = 0; i < computer.windows.size(); i++) {
+			out << computer.windows[i] << " ";
+		}
+		out << "}";
+		return out;
 	}
 };
 
