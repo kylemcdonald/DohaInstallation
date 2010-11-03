@@ -3,6 +3,6 @@
 int main() {
 	testApp::multiSetup();
 	ofAppGlutWindow window;
-	ofSetupOpenGL(&window, testApp::window.getWidth(), testApp::window.getHeight(), OF_FULLSCREEN);
+	ofSetupOpenGL(&window, testApp::card.getWidth(), testApp::card.getHeight(), OF_FULLSCREEN);
 	ofRunApp(new testApp());
 }

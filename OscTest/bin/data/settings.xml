@@ -4,43 +4,43 @@
 
 <computers>
 	<computer hostname="3rdi1">
-		<window>
+		<card>
 			<screen x="0" y="1"/>
-		</window>
-		<window>
+		</card>
+		<card>
 			<screen x="0" y="0"/>
-		</window>
+		</card>
 	</computer>
 	<computer hostname="3rdi2">
-		<window>
+		<card>
 			<screen x="1" y="1"/>
-		</window>
-		<window>
+		</card>
+		<card>
 			<screen x="1" y="0"/>
-		</window>
+		</card>
 	</computer>
 	<computer hostname="3rdi3">
-		<window>
+		<card>
 			<screen x="2" y="1"/>
-		</window>
-		<window>
+		</card>
+		<card>
 			<screen x="2" y="0"/>
-		</window>
+		</card>
 	</computer>
 	<computer hostname="3rdi4">
-		<window>
+		<card>
 			<screen x="1" y="2"/>
-		</window>
-		<window>
+		</card>
+		<card>
 			<screen x="1" y="3"/>
-		</window>
+		</card>
 	</computer>
 	<computer hostname="3rdi5">
-		<window>
+		<card>
 			<screen x="2" y="2"/>
-		</window>
-		<window>
+		</card>
+		<card>
 			<screen x="2" y="3"/>
-		</window>
+		</card>
 	</computer>
 </computers>

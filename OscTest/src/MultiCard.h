@@ -2,11 +2,11 @@
 
 #include "MultiScreen.h"
 
-class MultiWindow {
+class MultiCard {
 public:
 	vector<MultiScreen> screens;
 
-	MultiWindow() {
+	MultiCard() {
 	}
 	float getWidth() const {
 		float width = 0;
@@ -21,10 +21,10 @@ public:
 		return height;
 	}
 
-	friend ostream& operator<<(ostream& out, const MultiWindow& window) {
-		out << window.getWidth() << "x" << window.getHeight() << " { ";
-		for(unsigned int i = 0; i < window.screens.size(); i++) {
-			out << window.screens[i] << " ";
+	friend ostream& operator<<(ostream& out, const MultiCard& card) {
+		out << card.getWidth() << "x" << card.getHeight() << " { ";
+		for(unsigned int i = 0; i < card.screens.size(); i++) {
+			out << card.screens[i] << " ";
 		}
 		out << "}";
 		return out;

@@ -6,13 +6,15 @@ const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaI
 bool ofxMultiscreen::master = true; // app is master by default
 int ofxMultiscreen::display = 0;
 string ofxMultiscreen::hostname;
-MultiWindow ofxMultiscreen::window;
+MultiCard ofxMultiscreen::card;
 vector<MultiComputer> ofxMultiscreen::computers;
 
 void ofxMultiscreen::multiSetup() {
+	hostname = getHostname();
+	display = getDisplay();
+
 	ofxXmlSettings settings;
 	settings.loadFile("settings.xml");
-
 	loadScreens(settings);
 
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
@@ -30,29 +32,26 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	MultiScreen defaultScreen(settings, MultiScreen());
 	settings.popTag();
 
-	hostname = getHostname();
-	display = getDisplay();
-
 	settings.pushTag("computers");
 	int nComputers = settings.getNumTags("computer");
 	for(int whichComputer = 0; whichComputer < nComputers; whichComputer++) {
 		MultiComputer curComputer(settings, whichComputer);
 		settings.pushTag("computer", whichComputer);
-		int nWindows = settings.getNumTags("window");
+		int nWindows = settings.getNumTags("card");
 		for(int whichWindow = 0; whichWindow < nWindows; whichWindow++) {
-			MultiWindow curWindow;
-			settings.pushTag("window", whichWindow);
+			MultiCard curCard;
+			settings.pushTag("card", whichWindow);
 			int nScreens = settings.getNumTags("screen");
 			for(int whichScreen = 0; whichScreen < nScreens; whichScreen++) {
 				MultiScreen screen(settings, defaultScreen, whichScreen);
-				curWindow.screens.push_back(screen);
+				curCard.screens.push_back(screen);
 			}
 			settings.popTag();
-			curComputer.windows.push_back(curWindow);
+			curComputer.cards.push_back(curCard);
 
 			if(whichWindow == display && curComputer.hostname.compare(hostname) == 0) {
 				master = false;
-				window = curWindow;
+				card = curCard;
 			}
 		}
 		settings.popTag();
@@ -92,7 +91,7 @@ void ofxMultiscreen::draw() {
 
 	glPushMatrix();
 	if(!master)
-		glTranslatef(-window.screens[0].absoluteX(), -window.screens[0].absoluteY(), 0);
+		glTranslatef(-card.screens[0].absoluteX(), -card.screens[0].absoluteY(), 0);
 	drawInsideViewport();
 	glPopMatrix();
 

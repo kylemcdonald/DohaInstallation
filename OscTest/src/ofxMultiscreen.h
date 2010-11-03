@@ -6,7 +6,7 @@
 
 #include "MultiComputer.h"
 #include "MultiScreen.h"
-#include "MultiWindow.h"
+#include "MultiCard.h"
 
 class ofxMultiscreen : public ofBaseApp {
 public:
@@ -16,7 +16,7 @@ public:
 	static bool master;
 	static string hostname;
 	static int display;
-	static MultiWindow window;
+	static MultiCard card;
 
 	static void multiSetup();
 	static void loadScreens(ofxXmlSettings& settings);
