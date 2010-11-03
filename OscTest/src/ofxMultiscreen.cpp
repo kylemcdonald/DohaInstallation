@@ -8,6 +8,7 @@ int ofxMultiscreen::display = 0;
 string ofxMultiscreen::hostname;
 MultiCard ofxMultiscreen::card;
 vector<MultiComputer> ofxMultiscreen::computers;
+bool ofxMultiscreen::powersave = true;
 
 void ofxMultiscreen::multiSetup() {
 	hostname = getHostname();
@@ -15,6 +16,10 @@ void ofxMultiscreen::multiSetup() {
 
 	ofxXmlSettings settings;
 	settings.loadFile("settings.xml");
+	settings.pushTag("options");
+	powersave = settings.getValue("powersave", 0);
+	settings.popTag();
+
 	loadScreens(settings);
 
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
@@ -67,16 +72,25 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 }
 
 void ofxMultiscreen::startScreens() {
+	executeDisplay("xset dpms force on");
 	launch("cd " + appDirectory + "; ./" + appName);
 }
 
 void ofxMultiscreen::stopScreens() {
+	if(powersave)
+		executeDisplay("xset dpms force off");
 	execute("killall -9 " + appName);
 }
 
 void ofxMultiscreen::execute(string command) {
 	for(unsigned int i = 0; i < computers.size(); i++) {
 		computers[i].execute(command);
+	}
+}
+
+void ofxMultiscreen::executeDisplay(string command) {
+	for(unsigned int i = 0; i < computers.size(); i++) {
+		computers[i].executeDisplay(command);
 	}
 }
 

@@ -11,15 +11,19 @@ public:
 		hostname = settings.getAttribute("computer", "hostname", "", which);
 	}
 	int execute(string command) {
-		command = "ssh " + hostname + ".local \"" + command + "\"";
+		// run all system calls as background processes
+		command = "ssh " + hostname + ".local \"" + command + "\" &";
 		cout << "system(" << command << ")" << endl;
 		return system(command.c_str());
 	}
-	void launch(string appName) {
+	void executeDisplay(string command) {
 		for(unsigned int i = 0; i < cards.size(); i++) {
 			string card = ofToString((int) i);
-			execute("export DISPLAY=:0." + card + "; " + appName + " " + card + " 0>/dev/null 1>&0 2>&0 &");
+			execute("export DISPLAY=:0." + card + "; " + command);
 		}
+	}
+	void launch(string appName) {
+		executeDisplay(appName + " 0>/dev/null 1>&0 2>&0 &");
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {

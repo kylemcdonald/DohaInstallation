@@ -12,6 +12,8 @@ class ofxMultiscreen : public ofBaseApp {
 public:
 	static const string appName, appDirectory;
 
+	static bool powersave;
+
 	static vector<MultiComputer> computers;
 	static bool master;
 	static string hostname;
@@ -23,6 +25,7 @@ public:
 	static void startScreens();
 	static void stopScreens();
 	static void execute(string command);
+	static void executeDisplay(string command);
 	static void launch(string appName);
 
 	static string getHostname();

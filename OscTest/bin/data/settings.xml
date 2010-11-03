@@ -1,3 +1,7 @@
+<options>
+	<powersave>1</powersave>
+</options>
+
 <defaults>
 	<screen width="1920" height="1080" mode="relative"/>
 </defaults>
@@ -6,6 +10,7 @@
 	<computer hostname="3rdi1">
 		<card>
 			<screen x="0" y="1"/>
+			<screen x="3" y="2"/>
 		</card>
 		<card>
 			<screen x="0" y="0"/>
