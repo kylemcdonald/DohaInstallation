@@ -2,6 +2,20 @@
 
 void testApp::setup() {
 	ofSetLogLevel(OF_LOG_VERBOSE);
+
+	ofxXmlSettings settings;
+	settings.loadFile("osc.xml");
+	string address = settings.getValue("address", "255.255.255.255");
+	int port = settings.getValue("port", 8888);
+
+	if(master) {
+		cout << "Connecting to " << address << ":" << port << endl;
+		oscSender.setup(address, port);
+		startScreens();
+	} else {
+		cout << "Listening on port " << port << endl;
+		oscReceiver.setup(port);
+	}
 }
 
 void testApp::update() {

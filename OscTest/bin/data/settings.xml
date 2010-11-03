@@ -1,8 +1,3 @@
-<osc>
-	<address>192.168.8.255</address>
-	<port>8888</port>
-</osc>
-
 <defaults>
 	<screen width="1920" height="1080" mode="relative"/>
 </defaults>

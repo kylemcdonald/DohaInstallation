@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ofxOsc.h"
 #include "ofxMultiscreen.h"
 
 class testApp : public ofxMultiscreen {
@@ -11,6 +12,9 @@ public:
 	void drawOutsideViewport();
 
 	vector<ofPoint> points;
+
+	ofxOscSender oscSender;
+	ofxOscReceiver oscReceiver;
 
 	void keyPressed(int key);
 	void keyReleased(int key);

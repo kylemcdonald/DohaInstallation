@@ -1,16 +1,13 @@
 #include "ofxMultiscreen.h"
 
 const string ofxMultiscreen::appName = "OscTest";
-const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaInstallation";
+const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaInstallation/OscTest/bin";
 
 bool ofxMultiscreen::master = true; // app is master by default
 int ofxMultiscreen::display = 0;
 string ofxMultiscreen::hostname;
 MultiWindow ofxMultiscreen::window;
 vector<MultiComputer> ofxMultiscreen::computers;
-
-ofxOscSender ofxMultiscreen::oscSender;
-ofxOscReceiver ofxMultiscreen::oscReceiver;
 
 void ofxMultiscreen::multiSetup() {
 	ofxXmlSettings settings;
@@ -25,20 +22,6 @@ void ofxMultiscreen::multiSetup() {
 			cout << "This computer is running as a client." << endl;
 		}
 		cout << "Running on computer " << hostname << " on display " << display << endl;
-	}
-
-	settings.pushTag("osc");
-	string address = settings.getValue("address", "255.255.255.255");
-	int port = settings.getValue("port", 8888);
-	settings.popTag();
-
-	if(master) {
-		cout << "Connecting to " << address << ":" << port << endl;
-		oscSender.setup(address, port);
-		startScreens();
-	} else {
-		cout << "Listening on port " << port << endl;
-		oscReceiver.setup(port);
 	}
 }
 
@@ -78,7 +61,6 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	settings.popTag();
 
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
-		cout << "Loaded " << computers.size() << " computers:" << endl;
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			cout << computers[i] << endl;
 		}
@@ -86,7 +68,7 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 }
 
 void ofxMultiscreen::startScreens() {
-	launch("cd " + appDirectory + "/" + appName + "/bin; ./" + appName);
+	launch("cd " + appDirectory + "; ./" + appName);
 }
 
 void ofxMultiscreen::stopScreens() {
