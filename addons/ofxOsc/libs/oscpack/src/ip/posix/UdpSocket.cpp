@@ -111,6 +111,10 @@ public:
 		int on = 1;
 		setsockopt(socket_, SOL_SOCKET, SO_BROADCAST, (char*) &on, sizeof(on));
 
+		// allow socket reuse!
+		int reuse = 1;
+		setsockopt(socket_, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof reuse);
+
 		memset( &sendToAddr_, 0, sizeof(sendToAddr_) );
 		sendToAddr_.sin_family = AF_INET;
 	}

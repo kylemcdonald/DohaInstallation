@@ -42,8 +42,8 @@ void testApp::keyReleased(int key) {
 }
 
 void testApp::mouseMoved(int x, int y) {
-	x *= 3;
-	y *= 3;
+	x *= 4;
+	y *= 4;
 
 	if(master) {
 		ofxOscMessage message;

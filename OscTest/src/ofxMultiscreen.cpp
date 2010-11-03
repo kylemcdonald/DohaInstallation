@@ -16,21 +16,7 @@ void ofxMultiscreen::multiSetup() {
 	ofxXmlSettings settings;
 	settings.loadFile("settings.xml");
 
-	settings.pushTag("osc");
-	string address = settings.getValue("address", "255.255.255.255");
-	int port = settings.getValue("port", 8888);
-	settings.popTag();
-
 	loadScreens(settings);
-
-	if(master) {
-		cout << "Connecting to " << address << ":" << port << endl;
-		oscSender.setup(address, port);
-		startScreens();
-	} else {
-		cout << "Listening on port " << port << endl;
-		oscReceiver.setup(port);
-	}
 
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
 		if(master) {
@@ -39,6 +25,20 @@ void ofxMultiscreen::multiSetup() {
 			cout << "This computer is running as a client." << endl;
 		}
 		cout << "Running on computer " << hostname << " on display " << display << endl;
+	}
+
+	settings.pushTag("osc");
+	string address = settings.getValue("address", "255.255.255.255");
+	int port = settings.getValue("port", 8888);
+	settings.popTag();
+
+	if(master) {
+		cout << "Connecting to " << address << ":" << port << endl;
+		oscSender.setup(address, port);
+		startScreens();
+	} else {
+		cout << "Listening on port " << port << endl;
+		oscReceiver.setup(port);
 	}
 }
 
@@ -129,7 +129,8 @@ void ofxMultiscreen::draw() {
 }
 
 ofxMultiscreen::~ofxMultiscreen() {
-	stopScreens();
+	if(master)
+		stopScreens();
 }
 
 #define MAX_HOSTNAME_LENGTH 256

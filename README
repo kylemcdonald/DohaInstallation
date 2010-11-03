@@ -24,5 +24,4 @@ master: run OF install scripts
 master: get ptgrey SDK, install libusb and 10.04 SDK installer
 
 slaves: plug in all monitors with one DH2G on each port
-slaves: for secondary ports, use TwinView
-slaves: for all ports, enable Xinerama
+slaves: for secondary ports, use TwinView, stack vertically (horiztonal breaks 4096 X limit)
