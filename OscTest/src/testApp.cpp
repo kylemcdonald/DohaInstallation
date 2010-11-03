@@ -36,7 +36,7 @@ void testApp::update() {
 	}
 }
 
-void testApp::drawInsideViewport() {
+void testApp::drawLocal() {
 	ofSetColor(255, 255, 255);
 	glBegin(GL_LINE_STRIP);
 	for(unsigned int i = 0; i < points.size(); i++) {
@@ -46,7 +46,11 @@ void testApp::drawInsideViewport() {
 	glEnd();
 }
 
-void testApp::drawOutsideViewport() {
+void testApp::drawOverlay() {
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidthLocal() / 2, ofGetHeightLocal() / 2);
+	ofLine(0, 0, 1920, 1080);
+	ofLine(1920, 0, 0, 1080);
 }
 
 void testApp::keyPressed(int key) {

@@ -13,7 +13,8 @@ public:
 	int execute(string command) {
 		// run all system calls as background processes
 		command = "ssh " + hostname + ".local \"" + command + "\" &";
-		cout << "system(" << command << ")" << endl;
+		if(ofLogLevel() == OF_LOG_VERBOSE)
+			cout << ">" << command << endl;
 		return system(command.c_str());
 	}
 	void executeDisplay(string command) {
@@ -23,7 +24,7 @@ public:
 		}
 	}
 	void launch(string appName) {
-		executeDisplay(appName + " 0>/dev/null 1>&0 2>&0 &");
+		executeDisplay(appName + " 0>~/status 1>&0 2>&0 &");
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {

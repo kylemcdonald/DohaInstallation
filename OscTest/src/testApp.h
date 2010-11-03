@@ -8,8 +8,8 @@ public:
 	void setup();
 	void update();
 
-	void drawInsideViewport();
-	void drawOutsideViewport();
+	void drawLocal();
+	void drawOverlay();
 
 	vector<ofPoint> points;
 

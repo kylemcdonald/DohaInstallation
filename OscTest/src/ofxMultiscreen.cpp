@@ -9,8 +9,10 @@ string ofxMultiscreen::hostname;
 MultiCard ofxMultiscreen::card;
 vector<MultiComputer> ofxMultiscreen::computers;
 bool ofxMultiscreen::powersave = true;
+vector<ofxFbo*> ofxMultiscreen::fbos;
+MultiScreen ofxMultiscreen::localScreen;
 
-void ofxMultiscreen::multiSetup() {
+void ofxMultiscreen::multiLoad() {
 	hostname = getHostname();
 	display = getDisplay();
 
@@ -71,6 +73,21 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	}
 }
 
+void ofxMultiscreen::multiSetup() {
+	if(!master) {
+		// allocate FBOs for rendering into
+		vector<MultiScreen>& screens = card.screens;
+		for(unsigned int i = 0; i < screens.size(); i++) {
+			MultiScreen& curScreen = screens[i];
+			ofxFbo* fbo = new ofxFbo();
+			fbo->setup(curScreen.width, curScreen.height);
+			fbos.push_back(fbo);
+		}
+
+		ofHideCursor();
+	}
+}
+
 void ofxMultiscreen::startScreens() {
 	executeDisplay("xset dpms force on");
 	launch("cd " + appDirectory + "; ./" + appName);
@@ -103,29 +120,37 @@ void ofxMultiscreen::launch(string appName) {
 void ofxMultiscreen::draw() {
 	ofBackground(0, 0, 0);
 
-	glPushMatrix();
-	if(!master)
-		glTranslatef(-card.screens[0].absoluteX(), -card.screens[0].absoluteY(), 0);
-	drawInsideViewport();
-	glPopMatrix();
+	if(!master) {
+		vector<MultiScreen>& screens = card.screens;
+		float xOffset = 0;
+		for(unsigned int i = 0; i < screens.size(); i++) {
+			localScreen = screens[i];
 
-	glPushMatrix();
-	drawOutsideViewport();
-	glPopMatrix();
+			fbos[i]->begin();
+			ofClear(0, 0, 0);
 
-	if(master)
-		ofSetColor(255, 0, 0);
-	else
-		ofSetColor(0, 255, 0);
-	ofRect(0, 0, 64, 64);
+			glPushMatrix();
+			glTranslatef(-localScreen.absoluteX(), -localScreen.absoluteY(), 0);
+			drawLocal();
+			glPopMatrix();
 
-	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidth() - 60, ofGetHeight() - 10);
+			glPushMatrix();
+			drawOverlay();
+			glPopMatrix();
+
+			fbos[i]->end();
+
+			fbos[i]->draw(xOffset, 0);
+			xOffset += fbos[i]->getWidth();
+		}
+	}
 }
 
 ofxMultiscreen::~ofxMultiscreen() {
 	if(master)
 		stopScreens();
+	for(unsigned int i = 0; i < fbos.size(); i++)
+		delete fbos[i];
 }
 
 #define MAX_HOSTNAME_LENGTH 256
@@ -139,4 +164,12 @@ int ofxMultiscreen::getDisplay() {
 	string display(getenv("DISPLAY"));
 	vector<string> parts = ofSplitString(display, ".");
 	return ofToInt(parts[1]);
+}
+
+float ofxMultiscreen::ofGetWidthLocal() {
+	return localScreen.width;
+}
+
+float ofxMultiscreen::ofGetHeightLocal() {
+	return localScreen.height;
 }

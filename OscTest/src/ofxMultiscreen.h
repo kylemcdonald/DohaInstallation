@@ -2,6 +2,7 @@
 
 #include "ofxVectorMath.h"
 #include "ofxXmlSettings.h"
+#include "ofxFbo.h"
 #include "ofMain.h"
 
 #include "MultiComputer.h"
@@ -19,8 +20,13 @@ public:
 	static string hostname;
 	static int display;
 	static MultiCard card;
+	static MultiScreen localScreen;
 
-	static void multiSetup();
+	static vector<ofxFbo*> fbos;
+
+	static void multiLoad(); // call before setting up OpenGL
+	static void multiSetup(); // call after setting up OpenGL
+
 	static void loadScreens(ofxXmlSettings& settings);
 	static void startScreens();
 	static void stopScreens();
@@ -35,6 +41,9 @@ public:
 
 	void draw();
 
-	virtual void drawInsideViewport() = 0;
-	virtual void drawOutsideViewport() = 0;
+	virtual void drawLocal() = 0;
+	virtual void drawOverlay() = 0;
+
+	float ofGetWidthLocal();
+	float ofGetHeightLocal();
 };
