@@ -18,8 +18,9 @@ all: ssh-copy-id 3rdi0.local
 master: ssh-copy-id 3rdi_.local where _ is 1-5
 
 master: sudo apt-get install git
-master: git clone http://github.com/openframeworks/openFrameworks.git
+master: git clone http://github.com/memo/openFrameworks.git
 master: run OF install scripts
+master: modify ofSetupScreenPerspective to use relative near/far
 
 master: get ptgrey SDK, install libusb and 10.04 SDK installer
 

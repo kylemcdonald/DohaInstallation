@@ -125,6 +125,9 @@
 		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
+		<Unit filename="src/MultiCard.h" />
+		<Unit filename="src/MultiComputer.h" />
+		<Unit filename="src/MultiScreen.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/ofxMultiscreen.cpp" />
 		<Unit filename="src/ofxMultiscreen.h" />

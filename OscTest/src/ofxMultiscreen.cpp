@@ -118,11 +118,19 @@ void ofxMultiscreen::launch(string appName) {
 }
 
 void ofxMultiscreen::draw() {
-	ofBackground(255, 0, 255);
+	ofBackground(0, 0, 0);
+	ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
 
-	if(!master) {
+	//if(master) {
+		glPushMatrix();
+		drawLocal();
+		glPopMatrix();
+
+		glPushMatrix();
+		drawOverlay();
+		glPopMatrix();
+	/*} else {
 		vector<MultiScreen>& screens = card.screens;
-		float xOffset = 0;
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			localScreen = screens[i];
 
@@ -140,10 +148,11 @@ void ofxMultiscreen::draw() {
 
 			fbos[i]->end();
 
-			fbos[i]->draw(xOffset, 0);
-			xOffset += fbos[i]->getWidth();
+			glColor4f(1, 1, 1, 1);
+			ofPoint placement = card.getPlacement(i);
+			fbos[i]->draw(placement.x, placement.y);
 		}
-	}
+	}*/
 }
 
 ofxMultiscreen::~ofxMultiscreen() {

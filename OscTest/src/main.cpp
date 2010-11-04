@@ -3,7 +3,9 @@
 int main() {
 	ofAppGlutWindow window;
 	testApp::multiLoad();
-	ofSetupOpenGL(&window, testApp::card.getWidth(), testApp::card.getHeight(), OF_FULLSCREEN);
+	ofPoint size = testApp::card.getSize();
+	cout << "Running at " << size.x << "x" << size.y << endl;
+	ofSetupOpenGL(&window, size.x, size.y, OF_FULLSCREEN);
 	testApp::multiSetup();
 	ofRunApp(new testApp());
 }

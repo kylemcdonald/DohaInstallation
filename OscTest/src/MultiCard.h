@@ -8,32 +8,20 @@ public:
 
 	MultiCard() {
 	}
-	float getWidth() const {
-		float width = 0;
-		for(unsigned int i = 0; i < screens.size(); i++) {
-			if(width + screens[i].width < 4096) {
-				width += screens[i].width;
-			}
-		}
-		return width;
+	ofPoint getSize() const {
+		if(screens.empty())
+			return ofPoint(1920, 1080); // size for master
+		const MultiScreen& last = screens.back();
+		ofPoint lastPlacement = getPlacement(screens.size() - 1);
+		return ofPoint(lastPlacement.x + last.width, lastPlacement.y + last.height);
 	}
-	float getHeight() const {
-		float height = 0;
-		float width = 0;
-		for(unsigned int i = 0; i < screens.size(); i++) {
-			if(width == 0)
-				height += screens[i].height;
-			if(width + screens[i].width < 4096) {
-				width += screens[i].width;
-			} else {
-				width = 0;
-			}
-		}
-		return height;
+	ofPoint getPlacement(int i) const {
+		return ofPoint(screens[0].width * ((int) i % 2), screens[0].height * (int) (i / 2));
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiCard& card) {
-		out << card.getWidth() << "x" << card.getHeight() << " { ";
+		ofPoint size = card.getSize();
+		out << size.x << "x" << size.y << " { ";
 		for(unsigned int i = 0; i < card.screens.size(); i++) {
 			out << card.screens[i] << " ";
 		}

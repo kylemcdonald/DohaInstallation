@@ -9,27 +9,27 @@
 <computers>
 	<computer hostname="3rdi1">
 		<card>
+			<screen x="0" y="0"/><!--
 			<screen x="0" y="0"/>
 			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>-->
+		</card>
+		<card>
+			<screen x="0" y="0"/><!--
 			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>-->
+		</card>
+	</computer>
+	<computer hostname="3rdi2">
+		<card>
 			<screen x="0" y="0"/>
 		</card>
 		<card>
-			<screen x="0" y="0"/>
-			<screen x="0" y="0"/>
-			<screen x="0" y="0"/>
 			<screen x="0" y="0"/>
 		</card>
 	</computer>
 <!--
-	<computer hostname="3rdi2">
-		<card>
-			<screen x="1" y="1"/>
-		</card>
-		<card>
-			<screen x="1" y="0"/>
-		</card>
-	</computer>
 	<computer hostname="3rdi3">
 		<card>
 			<screen x="2" y="1"/>
