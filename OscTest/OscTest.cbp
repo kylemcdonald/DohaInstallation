@@ -74,6 +74,7 @@
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip" />
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip/posix" />
 			<Add directory="../../../addons/ofxVectorMath/src" />
+			<Add directory="../addons/ofxFbo/src" />
 		</Compiler>
 		<Linker>
 			<Add library="fmodex" />
@@ -129,6 +130,8 @@
 		<Unit filename="src/ofxMultiscreen.h" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
+		<Unit filename="../addons/ofxFbo/src/ofxFbo.cpp" />
+		<Unit filename="../addons/ofxFbo/src/ofxFbo.h" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.h" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/NetworkingUtils.h" />

@@ -21,6 +21,7 @@
 			<screen x="0" y="0"/>
 		</card>
 	</computer>
+<!--
 	<computer hostname="3rdi2">
 		<card>
 			<screen x="1" y="1"/>
@@ -53,4 +54,5 @@
 			<screen x="2" y="3"/>
 		</card>
 	</computer>
+-->
 </computers>
