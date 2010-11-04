@@ -1,5 +1,5 @@
 <options>
-	<powersave>1</powersave>
+	<powersave>0</powersave>
 </options>
 
 <defaults>
@@ -9,10 +9,15 @@
 <computers>
 	<computer hostname="3rdi1">
 		<card>
-			<screen x="0" y="1"/>
-			<screen x="3" y="2"/>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
 		</card>
 		<card>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
+			<screen x="0" y="0"/>
 			<screen x="0" y="0"/>
 		</card>
 	</computer>

@@ -10,14 +10,25 @@ public:
 	}
 	float getWidth() const {
 		float width = 0;
-		for(unsigned int i = 0; i < screens.size(); i++)
-			width += screens[i].width;
+		for(unsigned int i = 0; i < screens.size(); i++) {
+			if(width + screens[i].width < 4096) {
+				width += screens[i].width;
+			}
+		}
 		return width;
 	}
 	float getHeight() const {
 		float height = 0;
-		for(unsigned int i = 0; i < screens.size(); i++)
-			height += screens[i].height;
+		float width = 0;
+		for(unsigned int i = 0; i < screens.size(); i++) {
+			if(width == 0)
+				height += screens[i].height;
+			if(width + screens[i].width < 4096) {
+				width += screens[i].width;
+			} else {
+				width = 0;
+			}
+		}
 		return height;
 	}
 

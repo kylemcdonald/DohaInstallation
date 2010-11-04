@@ -118,7 +118,7 @@ void ofxMultiscreen::launch(string appName) {
 }
 
 void ofxMultiscreen::draw() {
-	ofBackground(0, 0, 0);
+	ofBackground(255, 0, 255);
 
 	if(!master) {
 		vector<MultiScreen>& screens = card.screens;
