@@ -26,6 +26,7 @@ public:
 
 	static ofxFbo fbo;
 	static vector<ofTexture*> renderBuffers;
+	static void addTexturesForScreens(vector<MultiScreen>& screens);
 
 	static void multiLoad(); // call before setting up OpenGL
 	static void multiSetup(); // call after setting up OpenGL
@@ -43,6 +44,7 @@ public:
 	~ofxMultiscreen();
 
 	void draw();
+	void drawScreen();
 
 	virtual void drawLocal() = 0;
 	virtual void drawOverlay() = 0;

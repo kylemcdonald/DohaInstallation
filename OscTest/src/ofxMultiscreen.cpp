@@ -80,18 +80,30 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 void ofxMultiscreen::multiSetup() {
 	font.loadFont("liberation.ttf", 80);
 
-	if(!master) {
-		// allocate FBOs for rendering into
-		vector<MultiScreen>& screens = card.screens;
-		fbo.setup(screens[0].width, screens[0].height);
-		for(unsigned int i = 0; i < screens.size(); i++) {
-			MultiScreen& curScreen = screens[i];
-			ofTexture* tex = new ofTexture();
-			tex->allocate(curScreen.width, curScreen.height, GL_RGBA); // or just GL_RGB
-			renderBuffers.push_back(tex);
+	// allocate textures for rendering into
+	if(master) {
+		MultiScreen& screen = computers[0].cards[0].screens[0];
+		fbo.setup(screen.width, screen.height);
+		for(unsigned int i = 0; i < computers.size(); i++) {
+			vector<MultiCard>& cards = computers[i].cards;
+			for(unsigned int j = 0; j < cards.size(); j++) {
+				addTexturesForScreens(cards[j].screens);
+			}
 		}
-
+	} else {
+		MultiScreen& screen = card.screens[0];
+		fbo.setup(screen.width, screen.height);
+		addTexturesForScreens(card.screens);
 		ofHideCursor();
+	}
+}
+
+void ofxMultiscreen::addTexturesForScreens(vector<MultiScreen>& screens) {
+	for(unsigned int i = 0; i < screens.size(); i++) {
+		localScreen = screens[i];
+		ofTexture* tex = new ofTexture();
+		tex->allocate(localScreen.width, localScreen.height, GL_RGBA);
+		renderBuffers.push_back(tex);
 	}
 }
 
@@ -143,7 +155,7 @@ ofPoint ofxMultiscreen::getMaxSize() {
 }
 
 void ofxMultiscreen::draw() {
-		ofPoint size = card.getSize();
+	ofPoint size = card.getSize();
 	ofSetupScreenOrtho(size.x, size.y);
 
 	if(master) {
@@ -153,26 +165,31 @@ void ofxMultiscreen::draw() {
 		float totalScale = size.x / maxSize.x; // assume we normalize on the x axis
 		if(totalScale * maxSize.y > size.y) // but if this doesn't fit
 			totalScale = size.y / maxSize.y; // normalize on the y axis instead
-		glScalef(totalScale, totalScale, totalScale);
 
-		glPushMatrix();
-		drawLocal();
-		glPopMatrix();
-
-		glPushMatrix();
-		drawOverlay();
-		glPopMatrix();
-
-		glColor4f(1, 1, 1, 1);
-		ofNoFill();
+		int m = 0;
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			vector<MultiCard>& cards = computers[i].cards;
 			for(unsigned int j = 0; j < cards.size(); j++) {
 				MultiCard& curCard = cards[j];
 				vector<MultiScreen>& screens = curCard.screens;
 				for(unsigned int k = 0; k < screens.size(); k++) {
-					MultiScreen& curScreen = screens[k];
-					ofRect(curScreen.absoluteX(), curScreen.absoluteY(), curScreen.width, curScreen.height);
+					localScreen = screens[k];
+
+					fbo.attach(*renderBuffers[m++]);
+					fbo.begin();
+					fbo.setBackground(0, 0, 0);
+					drawScreen();
+					fbo.end();
+
+					glPushMatrix();
+					ofSetupScreenOrtho(size.x, size.y);
+					glScalef(totalScale, totalScale, totalScale);
+					glColor4f(1, 1, 1, 1);
+					glTranslatef(localScreen.absoluteX(), localScreen.absoluteY(), 0);
+					fbo.draw(0, 0, localScreen.width, localScreen.height);
+					ofNoFill();
+					ofRect(0, 0, localScreen.width, localScreen.height);
+					glPopMatrix();
 				}
 			}
 		}
@@ -184,31 +201,33 @@ void ofxMultiscreen::draw() {
 			fbo.attach(*renderBuffers[i]);
 			fbo.begin();
 			fbo.setBackground(0, 0, 0);
-
-			glPushMatrix();
-			glTranslatef(-localScreen.absoluteX(), -localScreen.absoluteY(), 0);
-			drawLocal();
-			glPopMatrix();
-
-			glPushMatrix();
-			stringstream debugInfo;
-			drawOverlay();
-			if(debug) {
-				debugInfo << hostname << ":" << display << "/" << i << " @ " << localScreen.x << "/" << localScreen.y;
-				font.drawString(debugInfo.str(), 0, ofGetHeightLocal() / 2);
-			}
-			glPopMatrix();
-
+			drawScreen();
 			fbo.end();
 
-			ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
 			glPushMatrix();
-			glColor4f(1, 1, 1, 1);
 			ofPoint placement = card.getPlacement(i);
+			ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
+			glColor4f(1, 1, 1, 1);
 			fbo.draw(placement.x, placement.y);
 			glPopMatrix();
 		}
 	}
+}
+
+void ofxMultiscreen::drawScreen() {
+	glPushMatrix();
+	glTranslatef(-localScreen.absoluteX(), -localScreen.absoluteY(), 0);
+	drawLocal();
+	glPopMatrix();
+
+	glPushMatrix();
+	stringstream debugInfo;
+	drawOverlay();
+	if(debug) {
+		debugInfo << hostname << ":" << display << " @ " << localScreen.x << "/" << localScreen.y;
+		font.drawString(debugInfo.str(), 0, ofGetHeightLocal() / 2);
+	}
+	glPopMatrix();
 }
 
 ofxMultiscreen::~ofxMultiscreen() {
