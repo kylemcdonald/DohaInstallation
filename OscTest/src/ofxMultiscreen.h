@@ -21,6 +21,8 @@ public:
 	static int display;
 	static MultiCard card;
 	static MultiScreen localScreen;
+	static ofTrueTypeFont font;
+	static bool debug;
 
 	static ofxFbo fbo;
 	static vector<ofTexture*> renderBuffers;
@@ -47,4 +49,5 @@ public:
 
 	float ofGetWidthLocal();
 	float ofGetHeightLocal();
+	ofPoint getMaxSize();
 };

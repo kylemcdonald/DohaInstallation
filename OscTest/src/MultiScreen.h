@@ -29,6 +29,9 @@ public:
 	float absoluteY() const {
 		return (relative() ? height : 1) * y;
 	}
+	ofPoint getMaxSize() {
+		return ofPoint(absoluteX() + width, absoluteY() + height);
+	}
 
 	friend ostream& operator<<(ostream& out, const MultiScreen& screen) {
 		out << screen.width << "x" << screen.height << "@" << screen.x << "/" << screen.y << ":" << screen.mode;

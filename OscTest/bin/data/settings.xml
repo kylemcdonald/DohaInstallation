@@ -1,5 +1,6 @@
 <options>
 	<powersave>0</powersave>
+	<debug>1</debug>
 </options>
 
 <defaults>

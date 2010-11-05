@@ -12,6 +12,8 @@ bool ofxMultiscreen::powersave = true;
 ofxFbo ofxMultiscreen::fbo;
 vector<ofTexture*> ofxMultiscreen::renderBuffers;
 MultiScreen ofxMultiscreen::localScreen;
+ofTrueTypeFont ofxMultiscreen::font;
+bool ofxMultiscreen::debug = true;
 
 void ofxMultiscreen::multiLoad() {
 	hostname = getHostname();
@@ -21,6 +23,7 @@ void ofxMultiscreen::multiLoad() {
 	settings.loadFile("settings.xml");
 	settings.pushTag("options");
 	powersave = settings.getValue("powersave", 0);
+	debug = settings.getValue("debug", 0);
 	settings.popTag();
 
 	loadScreens(settings);
@@ -75,6 +78,8 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 }
 
 void ofxMultiscreen::multiSetup() {
+	font.loadFont("liberation.ttf", 80);
+
 	if(!master) {
 		// allocate FBOs for rendering into
 		vector<MultiScreen>& screens = card.screens;
@@ -119,11 +124,37 @@ void ofxMultiscreen::launch(string appName) {
 	}
 }
 
+ofPoint ofxMultiscreen::getMaxSize() {
+	ofPoint maxSize;
+	for(unsigned int i = 0; i < computers.size(); i++) {
+		vector<MultiCard>& cards = computers[i].cards;
+		for(unsigned int j = 0; j < cards.size(); j++) {
+			vector<MultiScreen>& screens = cards[j].screens;
+			for(unsigned int k = 0; k < screens.size(); k++) {
+				ofPoint curSize = screens[k].getMaxSize();
+				if(curSize.x > maxSize.x)
+					maxSize.x = curSize.x;
+				if(curSize.y > maxSize.y)
+					maxSize.y = curSize.y;
+			}
+		}
+	}
+	return maxSize;
+}
+
 void ofxMultiscreen::draw() {
-	ofBackground(0, 0, 0);
-	ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
+		ofPoint size = card.getSize();
+	ofSetupScreenOrtho(size.x, size.y);
 
 	if(master) {
+		ofBackground(0, 0, 0);
+
+		ofPoint maxSize = getMaxSize();
+		float totalScale = size.x / maxSize.x; // assume we normalize on the x axis
+		if(totalScale * maxSize.y > size.y) // but if this doesn't fit
+			totalScale = size.y / maxSize.y; // normalize on the y axis instead
+		glScalef(totalScale, totalScale, totalScale);
+
 		glPushMatrix();
 		drawLocal();
 		glPopMatrix();
@@ -131,6 +162,20 @@ void ofxMultiscreen::draw() {
 		glPushMatrix();
 		drawOverlay();
 		glPopMatrix();
+
+		glColor4f(1, 1, 1, 1);
+		ofNoFill();
+		for(unsigned int i = 0; i < computers.size(); i++) {
+			vector<MultiCard>& cards = computers[i].cards;
+			for(unsigned int j = 0; j < cards.size(); j++) {
+				MultiCard& curCard = cards[j];
+				vector<MultiScreen>& screens = curCard.screens;
+				for(unsigned int k = 0; k < screens.size(); k++) {
+					MultiScreen& curScreen = screens[k];
+					ofRect(curScreen.absoluteX(), curScreen.absoluteY(), curScreen.width, curScreen.height);
+				}
+			}
+		}
 	} else {
 		vector<MultiScreen>& screens = card.screens;
 		for(unsigned int i = 0; i < screens.size(); i++) {
@@ -146,7 +191,12 @@ void ofxMultiscreen::draw() {
 			glPopMatrix();
 
 			glPushMatrix();
+			stringstream debugInfo;
 			drawOverlay();
+			if(debug) {
+				debugInfo << hostname << ":" << display << "/" << i << " @ " << localScreen.x << "/" << localScreen.y;
+				font.drawString(debugInfo.str(), 0, ofGetHeightLocal() / 2);
+			}
 			glPopMatrix();
 
 			fbo.end();
