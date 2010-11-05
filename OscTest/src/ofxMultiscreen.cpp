@@ -9,7 +9,8 @@ string ofxMultiscreen::hostname;
 MultiCard ofxMultiscreen::card;
 vector<MultiComputer> ofxMultiscreen::computers;
 bool ofxMultiscreen::powersave = true;
-vector<ofxFbo*> ofxMultiscreen::fbos;
+ofxFbo ofxMultiscreen::fbo;
+vector<ofTexture*> ofxMultiscreen::renderBuffers;
 MultiScreen ofxMultiscreen::localScreen;
 
 void ofxMultiscreen::multiLoad() {
@@ -77,11 +78,12 @@ void ofxMultiscreen::multiSetup() {
 	if(!master) {
 		// allocate FBOs for rendering into
 		vector<MultiScreen>& screens = card.screens;
+		fbo.setup(screens[0].width, screens[0].height);
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			MultiScreen& curScreen = screens[i];
-			ofxFbo* fbo = new ofxFbo();
-			fbo->setup(curScreen.width, curScreen.height);
-			fbos.push_back(fbo);
+			ofTexture* tex = new ofTexture();
+			tex->allocate(curScreen.width, curScreen.height, GL_RGBA); // or just GL_RGB
+			renderBuffers.push_back(tex);
 		}
 
 		ofHideCursor();
@@ -121,7 +123,7 @@ void ofxMultiscreen::draw() {
 	ofBackground(0, 0, 0);
 	ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
 
-	//if(master) {
+	if(master) {
 		glPushMatrix();
 		drawLocal();
 		glPopMatrix();
@@ -129,13 +131,14 @@ void ofxMultiscreen::draw() {
 		glPushMatrix();
 		drawOverlay();
 		glPopMatrix();
-	/*} else {
+	} else {
 		vector<MultiScreen>& screens = card.screens;
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			localScreen = screens[i];
 
-			fbos[i]->begin();
-			ofClear(0, 0, 0);
+			fbo.attach(*renderBuffers[i]);
+			fbo.begin();
+			fbo.setBackground(0, 0, 0);
 
 			glPushMatrix();
 			glTranslatef(-localScreen.absoluteX(), -localScreen.absoluteY(), 0);
@@ -146,20 +149,23 @@ void ofxMultiscreen::draw() {
 			drawOverlay();
 			glPopMatrix();
 
-			fbos[i]->end();
+			fbo.end();
 
+			ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
+			glPushMatrix();
 			glColor4f(1, 1, 1, 1);
 			ofPoint placement = card.getPlacement(i);
-			fbos[i]->draw(placement.x, placement.y);
+			fbo.draw(placement.x, placement.y);
+			glPopMatrix();
 		}
-	}*/
+	}
 }
 
 ofxMultiscreen::~ofxMultiscreen() {
 	if(master)
 		stopScreens();
-	for(unsigned int i = 0; i < fbos.size(); i++)
-		delete fbos[i];
+	for(unsigned int i = 0; i < renderBuffers.size(); i++)
+		delete renderBuffers[i];
 }
 
 #define MAX_HOSTNAME_LENGTH 256

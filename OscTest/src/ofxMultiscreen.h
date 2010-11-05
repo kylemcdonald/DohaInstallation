@@ -22,7 +22,8 @@ public:
 	static MultiCard card;
 	static MultiScreen localScreen;
 
-	static vector<ofxFbo*> fbos;
+	static ofxFbo fbo;
+	static vector<ofTexture*> renderBuffers;
 
 	static void multiLoad(); // call before setting up OpenGL
 	static void multiSetup(); // call after setting up OpenGL

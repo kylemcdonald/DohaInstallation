@@ -20,9 +20,9 @@ master: ssh-copy-id 3rdi_.local where _ is 1-5
 master: sudo apt-get install git
 master: git clone http://github.com/memo/openFrameworks.git
 master: run OF install scripts
-master: modify ofSetupScreenPerspective to use relative near/far
 
 master: get ptgrey SDK, install libusb and 10.04 SDK installer
 
 slaves: plug in all monitors with one DH2G on each port
-slaves: for secondary ports, use TwinView, stack vertically (horiztonal breaks 4096 X limit)
+dh2g: set all to only report 2x1920x1080 @ 60 Hz from a Windows machine
+slaves: for secondary ports, use TwinView, stack vertically
