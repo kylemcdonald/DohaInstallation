@@ -26,9 +26,6 @@ void PrintCameraInfo( CameraInfo* pCamInfo) {
 
 
 void testApp::setup(){
-	camWidth = 640;
-	camHeight = 480;
-
 	ofxXmlSettings cameraSettings;
 	cameraSettings.loadFile("cameraSettings.xml");
 
@@ -98,6 +95,7 @@ void testApp::update() {
 void testApp::draw(){
 	ofBackground(0, 0, 0);
 
+	glPushMatrix();
 	for(unsigned int i = 0; i < cameras.size(); i++) {
 		Camera& camera = *(cameras[i]);
 		Image rawImage;
@@ -114,6 +112,7 @@ void testApp::draw(){
 
 		ofTranslate(camWidth, 0);
 	}
+	glPopMatrix();
 
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()) + " fps", 10, 20);

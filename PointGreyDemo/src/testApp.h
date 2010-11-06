@@ -22,7 +22,8 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 
-	int camWidth, camHeight;
+	static const int camWidth = 640;
+	static const int camHeight = 480;
 
 	vector<Camera*> cameras;
 	vector<ofxCvGrayscaleImage*> images;

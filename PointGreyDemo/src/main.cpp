@@ -2,6 +2,6 @@
 
 int main(){
 	ofAppGlutWindow window;
-	ofSetupOpenGL(&window, 1920, 1080, OF_FULLSCREEN);
+	ofSetupOpenGL(&window, testApp::camWidth * 2, testApp::camHeight, OF_WINDOW);
 	ofRunApp(new testApp());
 }
