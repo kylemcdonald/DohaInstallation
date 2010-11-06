@@ -24,9 +24,6 @@ public:
 	static ofTrueTypeFont font;
 	static bool debug;
 
-	static ofxFbo fbo;
-	static void addTexturesForScreens(vector<MultiScreen>& screens);
-
 	static void multiLoad(); // call before setting up OpenGL
 	static void multiSetup(); // call after setting up OpenGL
 

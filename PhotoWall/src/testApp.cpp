@@ -37,6 +37,7 @@ void testApp::update() {
 }
 
 void testApp::drawLocal() {
+	ofBackground(0, 0, 0);
 	ofSetColor(255, 255, 255);
 	glBegin(GL_LINE_STRIP);
 	for(unsigned int i = 0; i < points.size(); i++) {

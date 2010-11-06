@@ -9,7 +9,6 @@ string ofxMultiscreen::hostname = "";
 MultiCard ofxMultiscreen::card;
 int ofxMultiscreen::display = 0;
 MultiScreen ofxMultiscreen::localScreen;
-ofxFbo ofxMultiscreen::fbo;
 
 vector<MultiComputer> ofxMultiscreen::computers;
 
@@ -88,25 +87,8 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 void ofxMultiscreen::multiSetup() {
 	font.loadFont("liberation.ttf", 80);
 
-	// allocate textures for rendering into
-	if(master) {
-		fbo.setup(ofGetWidthLocal(), ofGetHeightLocal());
-		for(unsigned int i = 0; i < computers.size(); i++) {
-			vector<MultiCard>& cards = computers[i].cards;
-			for(unsigned int j = 0; j < cards.size(); j++) {
-				addTexturesForScreens(cards[j].screens);
-			}
-		}
-	} else {
-		fbo.setup(ofGetWidthLocal(), ofGetHeightLocal());
-		addTexturesForScreens(card.screens);
+	if(!master) {
 		ofHideCursor();
-	}
-}
-
-void ofxMultiscreen::addTexturesForScreens(vector<MultiScreen>& screens) {
-	for(unsigned int i = 0; i < screens.size(); i++) {
-		localScreen = screens[i];
 	}
 }
 
@@ -158,18 +140,15 @@ ofPoint ofxMultiscreen::getMaxSize() {
 }
 
 void ofxMultiscreen::draw() {
-	ofPoint size = card.getSize();
-	ofSetupScreenOrtho(size.x, size.y);
-
-	bool useFbos = false;
+	ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
 
 	if(master) {
-		ofBackground(0, 0, 0);
+		ofBackground(128, 128, 128);
 
 		ofPoint maxSize = getMaxSize();
-		float totalScale = size.x / maxSize.x; // assume we normalize on the x axis
-		if(totalScale * maxSize.y > size.y) // but if this doesn't fit
-			totalScale = size.y / maxSize.y; // normalize on the y axis instead
+		float totalScale = ofGetWidth() / maxSize.x; // assume we normalize on the x axis
+		if(totalScale * maxSize.y > ofGetHeight()) // but if this doesn't fit
+			totalScale = ofGetHeight() / maxSize.y; // normalize on the y axis instead
 		ofxVec2f miniSize = MultiScreen::size * totalScale;
 
 		for(unsigned int i = 0; i < computers.size(); i++) {
@@ -179,46 +158,22 @@ void ofxMultiscreen::draw() {
 				vector<MultiScreen>& screens = curCard.screens;
 				for(unsigned int k = 0; k < screens.size(); k++) {
 					localScreen = screens[k];
-					ofxVec2f position = localScreen.absolutePosition();
-					if(useFbos) {
-						fbo.begin();
-						fbo.setBackground(0, 0, 0);
-						drawScreen();
-						fbo.end();
-
-						glPushMatrix();
-						ofSetupScreenOrtho(size.x, size.y);
-						glScalef(totalScale, totalScale, totalScale);
-						glColor4f(1, 1, 1, 1);
-						glTranslatef(position.x, position.y, 0);
-						fbo.draw(0, 0,ofGetWidthLocal(), ofGetHeightLocal());
-						ofNoFill();
-						ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
-						glPopMatrix();
-					} else {
-						ofSetupScreenOrtho(size.x, size.y);
-						glViewport(mouseX, mouseY, miniSize.x, miniSize.y);
-						drawScreen();
-					}
+					ofxVec2f position = localScreen.absolutePosition() * totalScale;
+					glViewport(position.x, ofGetHeight() - position.y - miniSize.y, miniSize.x, miniSize.y);
+					drawScreen();
+					ofNoFill();
+					ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
 				}
 			}
 		}
 	} else {
+		ofPoint size = card.getSize();
 		vector<MultiScreen>& screens = card.screens;
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			localScreen = screens[i];
-
-			fbo.begin();
-			fbo.setBackground(0, 0, 0);
+			ofxVec2f placement = card.getPlacement(i);
+			glViewport(placement.x, size.y - placement.y - ofGetHeightLocal(), ofGetWidthLocal(), ofGetHeightLocal());
 			drawScreen();
-			fbo.end();
-
-			glPushMatrix();
-			ofPoint placement = card.getPlacement(i);
-			ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
-			glColor4f(1, 1, 1, 1);
-			fbo.draw(placement.x, placement.y);
-			glPopMatrix();
 		}
 	}
 }
