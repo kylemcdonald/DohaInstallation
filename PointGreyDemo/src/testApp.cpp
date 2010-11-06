@@ -108,6 +108,10 @@ void testApp::draw(){
 		curImage.flagImageChanged();
 		curImage.draw(0, 0);
 
+		curImage.threshold(mouseX);
+		contourFinder.findContours(curImage, 10, camWidth * camHeight, 8, false);
+		contourFinder.draw();
+
 		ofTranslate(camWidth, 0);
 	}
 

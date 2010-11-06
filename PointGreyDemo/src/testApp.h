@@ -26,4 +26,6 @@ public:
 
 	vector<Camera*> cameras;
 	vector<ofxCvGrayscaleImage*> images;
+
+	ofxCvContourFinder contourFinder;
 };
