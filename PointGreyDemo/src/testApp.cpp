@@ -64,22 +64,51 @@ void testApp::update(){
 void testApp::draw(){
 	ofBackground(0, 0, 0);
 
+	int width = 640;
+	int height = 480;
+/*
+	IplImage* cvImageDistorted = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
+	IplImage* cvImageUndistorted = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 1);
+*/
 	for(unsigned int i = 0; i < cameras.size(); i++) {
 		Camera& camera = *(cameras[i]);
 		Image image;
 		catchError(camera.RetrieveBuffer(&image));
 
-		int width = image.GetCols();
-		int height = image.GetRows();
+		//int width = image.GetCols();
+		//int height = image.GetRows();
 
 		curImage.allocate(width, height, OF_IMAGE_GRAYSCALE);
 		memcpy(curImage.getPixels(), image.GetData(), width * height);
 		curImage.update();
 		curImage.draw(0, 0);
+/*
+		float radialDistX = -1;
+		float radialDistY = -1;
+		float tangentDistX = 0;
+		float tangentDistY = 0;
+		float focalX = mouseX;
+		float focalY = mouseY;
+		float centerX = width / 2;
+		float centerY = height / 2;
+
+		float camIntrinsics[] = {focalX, 0, centerX, 0, focalY, centerY, 0, 0, 1};
+    float distortionCoeffs[] = {radialDistX, radialDistY, tangentDistX, tangentDistY};
+		memcpy(cvImageDistorted->imageData, curImage.getPixels(), width * height);
+    cvUnDistortOnce(cvImageDistorted, cvImageUndistorted, camIntrinsics, distortionCoeffs, 1);
+
+		memcpy(curImage.getPixels(), cvImageUndistorted->imageData, width * height);
+		curImage.update();
+		curImage.draw(0, height);
+		*/
 
 		ofTranslate(width, 0);
 	}
 
+/*
+	cvReleaseImage(&cvImageDistorted);
+	cvReleaseImage(&cvImageUndistorted);
+*/
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()) + " fps", 10, 20);
 }
