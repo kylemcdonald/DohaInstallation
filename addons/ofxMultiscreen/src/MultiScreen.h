@@ -1,40 +1,21 @@
 #pragma once
 
+#include "ofxVectorMath.h"
+#include "ofxXmlSettings.h"
+
 class MultiScreen {
 public:
-	float x, y;
-	float width, height;
-	string mode;
+	static ofxVec2f size;
+	static void setDefaults(ofxXmlSettings& settings, int which = 0);
 
-	MultiScreen() :
-		x(0),
-		y(0),
-		width(0),
-		height(0),
-		mode("relative") {
-	}
-	MultiScreen(ofxXmlSettings& settings, MultiScreen defaultScreen, int which = 0) {
-		x = settings.getAttribute("screen", "x", defaultScreen.x, which);
-		y = settings.getAttribute("screen", "y", defaultScreen.y, which);
-		width = settings.getAttribute("screen", "width", defaultScreen.width, which);
-		height = settings.getAttribute("screen", "height", defaultScreen.height, which);
-		mode = settings.getAttribute("screen", "mode", defaultScreen.mode, which);
-	}
-	bool relative() const {
-		return mode.compare("relative") == 0;
-	}
-	float absoluteX() const {
-		return (relative() ? width : 1) * x;
-	}
-	float absoluteY() const {
-		return (relative() ? height : 1) * y;
-	}
-	ofPoint getMaxSize() {
-		return ofPoint(absoluteX() + width, absoluteY() + height);
-	}
+	ofxVec2f position;
+	MultiScreen();
+	MultiScreen(ofxXmlSettings& settings, int which = 0);
+	ofxVec2f absolutePosition() const;
+	ofxVec2f getMaxSize() const;
 
 	friend ostream& operator<<(ostream& out, const MultiScreen& screen) {
-		out << screen.width << "x" << screen.height << "@" << screen.x << "/" << screen.y << ":" << screen.mode;
+		out << screen.position.x << "/" << screen.position.y;
 		return out;
 	}
 };

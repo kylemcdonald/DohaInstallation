@@ -48,7 +48,8 @@ public:
 	virtual void drawLocal() = 0;
 	virtual void drawOverlay() = 0;
 
-	float ofGetWidthLocal();
-	float ofGetHeightLocal();
+	static float ofGetWidthLocal();
+	static float ofGetHeightLocal();
+
 	ofPoint getMaxSize();
 };

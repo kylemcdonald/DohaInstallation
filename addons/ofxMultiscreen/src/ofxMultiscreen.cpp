@@ -39,7 +39,7 @@ void ofxMultiscreen::multiLoad() {
 
 void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 	settings.pushTag("defaults");
-	MultiScreen defaultScreen(settings, MultiScreen());
+	MultiScreen::setDefaults(settings);
 	settings.popTag();
 
 	settings.pushTag("computers");
@@ -53,7 +53,7 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 			settings.pushTag("card", whichWindow);
 			int nScreens = settings.getNumTags("screen");
 			for(int whichScreen = 0; whichScreen < nScreens; whichScreen++) {
-				MultiScreen screen(settings, defaultScreen, whichScreen);
+				MultiScreen screen(settings, whichScreen);
 				curCard.screens.push_back(screen);
 			}
 			settings.popTag();
@@ -81,8 +81,7 @@ void ofxMultiscreen::multiSetup() {
 
 	// allocate textures for rendering into
 	if(master) {
-		MultiScreen& screen = computers[0].cards[0].screens[0];
-		fbo.setup(screen.width, screen.height);
+		fbo.setup(ofGetWidthLocal(), ofGetHeightLocal());
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			vector<MultiCard>& cards = computers[i].cards;
 			for(unsigned int j = 0; j < cards.size(); j++) {
@@ -90,8 +89,7 @@ void ofxMultiscreen::multiSetup() {
 			}
 		}
 	} else {
-		MultiScreen& screen = card.screens[0];
-		fbo.setup(screen.width, screen.height);
+		fbo.setup(ofGetWidthLocal(), ofGetHeightLocal());
 		addTexturesForScreens(card.screens);
 		ofHideCursor();
 	}
@@ -179,10 +177,11 @@ void ofxMultiscreen::draw() {
 					ofSetupScreenOrtho(size.x, size.y);
 					glScalef(totalScale, totalScale, totalScale);
 					glColor4f(1, 1, 1, 1);
-					glTranslatef(localScreen.absoluteX(), localScreen.absoluteY(), 0);
-					fbo.draw(0, 0, localScreen.width, localScreen.height);
+					ofxVec2f position = localScreen.absolutePosition();
+					glTranslatef(position.x, position.y, 0);
+					fbo.draw(0, 0,ofGetWidthLocal(), ofGetHeightLocal());
 					ofNoFill();
-					ofRect(0, 0, localScreen.width, localScreen.height);
+					ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
 					glPopMatrix();
 				}
 			}
@@ -209,7 +208,8 @@ void ofxMultiscreen::draw() {
 
 void ofxMultiscreen::drawScreen() {
 	glPushMatrix();
-	glTranslatef(-localScreen.absoluteX(), -localScreen.absoluteY(), 0);
+	ofxVec2f position = localScreen.absolutePosition();
+	glTranslatef(-position.x, -position.y, 0);
 	drawLocal();
 	glPopMatrix();
 
@@ -217,7 +217,7 @@ void ofxMultiscreen::drawScreen() {
 	stringstream debugInfo;
 	drawOverlay();
 	if(debug) {
-		debugInfo << hostname << ":" << display << " @ " << localScreen.x << "/" << localScreen.y;
+		debugInfo << hostname << ":" << display << " @ " << localScreen;
 		font.drawString(debugInfo.str(), 0, ofGetHeightLocal() / 2);
 	}
 	glPopMatrix();
@@ -242,9 +242,9 @@ int ofxMultiscreen::getDisplay() {
 }
 
 float ofxMultiscreen::ofGetWidthLocal() {
-	return localScreen.width;
+	return MultiScreen::size.x;
 }
 
 float ofxMultiscreen::ofGetHeightLocal() {
-	return localScreen.height;
+	return MultiScreen::size.y;
 }
