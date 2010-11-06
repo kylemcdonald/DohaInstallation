@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
+#include "ofxXmlSettings.h"
 
 #include "FlyCapture2.h"
 using namespace FlyCapture2;

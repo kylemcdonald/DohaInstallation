@@ -26,6 +26,9 @@ void PrintCameraInfo( CameraInfo* pCamInfo) {
 
 
 void testApp::setup(){
+	ofxXmlSettings cameraSettings;
+	cameraSettings.loadFile("cameraSettings.xml");
+
 	BusManager busMgr;
 	unsigned int numCameras;
 	catchError(busMgr.GetNumOfCameras(&numCameras));
@@ -45,13 +48,13 @@ void testApp::setup(){
 
 		Property brightness(BRIGHTNESS);
 		brightness.autoManualMode = false;
-		brightness.valueA = 1; // 1-255
+		brightness.valueA = cameraSettings.getValue("brightness", 1);
 		catchError(camera->SetProperty(&brightness));
 
 		Property autoExposure(AUTO_EXPOSURE);
 		autoExposure.onOff = true;
 		autoExposure.autoManualMode = false;
-		autoExposure.valueA = 7;
+		autoExposure.valueA = cameraSettings.getValue("exposure", 7);
 		catchError(camera->SetProperty(&autoExposure));
 
 		Property gamma(GAMMA);
@@ -59,12 +62,12 @@ void testApp::setup(){
 		catchError(camera->SetProperty(&gamma));
 
 		Property shutter(SHUTTER);
-		shutter.valueA = 531; // 1-531
+		shutter.valueA = cameraSettings.getValue("shutter", 531);
 		shutter.autoManualMode = false;
 		catchError(camera->SetProperty(&shutter));
 
 		Property gain(GAIN);
-		gain.valueA = 16; // 16-64
+		gain.valueA = cameraSettings.getValue("gain", 16);
 		gain.autoManualMode = false;
 		catchError(camera->SetProperty(&gain));
 
