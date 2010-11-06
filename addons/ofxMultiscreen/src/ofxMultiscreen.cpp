@@ -10,7 +10,6 @@ MultiCard ofxMultiscreen::card;
 vector<MultiComputer> ofxMultiscreen::computers;
 bool ofxMultiscreen::powersave = true;
 ofxFbo ofxMultiscreen::fbo;
-vector<ofTexture*> ofxMultiscreen::renderBuffers;
 MultiScreen ofxMultiscreen::localScreen;
 ofTrueTypeFont ofxMultiscreen::font;
 bool ofxMultiscreen::debug = true;
@@ -101,9 +100,6 @@ void ofxMultiscreen::multiSetup() {
 void ofxMultiscreen::addTexturesForScreens(vector<MultiScreen>& screens) {
 	for(unsigned int i = 0; i < screens.size(); i++) {
 		localScreen = screens[i];
-		ofTexture* tex = new ofTexture();
-		tex->allocate(localScreen.width, localScreen.height, GL_RGBA);
-		renderBuffers.push_back(tex);
 	}
 }
 
@@ -166,7 +162,6 @@ void ofxMultiscreen::draw() {
 		if(totalScale * maxSize.y > size.y) // but if this doesn't fit
 			totalScale = size.y / maxSize.y; // normalize on the y axis instead
 
-		int m = 0;
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			vector<MultiCard>& cards = computers[i].cards;
 			for(unsigned int j = 0; j < cards.size(); j++) {
@@ -175,7 +170,6 @@ void ofxMultiscreen::draw() {
 				for(unsigned int k = 0; k < screens.size(); k++) {
 					localScreen = screens[k];
 
-					fbo.attach(*renderBuffers[m++]);
 					fbo.begin();
 					fbo.setBackground(0, 0, 0);
 					drawScreen();
@@ -198,7 +192,6 @@ void ofxMultiscreen::draw() {
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			localScreen = screens[i];
 
-			fbo.attach(*renderBuffers[i]);
 			fbo.begin();
 			fbo.setBackground(0, 0, 0);
 			drawScreen();
@@ -233,8 +226,6 @@ void ofxMultiscreen::drawScreen() {
 ofxMultiscreen::~ofxMultiscreen() {
 	if(master)
 		stopScreens();
-	for(unsigned int i = 0; i < renderBuffers.size(); i++)
-		delete renderBuffers[i];
 }
 
 #define MAX_HOSTNAME_LENGTH 256

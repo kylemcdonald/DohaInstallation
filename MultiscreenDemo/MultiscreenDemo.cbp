@@ -75,6 +75,7 @@
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip/posix" />
 			<Add directory="../../../addons/ofxVectorMath/src" />
 			<Add directory="../addons/ofxFbo/src" />
+			<Add directory="../addons/ofxMultiscreen/src" />
 		</Compiler>
 		<Linker>
 			<Add library="fmodex" />
@@ -89,7 +90,6 @@
 			<Add library="RtAudio" />
 			<Add library="GLee" />
 			<Add library="oFappsink" />
-			<Add library="../../../addons/ofxOsc/libs/oscpack/lib/linux64/liboscpack.a" />
 			<Add directory="../../../libs/freetype/lib/linux64" />
 			<Add directory="../../../libs/FreeImage/lib/linux64" />
 			<Add directory="../../../libs/rtAudio/lib/linux64" />
@@ -125,16 +125,16 @@
 		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
-		<Unit filename="src/MultiCard.h" />
-		<Unit filename="src/MultiComputer.h" />
-		<Unit filename="src/MultiScreen.h" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/ofxMultiscreen.cpp" />
-		<Unit filename="src/ofxMultiscreen.h" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
 		<Unit filename="../addons/ofxFbo/src/ofxFbo.cpp" />
 		<Unit filename="../addons/ofxFbo/src/ofxFbo.h" />
+		<Unit filename="../addons/ofxMultiscreen/src/MultiCard.h" />
+		<Unit filename="../addons/ofxMultiscreen/src/MultiComputer.h" />
+		<Unit filename="../addons/ofxMultiscreen/src/MultiScreen.h" />
+		<Unit filename="../addons/ofxMultiscreen/src/ofxMultiscreen.cpp" />
+		<Unit filename="../addons/ofxMultiscreen/src/ofxMultiscreen.h" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.h" />
 		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/NetworkingUtils.h" />

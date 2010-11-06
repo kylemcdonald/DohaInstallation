@@ -25,7 +25,6 @@ public:
 	static bool debug;
 
 	static ofxFbo fbo;
-	static vector<ofTexture*> renderBuffers;
 	static void addTexturesForScreens(vector<MultiScreen>& screens);
 
 	static void multiLoad(); // call before setting up OpenGL
