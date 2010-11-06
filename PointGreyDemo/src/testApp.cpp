@@ -43,6 +43,31 @@ void testApp::setup(){
 		catchError(camera->SetVideoModeAndFrameRate(VIDEOMODE_640x480Y8, FRAMERATE_60));
 		catchError(camera->StartCapture());
 
+		Property brightness(BRIGHTNESS);
+		brightness.autoManualMode = false;
+		brightness.valueA = 1; // 1-255
+		catchError(camera->SetProperty(&brightness));
+
+		Property autoExposure(AUTO_EXPOSURE);
+		autoExposure.onOff = true;
+		autoExposure.autoManualMode = false;
+		autoExposure.valueA = 7;
+		catchError(camera->SetProperty(&autoExposure));
+
+		Property gamma(GAMMA);
+		gamma.onOff = false;
+		catchError(camera->SetProperty(&gamma));
+
+		Property shutter(SHUTTER);
+		shutter.valueA = 531; // 1-531
+		shutter.autoManualMode = false;
+		catchError(camera->SetProperty(&shutter));
+
+		Property gain(GAIN);
+		gain.valueA = 16; // 16-64
+		gain.autoManualMode = false;
+		catchError(camera->SetProperty(&gain));
+
 		cameras.push_back(camera);
 	}
 }
