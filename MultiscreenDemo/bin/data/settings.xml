@@ -3,6 +3,11 @@
 	<debug>1</debug>
 </options>
 
+<path>
+	<appName>MultiscreenDemo</appName>
+	<appDirectory>~/Desktop/openFrameworks/apps/DohaInstallation/MultiscreenDemo/bin</appDirectory>
+</path>
+
 <defaults>
 	<screen width="1920" height="1080"/>
 </defaults>

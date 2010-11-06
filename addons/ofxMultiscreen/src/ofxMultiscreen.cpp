@@ -1,17 +1,20 @@
 #include "ofxMultiscreen.h"
 
-const string ofxMultiscreen::appName = "OscTest";
-const string ofxMultiscreen::appDirectory = "~/Desktop/openFrameworks/apps/DohaInstallation/OscTest/bin";
-
 bool ofxMultiscreen::master = true; // app is master by default
-int ofxMultiscreen::display = 0;
-string ofxMultiscreen::hostname;
+
+string ofxMultiscreen::appName = "";
+string ofxMultiscreen::appDirectory = "";
+
+string ofxMultiscreen::hostname = "";
 MultiCard ofxMultiscreen::card;
-vector<MultiComputer> ofxMultiscreen::computers;
-bool ofxMultiscreen::powersave = true;
-ofxFbo ofxMultiscreen::fbo;
+int ofxMultiscreen::display = 0;
 MultiScreen ofxMultiscreen::localScreen;
+ofxFbo ofxMultiscreen::fbo;
+
+vector<MultiComputer> ofxMultiscreen::computers;
+
 ofTrueTypeFont ofxMultiscreen::font;
+bool ofxMultiscreen::powersave = true;
 bool ofxMultiscreen::debug = true;
 
 void ofxMultiscreen::multiLoad() {
@@ -20,6 +23,12 @@ void ofxMultiscreen::multiLoad() {
 
 	ofxXmlSettings settings;
 	settings.loadFile("settings.xml");
+
+	settings.pushTag("path");
+	appName = settings.getValue("appName", "");
+	appDirectory = settings.getValue("appDirectory", "");
+	settings.popTag();
+
 	settings.pushTag("options");
 	powersave = settings.getValue("powersave", 0);
 	debug = settings.getValue("debug", 0);

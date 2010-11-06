@@ -11,7 +11,7 @@
 
 class ofxMultiscreen : public ofBaseApp {
 public:
-	static const string appName, appDirectory;
+	static string appName, appDirectory;
 
 	static bool powersave;
 
