@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
-	<Workspace title="OscTest">
+	<Workspace title="MultiscreenDemo">
 		<Project filename="../../../libs/openFrameworksCompiled/project/linux64/libopenFrameworks.cbp" />
-		<Project filename="OscTest.cbp" active="1" />
+		<Project filename="MultiscreenDemo.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

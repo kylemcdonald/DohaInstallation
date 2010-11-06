@@ -68,6 +68,8 @@
 			<Add directory="/usr/include/flycapture" />
 			<Add directory="../../../addons/ofxOpenCv/src" />
 			<Add directory="../../../addons/ofxOpenCv/libs/opencv/include" />
+			<Add directory="../../../addons/ofxXmlSettings/libs" />
+			<Add directory="../../../addons/ofxXmlSettings/src" />
 		</Compiler>
 		<Linker>
 			<Add option="-lflycapture" />
@@ -133,6 +135,12 @@
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp" />
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.h" />
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxOpenCv.h" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.h" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
