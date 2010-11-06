@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxOpenCv.h"
 
 #include "FlyCapture2.h"
 using namespace FlyCapture2;

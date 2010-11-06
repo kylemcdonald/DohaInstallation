@@ -66,6 +66,8 @@
 			<Add directory="../../../addons" />
 			<Add directory="../../../libs/poco/include" />
 			<Add directory="/usr/include/flycapture" />
+			<Add directory="../../../addons/ofxOpenCv/src" />
+			<Add directory="../../../addons/ofxOpenCv/libs/opencv/include" />
 		</Compiler>
 		<Linker>
 			<Add option="-lflycapture" />
@@ -81,6 +83,9 @@
 			<Add library="RtAudio" />
 			<Add library="GLee" />
 			<Add library="oFappsink" />
+			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcv.a" />
+			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcvaux.a" />
+			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcxcore.a" />
 			<Add directory="../../../libs/freetype/lib/linux64" />
 			<Add directory="../../../libs/FreeImage/lib/linux64" />
 			<Add directory="../../../libs/rtAudio/lib/linux64" />
@@ -96,6 +101,38 @@
 			<Add after="#" />
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cv.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cv.hpp" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvaux.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvaux.hpp" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvcompat.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvmat.hpp" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvstreams.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvtypes.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvver.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvvidsurv.hpp" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cvwimage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cxcore.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cxcore.hpp" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cxerror.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cxmisc.h" />
+		<Unit filename="../../../addons/ofxOpenCv/libs/opencv/include/cxtypes.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvBlob.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvColorImage.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvColorImage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvConstants.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvContourFinder.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvContourFinder.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvFloatImage.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvFloatImage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvGrayscaleImage.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvGrayscaleImage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvImage.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvImage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvMain.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.h" />
+		<Unit filename="../../../addons/ofxOpenCv/src/ofxOpenCv.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
