@@ -22,6 +22,8 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void windowResized(int w, int h);
 
+	int camWidth, camHeight;
+
 	vector<Camera*> cameras;
-	ofImage curImage;
+	vector<ofxCvGrayscaleImage*> images;
 };
