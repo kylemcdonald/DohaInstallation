@@ -161,6 +161,8 @@ void ofxMultiscreen::draw() {
 	ofPoint size = card.getSize();
 	ofSetupScreenOrtho(size.x, size.y);
 
+	bool useFbos = false;
+
 	if(master) {
 		ofBackground(0, 0, 0);
 
@@ -168,6 +170,7 @@ void ofxMultiscreen::draw() {
 		float totalScale = size.x / maxSize.x; // assume we normalize on the x axis
 		if(totalScale * maxSize.y > size.y) // but if this doesn't fit
 			totalScale = size.y / maxSize.y; // normalize on the y axis instead
+		ofxVec2f miniSize = MultiScreen::size * totalScale;
 
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			vector<MultiCard>& cards = computers[i].cards;
@@ -176,22 +179,27 @@ void ofxMultiscreen::draw() {
 				vector<MultiScreen>& screens = curCard.screens;
 				for(unsigned int k = 0; k < screens.size(); k++) {
 					localScreen = screens[k];
-
-					fbo.begin();
-					fbo.setBackground(0, 0, 0);
-					drawScreen();
-					fbo.end();
-
-					glPushMatrix();
-					ofSetupScreenOrtho(size.x, size.y);
-					glScalef(totalScale, totalScale, totalScale);
-					glColor4f(1, 1, 1, 1);
 					ofxVec2f position = localScreen.absolutePosition();
-					glTranslatef(position.x, position.y, 0);
-					fbo.draw(0, 0,ofGetWidthLocal(), ofGetHeightLocal());
-					ofNoFill();
-					ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
-					glPopMatrix();
+					if(useFbos) {
+						fbo.begin();
+						fbo.setBackground(0, 0, 0);
+						drawScreen();
+						fbo.end();
+
+						glPushMatrix();
+						ofSetupScreenOrtho(size.x, size.y);
+						glScalef(totalScale, totalScale, totalScale);
+						glColor4f(1, 1, 1, 1);
+						glTranslatef(position.x, position.y, 0);
+						fbo.draw(0, 0,ofGetWidthLocal(), ofGetHeightLocal());
+						ofNoFill();
+						ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
+						glPopMatrix();
+					} else {
+						ofSetupScreenOrtho(size.x, size.y);
+						glViewport(mouseX, mouseY, miniSize.x, miniSize.y);
+						drawScreen();
+					}
 				}
 			}
 		}
