@@ -11,22 +11,23 @@ public:
 		hostname = settings.getAttribute("computer", "hostname", "", which);
 	}
 	int execute(string command) {
-		// run all system calls as background processes
-		command = "ssh " + hostname + ".local \"" + command + "\" &";
+		command = "ssh -f " + hostname + ".local \"" + command + "\"";
 		if(ofLogLevel() == OF_LOG_VERBOSE)
 			cout << ">" << command << endl;
 		return system(command.c_str());
 	}
-	void executeDisplay(string command) {
+	void executeAllDisplays(string command) {
 		for(unsigned int i = 0; i < cards.size(); i++) {
-			string card = ofToString((int) i);
-			execute("export DISPLAY=:0." + card + "; " + command);
+			executeDisplay(command, i);
 		}
+	}
+	void executeDisplay(string command, int i) {
+		execute("export DISPLAY=:0." + ofToString((int) i) + "; " + command);
 	}
 	void launch(string appName) {
 		for(unsigned int i = 0; i < cards.size(); i++) {
 			string card = ofToString((int) i);
-			execute("export DISPLAY=:0." + card + "; " + appName + " </dev/null >~/status." + card + " 2>&1 &");
+			executeDisplay(appName + " </dev/null >~/status." + card + " 2>&1 &", i);
 		}
 	}
 

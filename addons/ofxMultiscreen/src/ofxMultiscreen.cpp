@@ -112,7 +112,7 @@ void ofxMultiscreen::execute(string command) {
 
 void ofxMultiscreen::executeDisplay(string command) {
 	for(unsigned int i = 0; i < computers.size(); i++) {
-		computers[i].executeDisplay(command);
+		computers[i].executeAllDisplays(command);
 	}
 }
 

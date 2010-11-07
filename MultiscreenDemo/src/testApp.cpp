@@ -12,31 +12,29 @@ void testApp::setup() {
 		cout << "Connecting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
 		startScreens();
-	} else {
-		cout << "Listening on port " << port << endl;
-		oscReceiver.setup(port);
-	}
+	}	
+	cout << "Listening on port " << port << endl;
+	oscReceiver.setup(port);
 }
 
 void testApp::update() {
-	if(!master) {
-		while(oscReceiver.hasWaitingMessages()) {
-			ofxOscMessage message;
-			oscReceiver.getNextMessage(&message);
-			string address = message.getAddress();
-			if(address.compare("mouse") == 0) {
-				int mx = message.getArgAsInt32(0);
-				int my = message.getArgAsInt32(1);
-				ofPoint cur(mx, my);
-				points.push_back(cur);
-			} else if(address.compare("reset") == 0) {
-				points.clear();
-			}
+	while(oscReceiver.hasWaitingMessages()) {
+		ofxOscMessage message;
+		oscReceiver.getNextMessage(&message);
+		string address = message.getAddress();
+		if(address.compare("mouse") == 0) {
+			int mx = message.getArgAsInt32(0);
+			int my = message.getArgAsInt32(1);
+			ofPoint cur(mx, my);
+			points.push_back(cur);
+		} else if(address.compare("reset") == 0) {
+			points.clear();
 		}
 	}
 }
 
 void testApp::drawLocal() {
+	ofBackground(0, 0);
 	ofSetColor(255, 255, 255);
 	glBegin(GL_LINE_STRIP);
 	for(unsigned int i = 0; i < points.size(); i++) {
@@ -47,10 +45,6 @@ void testApp::drawLocal() {
 }
 
 void testApp::drawOverlay() {
-	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidthLocal() / 2, ofGetHeightLocal() / 2);
-	ofLine(0, 0, 1920, 1080);
-	ofLine(1920, 0, 0, 1080);
 }
 
 void testApp::keyPressed(int key) {
@@ -69,9 +63,6 @@ void testApp::mouseMoved(int x, int y) {
 		message.addIntArg(x);
 		message.addIntArg(y);
 		oscSender.sendMessage(message);
-
-		ofPoint cur(x, y);
-		points.push_back(cur);
 	}
 }
 
@@ -83,8 +74,6 @@ void testApp::mousePressed(int x, int y, int button) {
 		ofxOscMessage message;
 		message.setAddress("reset");
 		oscSender.sendMessage(message);
-
-		points.clear();
 	}
 }
 
