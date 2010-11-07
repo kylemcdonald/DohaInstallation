@@ -48,21 +48,19 @@ void testApp::drawLocal() {
 }
 
 void testApp::drawOverlay() {
-	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), ofGetWidthLocal() / 2, ofGetHeightLocal() / 2);
-	ofLine(0, 0, 1920, 1080);
-	ofLine(1920, 0, 0, 1080);
 }
 
 void testApp::keyPressed(int key) {
+	if(key == 'd')
+		ofxMultiscreen::debug = !ofxMultiscreen::debug;
 }
 
 void testApp::keyReleased(int key) {
 }
 
 void testApp::mouseMoved(int x, int y) {
-	x *= 4;
-	y *= 4;
+	x *= 4.25;
+	y *= 4.25;
 
 	if(master) {
 		ofxOscMessage message;

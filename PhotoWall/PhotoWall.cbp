@@ -103,7 +103,7 @@
 			<Add after="#      copy libs and shell script to bin directory:" />
 			<Add after="#" />
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
-			<Add after="cd ../scripts; ./rsync-update.pl" />
+			<Add after="#cd ../scripts; ./rsync-update.pl" />
 		</ExtraCommands>
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.cpp" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.h" />
@@ -124,6 +124,14 @@
 		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
+		<Unit filename="src/ControlPoint.cpp" />
+		<Unit filename="src/ControlPoint.h" />
+		<Unit filename="src/ControlSurface.cpp" />
+		<Unit filename="src/ControlSurface.h" />
+		<Unit filename="src/Photo.cpp" />
+		<Unit filename="src/Photo.h" />
+		<Unit filename="src/PhotoWall.cpp" />
+		<Unit filename="src/PhotoWall.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />

@@ -40,6 +40,7 @@ public:
 
 	void draw();
 	void drawScreen();
+	void drawDebug();
 
 	virtual void drawLocal() = 0;
 	virtual void drawOverlay() = 0;

@@ -1,7 +1,10 @@
 #pragma once
 
-#include "ofxOsc.h"
 #include "ofxMultiscreen.h"
+
+#include "ofxOsc.h"
+#include "ControlSurface.h"
+#include "PhotoWall.h"
 
 class testApp : public ofxMultiscreen {
 public:
@@ -14,6 +17,7 @@ public:
 	vector<ofPoint> points;
 
 	ofxOscSender oscSender;
+
 	ofxOscReceiver oscReceiver;
 
 	void keyPressed(int key);

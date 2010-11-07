@@ -145,7 +145,7 @@ void ofxMultiscreen::draw() {
 	if(master) {
 		ofBackground(128, 128, 128);
 
-		ofPoint maxSize = getMaxSize();
+		ofxVec2f maxSize = getMaxSize();
 		float totalScale = ofGetWidth() / maxSize.x; // assume we normalize on the x axis
 		if(totalScale * maxSize.y > ofGetHeight()) // but if this doesn't fit
 			totalScale = ofGetHeight() / maxSize.y; // normalize on the y axis instead
@@ -162,12 +162,13 @@ void ofxMultiscreen::draw() {
 					glViewport(position.x, ofGetHeight() - position.y - miniSize.y, miniSize.x, miniSize.y);
 					drawScreen();
 					ofNoFill();
+					ofSetColor(255, 255, 255);
 					ofRect(1, 0, ofGetWidthLocal() - 1, ofGetHeightLocal() - 1);
 				}
 			}
 		}
 	} else {
-		ofPoint size = card.getSize();
+		ofxVec2f size = card.getSize();
 		vector<MultiScreen>& screens = card.screens;
 		for(unsigned int i = 0; i < screens.size(); i++) {
 			localScreen = screens[i];
@@ -186,13 +187,26 @@ void ofxMultiscreen::drawScreen() {
 	glPopMatrix();
 
 	glPushMatrix();
-	stringstream debugInfo;
 	drawOverlay();
-	if(debug) {
-		debugInfo << hostname << ":" << display << " @ " << localScreen;
-		font.drawString(debugInfo.str(), 0, ofGetHeightLocal() / 2);
-	}
+	if(debug)
+		drawDebug();
 	glPopMatrix();
+}
+
+void ofxMultiscreen::drawDebug() {
+	ofSetColor(255, 255, 255);
+	ofLine(0, 0, 1920, 1080);
+	ofLine(1920, 0, 0, 1080);
+	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 40, 60);
+
+	stringstream debugInfo;
+	debugInfo << hostname << ":" << display << " @ " << localScreen;
+	ofRectangle box = font.getStringBoundingBox(debugInfo.str(), 0, 0);
+	ofTranslate((ofGetWidthLocal() - box.width) / 2, (ofGetHeightLocal() - box.height) / 2);
+	ofFill();
+	ofRect(0, 0, box.width, box.height);
+	ofSetColor(0, 0, 0);
+	font.drawString(debugInfo.str(), 0, box.height);
 }
 
 ofxMultiscreen::~ofxMultiscreen() {
