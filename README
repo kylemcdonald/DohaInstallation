@@ -11,6 +11,8 @@ all: enable remote desktop
 all: disable screensaver
 all: disable idle mode
 all: disable "turn off display" in power management
+all: disable visual effects (Desktop > Set Background > Visual Effects)
+all: set all graphics cards to "maximum performance" with powermizer
 
 all: sudo apt-get install openssh-server
 all: ssh-keygen
