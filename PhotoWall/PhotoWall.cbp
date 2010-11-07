@@ -74,7 +74,6 @@
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip" />
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip/posix" />
 			<Add directory="../../../addons/ofxVectorMath/src" />
-			<Add directory="../addons/ofxFbo/src" />
 			<Add directory="../addons/ofxMultiscreen/src" />
 		</Compiler>
 		<Linker>
@@ -128,8 +127,6 @@
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
-		<Unit filename="../addons/ofxFbo/src/ofxFbo.cpp" />
-		<Unit filename="../addons/ofxFbo/src/ofxFbo.h" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiCard.h" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiComputer.h" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiScreen.cpp" />

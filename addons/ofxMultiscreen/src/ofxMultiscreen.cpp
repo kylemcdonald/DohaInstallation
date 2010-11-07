@@ -162,7 +162,7 @@ void ofxMultiscreen::draw() {
 					glViewport(position.x, ofGetHeight() - position.y - miniSize.y, miniSize.x, miniSize.y);
 					drawScreen();
 					ofNoFill();
-					ofRect(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
+					ofRect(1, 0, ofGetWidthLocal() - 1, ofGetHeightLocal() - 1);
 				}
 			}
 		}

@@ -2,7 +2,6 @@
 
 #include "ofxVectorMath.h"
 #include "ofxXmlSettings.h"
-#include "ofxFbo.h"
 #include "ofMain.h"
 
 #include "MultiComputer.h"

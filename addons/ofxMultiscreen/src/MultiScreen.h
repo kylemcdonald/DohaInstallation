@@ -6,6 +6,7 @@
 class MultiScreen {
 public:
 	static ofxVec2f size;
+	static int bevel;
 	static void setDefaults(ofxXmlSettings& settings, int which = 0);
 
 	ofxVec2f position;
