@@ -24,7 +24,7 @@ public:
 		}
 	}
 	void launch(string appName) {
-		executeDisplay(appName + " 0>~/status 1>&0 2>&0 &");
+		executeDisplay(appName + " </dev/null >~/status 2>&1 &");
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {
