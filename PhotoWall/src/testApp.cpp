@@ -3,56 +3,56 @@
 void testApp::setup() {
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
+	setupOsc();
+
+	ofxVec2f size = getMaxSize();
+	surface.setup(size, ofxVec2f(40, 35));
+	wall.setup(surface);
+}
+
+void testApp::setupOsc() {
 	ofxXmlSettings settings;
 	settings.loadFile("osc.xml");
 	string address = settings.getValue("address", "255.255.255.255");
 	int port = settings.getValue("port", 8888);
 
 	if(master) {
-		cout << "Connecting to " << address << ":" << port << endl;
+		cout << "Broadcasting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
 		startScreens();
-	} else {
-		cout << "Listening on port " << port << endl;
-		oscReceiver.setup(port);
 	}
+
+	cout << "Listening on port " << port << endl;
+	oscReceiver.setup(port);
 }
 
 void testApp::update() {
-	if(!master) {
-		while(oscReceiver.hasWaitingMessages()) {
-			ofxOscMessage message;
-			oscReceiver.getNextMessage(&message);
-			string address = message.getAddress();
-			if(address.compare("mouse") == 0) {
-				int mx = message.getArgAsInt32(0);
-				int my = message.getArgAsInt32(1);
-				ofPoint cur(mx, my);
-				points.push_back(cur);
-			} else if(address.compare("reset") == 0) {
-				points.clear();
-			}
+	while(oscReceiver.hasWaitingMessages()) {
+		ofxOscMessage message;
+		oscReceiver.getNextMessage(&message);
+		string address = message.getAddress();
+		if(address.compare("mouse") == 0) {
+			int mx = message.getArgAsInt32(0);
+			int my = message.getArgAsInt32(1);
+			surface.update(ofxVec2f(mx, my));
+			wall.update();
+		} else if(address.compare("debug") == 0) {
+			ofxMultiscreen::debug = !ofxMultiscreen::debug;
 		}
 	}
 }
 
 void testApp::drawLocal() {
 	ofBackground(0, 0, 0);
-	ofSetColor(255, 255, 255);
-	glBegin(GL_LINE_STRIP);
-	for(unsigned int i = 0; i < points.size(); i++) {
-		ofPoint& cur = points[i];
-		glVertex2f(cur.x, cur.y);
-	}
-	glEnd();
+	glEnable(GL_DEPTH_TEST);
+	wall.draw();
+	glDisable(GL_DEPTH_TEST);
 }
 
 void testApp::drawOverlay() {
 }
 
 void testApp::keyPressed(int key) {
-	if(key == 'd')
-		ofxMultiscreen::debug = !ofxMultiscreen::debug;
 }
 
 void testApp::keyReleased(int key) {
@@ -68,9 +68,6 @@ void testApp::mouseMoved(int x, int y) {
 		message.addIntArg(x);
 		message.addIntArg(y);
 		oscSender.sendMessage(message);
-
-		ofPoint cur(x, y);
-		points.push_back(cur);
 	}
 }
 
@@ -80,10 +77,8 @@ void testApp::mouseDragged(int x, int y, int button) {
 void testApp::mousePressed(int x, int y, int button) {
 	if(master) {
 		ofxOscMessage message;
-		message.setAddress("reset");
+		message.setAddress("debug");
 		oscSender.sendMessage(message);
-
-		points.clear();
 	}
 }
 

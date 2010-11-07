@@ -9,16 +9,17 @@
 class testApp : public ofxMultiscreen {
 public:
 	void setup();
+	void setupOsc();
 	void update();
 
 	void drawLocal();
 	void drawOverlay();
 
-	vector<ofPoint> points;
-
 	ofxOscSender oscSender;
-
 	ofxOscReceiver oscReceiver;
+
+	ControlSurface surface;
+	PhotoWall wall;
 
 	void keyPressed(int key);
 	void keyReleased(int key);

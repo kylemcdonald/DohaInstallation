@@ -23,9 +23,7 @@ public:
 			photos[i].update();
 	}
 	void draw() const {
-		glBegin(GL_POINTS);
 		for(unsigned int i = 0; i < photos.size(); i++)
 			photos[i].draw();
-		glEnd();
 	}
 };

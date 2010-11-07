@@ -195,8 +195,8 @@ void ofxMultiscreen::drawScreen() {
 
 void ofxMultiscreen::drawDebug() {
 	ofSetColor(255, 255, 255);
-	ofLine(0, 0, 1920, 1080);
-	ofLine(1920, 0, 0, 1080);
+	ofLine(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
+	ofLine(ofGetWidthLocal(), 0, 0, ofGetHeightLocal());
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 40, 60);
 
 	stringstream debugInfo;
@@ -204,8 +204,9 @@ void ofxMultiscreen::drawDebug() {
 	ofRectangle box = font.getStringBoundingBox(debugInfo.str(), 0, 0);
 	ofTranslate((ofGetWidthLocal() - box.width) / 2, (ofGetHeightLocal() - box.height) / 2);
 	ofFill();
-	ofRect(0, 0, box.width, box.height);
 	ofSetColor(0, 0, 0);
+	ofRect(0, 0, box.width, box.height);
+	ofSetColor(255, 255, 255);
 	font.drawString(debugInfo.str(), 0, box.height);
 }
 
