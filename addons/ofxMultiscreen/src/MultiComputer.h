@@ -24,7 +24,10 @@ public:
 		}
 	}
 	void launch(string appName) {
-		executeDisplay(appName + " </dev/null >~/status 2>&1 &");
+		for(unsigned int i = 0; i < cards.size(); i++) {
+			string card = ofToString((int) i);
+			execute("export DISPLAY=:0." + card + "; " + appName + " </dev/null >~/status." + card + " 2>&1 &");
+		}
 	}
 
 	friend ostream& operator<<(ostream& out, const MultiComputer& computer) {

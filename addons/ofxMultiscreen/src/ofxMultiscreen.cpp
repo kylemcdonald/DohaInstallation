@@ -76,7 +76,7 @@ void ofxMultiscreen::loadScreens(ofxXmlSettings& settings) {
 		computers.push_back(curComputer);
 	}
 	settings.popTag();
-
+	
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			cout << computers[i] << endl;
@@ -93,14 +93,15 @@ void ofxMultiscreen::multiSetup() {
 }
 
 void ofxMultiscreen::startScreens() {
-	executeDisplay("xset dpms force on");
+	//executeDisplay("xset dpms force on");
 	launch("cd " + appDirectory + "; ./" + appName);
 }
 
 void ofxMultiscreen::stopScreens() {
-	if(powersave)
-		executeDisplay("xset dpms force off");
-	execute("killall -9 " + appName);
+	if(powersave) {
+		//executeDisplay("xset dpms force off");
+	}
+	execute("killall " + appName);
 }
 
 void ofxMultiscreen::execute(string command) {

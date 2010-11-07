@@ -1,6 +1,8 @@
 #include "testApp.h"
 
 void testApp::setup() {
+	ofSetWindowTitle(appName);
+		
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	setupOsc();
