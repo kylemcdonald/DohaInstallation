@@ -1,6 +1,7 @@
 <options>
 	<powersave>0</powersave>
 	<debug>1</debug>
+    <sendCommands>0</sendCommands>
 </options>
 
 <path>
@@ -53,76 +54,4 @@
 			<screen x="2" y="3"/>
 		</card>
 	</computer>
-<!--
-	<computer hostname="3rdi1">
-		<card>
-			<screen x="0" y="0"/>
-			<screen x="0" y="1"/>
-			<screen x="0" y="2"/>
-			<screen x="0" y="3"/>
-		</card>
-		<card>
-			<screen x="1" y="0"/>
-			<screen x="1" y="1"/>
-			<screen x="1" y="2"/>
-			<screen x="1" y="3"/>
-		</card>
-	</computer>
-	<computer hostname="3rdi2">
-		<card>
-			<screen x="2" y="0"/>
-			<screen x="2" y="1"/>
-			<screen x="2" y="2"/>
-			<screen x="2" y="3"/>
-		</card>
-		<card>
-			<screen x="3" y="0"/>
-			<screen x="3" y="1"/>
-			<screen x="3" y="2"/>
-			<screen x="3" y="3"/>
-		</card>
-	</computer>
-	<computer hostname="3rdi3">
-		<card>
-			<screen x="4" y="0"/>
-			<screen x="4" y="1"/>
-			<screen x="4" y="2"/>
-			<screen x="4" y="3"/>
-		</card>
-		<card>
-			<screen x="0" y="0"/>
-			<screen x="0" y="1"/>
-			<screen x="0" y="2"/>
-			<screen x="0" y="3"/>
-		</card>
-	</computer>
-	<computer hostname="3rdi4">
-		<card>
-			<screen x="0" y="0"/>
-			<screen x="0" y="1"/>
-			<screen x="0" y="2"/>
-			<screen x="0" y="3"/>
-		</card>
-		<card>
-			<screen x="5" y="0"/>
-			<screen x="5" y="1"/>
-			<screen x="5" y="2"/>
-			<screen x="5" y="3"/>
-		</card>
-	</computer>
-	<computer hostname="3rdi5">
-		<card>
-			<screen x="6" y="0"/>
-			<screen x="6" y="1"/>
-			<screen x="6" y="2"/>
-			<screen x="6" y="3"/>
-		</card>
-		<card>
-			<screen x="7" y="0"/>
-			<screen x="7" y="1"/>
-			<screen x="7" y="2"/>
-			<screen x="7" y="3"/>
-		</card>
-	</computer>
--->
 </computers>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27180E7B12A7709900A30939 /* MultiComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27180E7A12A7709900A30939 /* MultiComputer.cpp */; };
 		277023ED12A640CA0042DE95 /* ofxFbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277023BC12A640CA0042DE95 /* ofxFbo.cpp */; };
 		277023EE12A640CA0042DE95 /* MultiScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277023C212A640CA0042DE95 /* MultiScreen.cpp */; };
 		277023EF12A640CA0042DE95 /* ofxMultiscreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 277023C412A640CA0042DE95 /* ofxMultiscreen.cpp */; };
@@ -103,6 +104,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27180E7A12A7709900A30939 /* MultiComputer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiComputer.cpp; sourceTree = "<group>"; };
 		277023BC12A640CA0042DE95 /* ofxFbo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxFbo.cpp; path = ../addons/ofxFbo/src/ofxFbo.cpp; sourceTree = SOURCE_ROOT; };
 		277023BD12A640CA0042DE95 /* ofxFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxFbo.h; path = ../addons/ofxFbo/src/ofxFbo.h; sourceTree = SOURCE_ROOT; };
 		277023C012A640CA0042DE95 /* MultiCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiCard.h; path = ../addons/ofxMultiscreen/src/MultiCard.h; sourceTree = SOURCE_ROOT; };
@@ -293,6 +295,7 @@
 			children = (
 				277023C012A640CA0042DE95 /* MultiCard.h */,
 				277023C112A640CA0042DE95 /* MultiComputer.h */,
+				27180E7A12A7709900A30939 /* MultiComputer.cpp */,
 				277023C212A640CA0042DE95 /* MultiScreen.cpp */,
 				277023C312A640CA0042DE95 /* MultiScreen.h */,
 				277023C412A640CA0042DE95 /* ofxMultiscreen.cpp */,
@@ -871,6 +874,7 @@
 				2770244412A672820042DE95 /* Photo.cpp in Sources */,
 				2770244512A672820042DE95 /* PhotoWall.cpp in Sources */,
 				2770244612A672820042DE95 /* testApp.cpp in Sources */,
+				27180E7B12A7709900A30939 /* MultiComputer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

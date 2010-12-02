@@ -21,7 +21,9 @@ void ofxMultiscreen::multiLoad() {
 	display = getDisplay();
 
 	ofxXmlSettings settings;
-	settings.loadFile("settings.xml");
+	if(!settings.loadFile("settings.xml")) {
+		ofLog(OF_LOG_ERROR, "ofxMultiscreen::multiLoad(): couldn't load settings.xml");
+	}
 
 	settings.pushTag("path");
 	appName = settings.getValue("appName", "");
@@ -31,6 +33,7 @@ void ofxMultiscreen::multiLoad() {
 	settings.pushTag("options");
 	powersave = settings.getValue("powersave", 0);
 	debug = settings.getValue("debug", 0);
+	MultiComputer::sendCommands = settings.getValue("sendCommands", 1);
 	settings.popTag();
 
 	loadScreens(settings);

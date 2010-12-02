@@ -1,6 +1,6 @@
 #include "testApp.h"
 
-void testApp::setup() {
+void testApp::setup() {	
 	ofSetWindowTitle(appName);
 		
 	ofSetLogLevel(OF_LOG_VERBOSE);
@@ -14,7 +14,9 @@ void testApp::setup() {
 
 void testApp::setupOsc() {
 	ofxXmlSettings settings;
-	settings.loadFile("osc.xml");
+	if(!settings.loadFile("osc.xml")) {
+		ofLog(OF_LOG_ERROR, "testApp::setupOsc(): couldn't load osc.xml");
+	}
 	string address = settings.getValue("address", "255.255.255.255");
 	int port = settings.getValue("port", 8888);
 
