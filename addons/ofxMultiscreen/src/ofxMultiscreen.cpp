@@ -149,7 +149,6 @@ ofPoint ofxMultiscreen::getMaxSize() {
 }
 
 void ofxMultiscreen::draw() {
-	ofSetupScreenOrtho(ofGetWidth(), ofGetHeight());
 
 	if(master) {
 		ofBackground(128, 128, 128);
@@ -161,7 +160,10 @@ void ofxMultiscreen::draw() {
 		if(totalScale * maxSize.y > curSize.y) // but if this doesn't fit
 			totalScale = curSize.y / maxSize.y; // normalize on the y axis instead
 		ofxVec2f miniSize = MultiScreen::size * totalScale;
-
+		
+		glViewport(0, 0, curSize.x, curSize.y);
+		ofSetupScreenPerspective(curSize.x, curSize.y);
+		
 		for(unsigned int i = 0; i < computers.size(); i++) {
 			vector<MultiCard>& cards = computers[i].cards;
 			for(unsigned int j = 0; j < cards.size(); j++) {

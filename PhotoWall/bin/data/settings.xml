@@ -16,42 +16,72 @@
 <computers>
 	<computer hostname="3rdi1">
 		<card>
-			<screen x="0" y="0"/>
+			<screen x="0" y="4"/>
+			<screen x="1" y="7"/>
+			<screen x="2" y="8"/>
+			<screen x="0" y="9"/>
 		</card>
 		<card>
-			<screen x="1" y="0"/>
+			<screen x="0" y="10"/>
+			<screen x="2" y="10"/>
+			<screen x="2" y="11"/>
+			<screen x="1" y="12"/>
 		</card>
 	</computer>
 	<computer hostname="3rdi2">
 		<card>
 			<screen x="2" y="0"/>
+			<screen x="4" y="1"/>
+			<screen x="3" y="3"/>
+			<screen x="2" y="5"/>
 		</card>
 		<card>
-			<screen x="0" y="1"/>
+			<screen x="4" y="7"/>
+			<screen x="3" y="9"/>
+			<screen x="4" y="9"/>
+			<screen x="3" y="10"/>
 		</card>
 	</computer>
 	<computer hostname="3rdi3">
 		<card>
-			<screen x="1" y="1"/>
+			<screen x="6" y="3"/>
+			<screen x="5" y="5"/>
+			<screen x="6" y="8"/>
+			<screen x="5" y="9"/>
 		</card>
 		<card>
-			<screen x="2" y="1"/>
+			<screen x="4" y="10"/>
+			<screen x="5" y="10"/>
+			<screen x="5" y="11"/>
+			<screen x="4" y="12"/>
 		</card>
 	</computer>
 	<computer hostname="3rdi4">
 		<card>
-			<screen x="1" y="2"/>
+			<screen x="7" y="1"/>
+			<screen x="7" y="6"/>
+			<screen x="7" y="7"/>
+			<screen x="7" y="9"/>
 		</card>
 		<card>
-			<screen x="2" y="2"/>
+			<screen x="6" y="10"/>
+			<screen x="7" y="10"/>
+			<screen x="6" y="11"/>
+			<screen x="7" y="12"/>
 		</card>
 	</computer>
 	<computer hostname="3rdi5">
 		<card>
-			<screen x="1" y="3"/>
+			<screen x="9" y="2"/>
+			<screen x="8" y="4"/>
+			<screen x="10" y="6"/>
+			<screen x="9" y="8"/>
 		</card>
 		<card>
-			<screen x="2" y="3"/>
+			<screen x="10" y="8"/>
+			<screen x="8" y="10"/>
+			<screen x="8" y="11"/>
+			<screen x="10" y="11"/>
 		</card>
 	</computer>
 </computers>

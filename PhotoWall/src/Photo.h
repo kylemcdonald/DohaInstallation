@@ -31,7 +31,7 @@ public:
 		rotation = atan2f(o1.y, o1.x) + atan2f(o2.y, o2.x);
 		rotation /= 2;
 
-		brightness = ofMap(size, 100, 200, 1, 0, true);
+		brightness = ofMap(size, 200, 800, 1, 0, true);
 	}
 	inline void draw() const {
 		glPushMatrix();
