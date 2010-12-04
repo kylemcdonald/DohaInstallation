@@ -17,6 +17,11 @@ bool ofxMultiscreen::powersave = true;
 bool ofxMultiscreen::debug = true;
 
 void ofxMultiscreen::multiLoad() {
+	// normally this runs with ofRunApp, but we need it sooner so we can load xml settings
+#ifdef TARGET_OSX
+	ofSetDataPathRoot("../../../data/");
+#endif
+	
 	hostname = getHostname();
 	display = getDisplay();
 
@@ -149,10 +154,12 @@ void ofxMultiscreen::draw() {
 	if(master) {
 		ofBackground(128, 128, 128);
 
+		ofxVec2f curSize;
+		curSize.set(ofGetWidth(), ofGetHeight());
 		ofxVec2f maxSize = getMaxSize();
-		float totalScale = ofGetWidth() / maxSize.x; // assume we normalize on the x axis
-		if(totalScale * maxSize.y > ofGetHeight()) // but if this doesn't fit
-			totalScale = ofGetHeight() / maxSize.y; // normalize on the y axis instead
+		float totalScale = curSize.x / maxSize.x; // assume we normalize on the x axis
+		if(totalScale * maxSize.y > curSize.y) // but if this doesn't fit
+			totalScale = curSize.y / maxSize.y; // normalize on the y axis instead
 		ofxVec2f miniSize = MultiScreen::size * totalScale;
 
 		for(unsigned int i = 0; i < computers.size(); i++) {
@@ -163,7 +170,7 @@ void ofxMultiscreen::draw() {
 				for(unsigned int k = 0; k < screens.size(); k++) {
 					localScreen = screens[k];
 					ofxVec2f position = localScreen.absolutePosition() * totalScale;
-					glViewport(position.x, ofGetHeight() - position.y - miniSize.y, miniSize.x, miniSize.y);
+					glViewport(position.x, curSize.y - position.y - miniSize.y, miniSize.x, miniSize.y);
 					drawScreen();
 					ofNoFill();
 					ofSetColor(255, 255, 255);
@@ -184,6 +191,8 @@ void ofxMultiscreen::draw() {
 }
 
 void ofxMultiscreen::drawScreen() {
+	ofSetupScreenPerspective(ofGetWidthLocal(), ofGetHeightLocal());
+	
 	glPushMatrix();
 	ofxVec2f position = localScreen.absolutePosition();
 	glTranslatef(-position.x, -position.y, 0);
@@ -201,6 +210,7 @@ void ofxMultiscreen::drawDebug() {
 	ofSetColor(255, 255, 255);
 	ofLine(0, 0, ofGetWidthLocal(), ofGetHeightLocal());
 	ofLine(ofGetWidthLocal(), 0, 0, ofGetHeightLocal());
+
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 40, 60);
 
 	stringstream debugInfo;

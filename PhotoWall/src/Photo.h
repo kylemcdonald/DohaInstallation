@@ -35,9 +35,10 @@ public:
 	}
 	inline void draw() const {
 		glPushMatrix();
+		
 		glTranslatef(position.x, position.y, 0);
 		ofRotate(ofRadToDeg(rotation));
-
+		
 		// frame
 		glColor3f(1, 1, 1);
 		glScalef(size * 4 / 3, size, 1);
@@ -57,6 +58,7 @@ public:
 		glVertex2f(.5, .5);
 		glVertex2f(.5, -.5);
 		glEnd();
+ 
 		glPopMatrix();
 	}
 };

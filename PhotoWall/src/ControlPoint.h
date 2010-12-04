@@ -14,7 +14,7 @@ public:
 	inline void update(const ofxVec2f& forceCenter, float forceShape, float forceMagnitude) {
 		ofxVec2f difference = origin - forceCenter;
 		float length = difference.length();
-		difference *= 1 / powf(length, forceShape);
+		difference /= powf(length, forceShape);
 		ofxVec2f position = origin + forceMagnitude * difference;
 		set(position);
 	}
