@@ -57,6 +57,9 @@ void testApp::drawOverlay() {
 }
 
 void testApp::keyPressed(int key) {
+	if(key == 'f') {
+		ofToggleFullscreen();
+	}
 }
 
 void testApp::keyReleased(int key) {
