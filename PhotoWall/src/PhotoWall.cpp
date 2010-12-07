@@ -22,3 +22,11 @@ void PhotoWall::draw() const {
 	for(unsigned int i = 0; i < photos.size(); i++)
 		photos[i].draw();
 }
+
+void PhotoWall::drawWindow(const ofRectangle& window) const {
+	for(unsigned int i = 0; i < photos.size(); i++) {
+		if(photos[i].inside(window)) {
+			photos[i].draw();
+		}
+	}
+}

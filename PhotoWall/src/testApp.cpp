@@ -4,6 +4,8 @@ void testApp::setup() {
 	ofSetWindowTitle(appName);
 		
 	ofSetLogLevel(OF_LOG_VERBOSE);
+	
+	drawRadius = 400;
 
 	setupOsc();
 
@@ -49,7 +51,15 @@ void testApp::update() {
 void testApp::drawLocal() {
 	ofBackground(0, 0, 0);
 	glEnable(GL_DEPTH_TEST);
-	wall.draw();
+	
+	ofxVec2f curPosition = localScreen.absolutePosition();
+	ofxVec2f curSize = MultiScreen::size;
+	curPosition -= drawRadius;
+	curSize += drawRadius * 2;
+	ofRectangle curWindow;
+	curWindow.set(curPosition, curSize.x, curSize.y);
+	
+	wall.drawWindow(curWindow);
 	glDisable(GL_DEPTH_TEST);
 }
 

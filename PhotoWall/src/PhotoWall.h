@@ -11,4 +11,5 @@ public:
 	void setup(const ControlSurface& surface);
 	void update();
 	void draw() const;
+	void drawWindow(const ofRectangle& window) const;
 };

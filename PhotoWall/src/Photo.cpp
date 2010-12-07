@@ -53,3 +53,8 @@ void Photo::draw() const {
 	
 	glPopMatrix();
 }
+
+bool Photo::inside(const ofRectangle& window) const {
+	return position.x > window.x && position.y > window.y &&
+		position.x < window.x + window.width && position.y < window.y + window.height;
+}

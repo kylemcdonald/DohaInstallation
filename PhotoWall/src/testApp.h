@@ -20,6 +20,8 @@ public:
 
 	ControlSurface surface;
 	PhotoWall wall;
+	
+	float drawRadius;
 
 	void keyPressed(int key);
 	void keyReleased(int key);

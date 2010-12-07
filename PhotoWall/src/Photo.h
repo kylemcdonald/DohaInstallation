@@ -15,4 +15,5 @@ public:
 	void setup(const ControlSurface& surface, float x, float y);
 	void update();
 	void draw() const;
+	bool inside(const ofRectangle& window) const;
 };
