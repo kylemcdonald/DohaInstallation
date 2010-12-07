@@ -12,7 +12,7 @@ void Photo::setup(const ControlSurface& surface, float x, float y) {
 
 void Photo::update() {
 	size = nw->distance(*se) + ne->distance(*sw);
-	size /= 4;
+	size /= 6;
 	
 	position = *nw + *ne + *sw + *se;
 	position /= 4;
@@ -22,7 +22,7 @@ void Photo::update() {
 	rotation = atan2f(o1.y, o1.x) + atan2f(o2.y, o2.x);
 	rotation /= 2;
 	
-	brightness = ofMap(size, 200, 800, 1, 0, true);
+	brightness = ofMap(size, 200, 400, 1, 0, true);
 }
 
 void Photo::draw() const {
@@ -33,7 +33,7 @@ void Photo::draw() const {
 	
 	// frame
 	glColor3f(1, 1, 1);
-	glScalef(size * 4 / 3, size, 1);
+	glScalef(size * 16 / 9, size, 1);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(-.5, -.5);
 	glVertex2f(-.5, .5);

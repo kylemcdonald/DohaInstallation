@@ -10,7 +10,7 @@ void testApp::setup() {
 	setupOsc();
 
 	ofxVec2f size = getMaxSize();
-	surface.setup(size, ofxVec2f(40, 35));
+	surface.setup(size, ofxVec2f(90, 90));
 	wall.setup(surface);
 }
 
