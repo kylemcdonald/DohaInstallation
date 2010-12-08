@@ -38,9 +38,17 @@ void testApp::update() {
 		oscReceiver.getNextMessage(&message);
 		string address = message.getAddress();
 		if(address.compare("mouse") == 0) {
-			int mx = message.getArgAsInt32(0);
-			int my = message.getArgAsInt32(1);
-			surface.update(ofxVec2f(mx, my));
+			ofxVec2f maxSize = getMaxSize();
+			vector<ofxVec2f> forces;
+			for(int i = 0; i < message.getNumArgs(); i += 2) {
+				float x = message.getArgAsFloat(i + 0);
+				float y = message.getArgAsFloat(i + 1);
+				ofxVec2f cur(x, y);
+				cur *= maxSize;
+				forces.push_back(cur);
+			}
+			
+			surface.update(forces);
 			wall.update();
 		} else if(address.compare("debug") == 0) {
 			ofxMultiscreen::debug = !ofxMultiscreen::debug;
@@ -76,14 +84,20 @@ void testApp::keyReleased(int key) {
 }
 
 void testApp::mouseMoved(int x, int y) {
-	x *= 14;
-	y *= 14;
-
 	if(master) {
 		ofxOscMessage message;
 		message.setAddress("mouse");
-		message.addIntArg(x);
-		message.addIntArg(y);
+		
+		ofxVec2f cur(x, y);
+		cur /= ofxVec2f(ofGetWidth(), ofGetHeight());
+		
+		message.addFloatArg(cur.x);
+		message.addFloatArg(cur.y);
+	
+		cur += .1;
+		message.addFloatArg(cur.x);
+		message.addFloatArg(cur.y);
+		
 		oscSender.sendMessage(message);
 	}
 }

@@ -16,6 +16,9 @@ ofTrueTypeFont ofxMultiscreen::font;
 bool ofxMultiscreen::powersave = true;
 bool ofxMultiscreen::debug = true;
 
+ofPoint ofxMultiscreen::maxSize;
+bool ofxMultiscreen::hasMaxSize = false;
+
 void ofxMultiscreen::multiLoad() {
 	// normally this runs with ofRunApp, but we need it sooner so we can load xml settings
 #ifdef TARGET_OSX
@@ -45,7 +48,8 @@ void ofxMultiscreen::multiLoad() {
 
 	if(ofLogLevel() == OF_LOG_VERBOSE) {
 		if(master) {
-			cout << "This computer is running as master." << endl;
+			ofxVec2f maxSize = getMaxSize();
+			cout << "This computer is running as master at " << maxSize.x << "x" << maxSize.y << endl;
 		} else {
 			cout << "This computer is running as a client." << endl;
 		}
@@ -131,19 +135,21 @@ void ofxMultiscreen::launch(string appName) {
 }
 
 ofPoint ofxMultiscreen::getMaxSize() {
-	ofPoint maxSize;
-	for(unsigned int i = 0; i < computers.size(); i++) {
-		vector<MultiCard>& cards = computers[i].cards;
-		for(unsigned int j = 0; j < cards.size(); j++) {
-			vector<MultiScreen>& screens = cards[j].screens;
-			for(unsigned int k = 0; k < screens.size(); k++) {
-				ofPoint curSize = screens[k].getMaxSize();
-				if(curSize.x > maxSize.x)
-					maxSize.x = curSize.x;
-				if(curSize.y > maxSize.y)
-					maxSize.y = curSize.y;
+	if(!hasMaxSize) {
+		for(unsigned int i = 0; i < computers.size(); i++) {
+			vector<MultiCard>& cards = computers[i].cards;
+			for(unsigned int j = 0; j < cards.size(); j++) {
+				vector<MultiScreen>& screens = cards[j].screens;
+				for(unsigned int k = 0; k < screens.size(); k++) {
+					ofPoint curSize = screens[k].getMaxSize();
+					if(curSize.x > maxSize.x)
+						maxSize.x = curSize.x;
+					if(curSize.y > maxSize.y)
+						maxSize.y = curSize.y;
+				}
 			}
 		}
+		hasMaxSize = true;
 	}
 	return maxSize;
 }

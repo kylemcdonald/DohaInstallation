@@ -40,12 +40,12 @@ public:
 	const ofxVec2f& getDivisions() const {
 		return divisions;
 	}
-	void update(const ofxVec2f& position) {
+	void update(const vector<ofxVec2f>& positions) {
 		float forceShape = 1;
 		float forceMagnitude = 512;
-
+		
 		for(unsigned int i = 0; i < grid.size(); i++) {
-			grid[i].update(position, forceShape, forceMagnitude);
+			grid[i].update(positions, forceShape, forceMagnitude);
 		}
 	}
 	void draw() const {

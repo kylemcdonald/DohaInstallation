@@ -48,5 +48,7 @@ public:
 	static float ofGetWidthLocal();
 	static float ofGetHeightLocal();
 
-	ofPoint getMaxSize();
+	static ofPoint maxSize;
+	static bool hasMaxSize;
+	static ofPoint getMaxSize();
 };

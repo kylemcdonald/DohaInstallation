@@ -11,11 +11,14 @@ public:
 	void setOrigin(float x, float y) {
 		origin.set(x, y);
 	}
-	inline void update(const ofxVec2f& forceCenter, float forceShape, float forceMagnitude) {
-		ofxVec2f difference = origin - forceCenter;
-		float length = difference.length();
-		difference /= powf(length, forceShape);
-		ofxVec2f position = origin + forceMagnitude * difference;
+	inline void update(const vector<ofxVec2f>& forceCenters, float forceShape, float forceMagnitude) {
+		ofxVec2f position = origin;
+		for(int i = 0; i < forceCenters.size(); i++) {
+			ofxVec2f difference = origin - forceCenters[i];
+			float length = difference.length();
+			difference /= powf(length, forceShape);
+			position += forceMagnitude * difference;
+		}
 		set(position);
 	}
 	inline void draw() const {
