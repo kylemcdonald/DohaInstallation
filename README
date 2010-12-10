@@ -7,10 +7,22 @@ all: plug into 8-port gigabit router with internet connection
 master: install ubuntu 10.10 x64 named 3rdi0
 slaves: install ubuntu 10.4.1 x64 named 3rdin where n is 1-5
 
-all: install NVIDIA drivers either using the 'hardware drivers' dialog, or:
-$ sudo apt-get install nvidia-current
+all: install NVIDIA drivers:
+$ sudo add-apt-repository ppa:ubuntu-x-swat/x-updates
+$ sudo apt-get dist-upgrade
+$ sudo apt-get update
+$ sudo apt-get install nvidia-current nvidia-current-modaliases nvidia-settings
 slaves: set nvidia to manage xconfig
 $ sudo nvidia-xconfig
+
+add blank/standby/suspend disable to /etc/X11/xorg.conf:
+Section "ServerFlags"
+ Option "BlankTime" "0"
+ Option "StandbyTime" "0"
+ Option "SuspendTime" "0"
+ Option "OffTime" "0"
+EndSection
+
 all: enable remote desktop
 all: disable screensaver
 all: disable idle mode
