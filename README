@@ -1,18 +1,21 @@
-1 alienware area-51 with NVIDA 480
-5 alienware aurora with dual NVIDIA 460
+1x alienware area-51 with NVIDA 480
+5x alienware aurora with dual NVIDIA 460
+1x gigabit router
 
 all: plug in one monitor
-all: plug into 8-port gigabit ethernet with internet connection
-all: install ubuntu 10.10
-all: named 3rdi_ where _ is 0 (master) and 1-5 (slaves)
+all: plug into 8-port gigabit router with internet connection
+master: install ubuntu 10.10 x64 named 3rdi0
+slaves: install ubuntu 10.4.1 x64 named 3rdin where n is 1-5
 
-all: install NVIDIA drivers
+all: install NVIDIA drivers either using the 'hardware drivers' dialog, or:
+	sudo apt-get install nvidia-current
+slaves: set nvidia to manage xconfig
+	sudo nvidia-xconfig
 all: enable remote desktop
 all: disable screensaver
 all: disable idle mode
 all: disable "turn off display" in power management
 all: disable visual effects (Desktop > Set Background > Visual Effects)
-all: set all graphics cards to "maximum performance" with powermizer
 
 all: sudo apt-get install openssh-server
 all: ssh-keygen
@@ -20,11 +23,17 @@ all: ssh-copy-id 3rdi0.local
 master: ssh-copy-id 3rdi_.local where _ is 1-5
 
 master: sudo apt-get install git
-master: git clone http://github.com/memo/openFrameworks.git
+master: install OF
+	cd Desktop
+	git clone http://github.com/openframeworks/openFrameworks.git
 master: run OF install scripts
-
-master: get ptgrey SDK, install libusb and 10.04 SDK installer
+	cd openFrameworks/scripts/linux/ubuntu
+	sudo ./install_codeblocks.sh
+	sudo ./install_dependencies.sh
 
 slaves: plug in all monitors with one DH2G on each port
 dh2g: set all to only report 2x1920x1080 @ 60 Hz from a Windows machine
-slaves: for secondary ports, use TwinView, stack vertically
+slaves: for secondary ports use TwinView, stack all ports vertically, save to xorg.conf
+	sudo nvidia-settings
+
+master: get ptgrey SDK, install libusb and 10.04 SDK installer
