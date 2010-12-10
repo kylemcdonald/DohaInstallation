@@ -1,10 +1,10 @@
 #include "testApp.h"
 
-void testApp::setup() {	
+void testApp::setup() {
 	ofSetWindowTitle(appName);
-		
+
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	
+
 	drawRadius = 400;
 
 	setupOsc();
@@ -47,7 +47,7 @@ void testApp::update() {
 				cur *= maxSize;
 				forces.push_back(cur);
 			}
-			
+
 			surface.update(forces);
 			wall.update();
 		} else if(address.compare("debug") == 0) {
@@ -59,14 +59,14 @@ void testApp::update() {
 void testApp::drawLocal() {
 	ofBackground(0, 0, 0);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	ofxVec2f curPosition = localScreen.absolutePosition();
 	ofxVec2f curSize = MultiScreen::size;
 	curPosition -= drawRadius;
 	curSize += drawRadius * 2;
 	ofRectangle curWindow;
 	curWindow.set(curPosition, curSize.x, curSize.y);
-	
+
 	wall.drawWindow(curWindow);
 	glDisable(GL_DEPTH_TEST);
 }
@@ -87,17 +87,17 @@ void testApp::mouseMoved(int x, int y) {
 	if(master) {
 		ofxOscMessage message;
 		message.setAddress("mouse");
-		
+
 		ofxVec2f cur(x, y);
 		cur /= ofxVec2f(ofGetWidth(), ofGetHeight());
-		
+
 		message.addFloatArg(cur.x);
 		message.addFloatArg(cur.y);
-	
+
 		cur += .1;
 		message.addFloatArg(cur.x);
 		message.addFloatArg(cur.y);
-		
+
 		oscSender.sendMessage(message);
 	}
 }

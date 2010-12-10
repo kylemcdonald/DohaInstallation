@@ -4,19 +4,9 @@
 
 all: plug in one monitor
 all: plug into 8-port gigabit router with internet connection
-master: install ubuntu 10.10 x64 named 3rdi0
-slaves: install ubuntu 10.4.1 x64 named 3rdin where n is 1-5
+all: install ubuntu 10.10 x64. master is named 3rdi0, slaved are named 3rdin where n is 1-5
 
-all: install NVIDIA drivers either using the 'hardware drivers' dialog, or:
-$ sudo apt-get install nvidia-current
-slaves: set nvidia to manage xconfig
-$ sudo nvidia-xconfig
 all: enable remote desktop
-all: disable screensaver
-all: disable idle mode
-all: disable "turn off display" in power management
-all: disable visual effects (Desktop > Set Background > Visual Effects)
-
 gives slaves access to master and vice versa:
 all:
 $ sudo apt-get install openssh-server
@@ -27,6 +17,15 @@ master:
 $ ssh-copy-id 3rdi1.local
 $ ...
 $ ssh-copy-id 3rdi5.local
+
+all: system > preferences > screensaver, disable screensaver, disable screen lock
+all: system > preferences > power management, disable "turn off display"
+all: disable visual effects (Desktop > Set Background > Visual Effects)
+
+all: install NVIDIA drivers either using the 'hardware drivers' dialog, or:
+$ sudo apt-get install nvidia-current
+slaves: set nvidia to manage xconfig
+$ sudo nvidia-xconfig
 
 master: install OF
 $ cd Desktop
