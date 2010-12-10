@@ -22,10 +22,20 @@ all: system > preferences > screensaver, disable screensaver, disable screen loc
 all: system > preferences > power management, disable "turn off display"
 all: disable visual effects (Desktop > Set Background > Visual Effects)
 
-all: install NVIDIA drivers either using the 'hardware drivers' dialog, or:
-$ sudo apt-get install nvidia-current
-slaves: set nvidia to manage xconfig
-$ sudo nvidia-xconfig
+all: install NVIDIA drivers:
+$ sudo add-apt-repository ppa:ubuntu-x-swat/x-updates
+$ sudo apt-get dist-upgrade
+$ sudo apt-get update
+use system > administration > additional drivers to switch to proprietary driver
+use system > administration > update manager to install updates
+
+add blank/standby/suspend disable to /etc/X11/xorg.conf:
+Section "ServerFlags"
+ Option "BlankTime" "0"
+ Option "StandbyTime" "0"
+ Option "SuspendTime" "0"
+ Option "OffTime" "0"
+EndSection
 
 master: install OF
 $ cd Desktop
