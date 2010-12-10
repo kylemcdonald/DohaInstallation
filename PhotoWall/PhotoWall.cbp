@@ -136,6 +136,7 @@
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiCard.h" />
+		<Unit filename="../addons/ofxMultiscreen/src/MultiComputer.cpp" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiComputer.h" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiScreen.cpp" />
 		<Unit filename="../addons/ofxMultiscreen/src/MultiScreen.h" />

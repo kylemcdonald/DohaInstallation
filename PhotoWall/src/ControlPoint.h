@@ -13,7 +13,7 @@ public:
 	}
 	inline void update(const vector<ofxVec2f>& forceCenters, float forceShape, float forceMagnitude) {
 		ofxVec2f position = origin;
-		for(int i = 0; i < forceCenters.size(); i++) {
+		for(unsigned int i = 0; i < forceCenters.size(); i++) {
 			ofxVec2f difference = origin - forceCenters[i];
 			float length = difference.length();
 			difference /= powf(length, forceShape);

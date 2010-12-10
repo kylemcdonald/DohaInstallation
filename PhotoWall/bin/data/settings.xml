@@ -1,7 +1,7 @@
 <options>
 	<powersave>0</powersave>
 	<debug>1</debug>
-    <sendCommands>0</sendCommands>
+	<sendCommands>1</sendCommands>
 </options>
 
 <path>

@@ -8,11 +8,11 @@ MultiComputer::MultiComputer(ofxXmlSettings& settings, int which) {
 
 int MultiComputer::execute(string command) {
 	command = "ssh -f " + hostname + ".local \"" + command + "\"";
-	if(ofLogLevel() == OF_LOG_VERBOSE)
-		cout << ">" << command << endl;
 	if(sendCommands) {
+	    ofLog(OF_LOG_VERBOSE, ">" + command);
 		return system(command.c_str());
 	} else {
+	    ofLog(OF_LOG_VERBOSE, "(>" + command + ")");
 		return 0;
 	}
 }
