@@ -24,7 +24,7 @@ void MultiComputer::executeAllDisplays(string command) {
 }
 
 void MultiComputer::executeDisplay(string command, int i) {
-	execute("export DISPLAY=:0." + ofToString((int) i) + "; " + command);
+	execute("export DISPLAY=:0." + ofToString((int) i) + " && " + command);
 }
 
 void MultiComputer::launch(string appName) {
