@@ -4,7 +4,7 @@
 
 all: plug in one monitor
 all: plug into 8-port gigabit router with internet connection
-all: install ubuntu 10.10 x64. master is named 3rdi0, slaved are named 3rdin where n is 1-5
+all: install ubuntu 10.10 x64. master is named 3rdi0, slaved are named 3rdin where n is 1-5, use autologin
 
 all: enable remote desktop
 gives slaves access to master and vice versa:
@@ -20,22 +20,34 @@ $ ssh-copy-id 3rdi5.local
 
 all: system > preferences > screensaver, disable screensaver, disable screen lock
 all: system > preferences > power management, disable "turn off display"
-all: disable visual effects (Desktop > Set Background > Visual Effects)
 
 all: install NVIDIA drivers:
 $ sudo add-apt-repository ppa:ubuntu-x-swat/x-updates
 $ sudo apt-get dist-upgrade
 $ sudo apt-get update
 use system > administration > additional drivers to switch to proprietary driver
-use system > administration > update manager to install updates
+$ sudo shutdown -r now
+disable visual effects (Desktop > Set Background > Visual Effects)
+opem system > administration > update manager
+check 'unsupported updates' in settings
+uncheck 'check for updates' in settings
+set 'show new distribution releases' to 'never'
+install updates
+$ sudo shutdown -r now
 
-add blank/standby/suspend disable to /etc/X11/xorg.conf:
+slaves: for secondary ports use TwinView, stack all ports vertically, save to xorg.conf
+$ sudo nvidia-settings
+
+all: turn off screensaver/blanking/etc
+$ sudo nano /etc/X11/xorg.conf
+add the following:
 Section "ServerFlags"
  Option "BlankTime" "0"
  Option "StandbyTime" "0"
  Option "SuspendTime" "0"
  Option "OffTime" "0"
 EndSection
+$ sudo shutdown -r now
 
 master: install OF
 $ cd Desktop
@@ -55,7 +67,5 @@ $ git clone git@github.com:kylemcdonald/DohaInstallation.git
 
 slaves: plug in all monitors with one DH2G on each port
 dh2g: set all to only report 2x1920x1080 @ 60 Hz from a Windows machine
-slaves: for secondary ports use TwinView, stack all ports vertically, save to xorg.conf
-$ sudo nvidia-settings
 
 master: get ptgrey SDK, install libusb and 10.04 SDK installer
