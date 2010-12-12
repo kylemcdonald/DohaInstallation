@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="src/Photo.h" open="1" top="0" tabpos="1">
+	<File name="src/ControlPoint.h" open="1" top="0" tabpos="4">
+		<Cursor position="354" topLine="0" />
+	</File>
+	<File name="src/ControlSurface.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/testApp.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="141" topLine="0" />
+	<File name="src/ControlSurface.h" open="1" top="0" tabpos="8">
+		<Cursor position="1169" topLine="0" />
+	</File>
+	<File name="src/Photo.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="617" topLine="0" />
+	</File>
+	<File name="src/Photo.h" open="1" top="0" tabpos="1">
+		<Cursor position="231" topLine="0" />
+	</File>
+	<File name="src/PhotoWall.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="278" topLine="0" />
+	</File>
+	<File name="src/PhotoWall.h" open="1" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/testApp.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1589" topLine="45" />
+	</File>
+	<File name="../addons/ofxMultiscreen/src/MultiComputer.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="340" topLine="0" />
+	</File>
+	<File name="../addons/ofxMultiscreen/src/MultiComputer.h" open="1" top="0" tabpos="9">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../addons/ofxMultiscreen/src/MultiScreen.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="446" topLine="0" />
+	</File>
+	<File name="../addons/ofxMultiscreen/src/MultiScreen.h" open="1" top="0" tabpos="11">
+		<Cursor position="121" topLine="0" />
+	</File>
+	<File name="../addons/ofxMultiscreen/src/ofxMultiscreen.cpp" open="1" top="0" tabpos="13">
+		<Cursor position="4669" topLine="153" />
 	</File>
 </CodeBlocks_layout_file>
