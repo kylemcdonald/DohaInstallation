@@ -10,7 +10,7 @@
 </path>
 
 <defaults>
-	<screen width="1920" height="1080" bevel="100"/>
+	<screen width="1920" height="1080" bevelWidth="376" bevelHeight="1280"/>
 </defaults>
 
 <computers>

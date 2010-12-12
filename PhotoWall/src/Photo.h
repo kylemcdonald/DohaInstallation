@@ -10,8 +10,9 @@ protected:
 	ofxVec2f position;
 	float rotation;
 	float brightness;
+
+	ofColor baseColor;
 public:
-	Photo();
 	void setup(const ControlSurface& surface, float x, float y);
 	void update();
 	void draw() const;
