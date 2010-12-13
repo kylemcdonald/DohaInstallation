@@ -25,7 +25,7 @@ void testApp::setupOsc() {
 	if(master) {
 		cout << "Broadcasting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
-		startScreens();
+        startScreens();
 	}
 
 	cout << "Listening on port " << port << endl;

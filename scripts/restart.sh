@@ -1,3 +1,3 @@
 #!/bin/sh
-./mirror.pl "sudo shutdown -r now"
+./mirror.pl "shutdown -r now"
 #sudo shutdown -r now
