@@ -1,16 +1,20 @@
 #include "Photo.h"
 
+int Photo::photoWidth = 816;
+int Photo::photoHeight = 612;
+
 void Photo::setup(const ControlSurface& surface, float x, float y) {
 	nw = &(surface.get(floor(x), floor(y)));
 	ne = &(surface.get(ceil(x), floor(y)));
 	sw = &(surface.get(floor(x), ceil(y)));
 	se = &(surface.get(ceil(x), ceil(y)));
 	baseColor.set(ofRandom(0, 1), ofRandom(0, 1), ofRandom(0, 1));
+	img = PhotoManager::randomPhoto();
 }
 
 void Photo::update() {
 	size = nw->distance(*se) + ne->distance(*sw);
-	size /= 3;
+	size /= 4;
 	//size = size * size;
 	//size /= 6 * 6;
 
@@ -31,6 +35,7 @@ void Photo::draw() const {
 	glTranslatef(position.x, position.y, size / 10.);
 	ofRotate(ofRadToDeg(rotation));
 
+/*
 	// frame
 	glColor3f(1, 1, 1);
 	glScalef(size * 16 / 9, size, 1);
@@ -40,16 +45,34 @@ void Photo::draw() const {
 	glVertex2f(.5, .5);
 	glVertex2f(.5, -.5);
 	glEnd();
-
+*/
 	// photo
-	glColor3f(brightness * baseColor.r, brightness * baseColor.g, brightness * baseColor.b);
+	//glColor3f(brightness * baseColor.r, brightness * baseColor.g, brightness * baseColor.b);
 	glScalef(.95, .95, 1);
-	glBegin(GL_QUADS);
-	glVertex2f(-.5, -.5);
-	glVertex2f(-.5, .5);
-	glVertex2f(.5, .5);
-	glVertex2f(.5, -.5);
-	glEnd();
+	
+	if(ofxMultiscreen::master) {
+		glColor3f(baseColor.r, baseColor.g, baseColor.b);
+		glBegin(GL_QUADS);
+		glVertex2f(-.5, -.5);
+		glVertex2f(-.5, .5);
+		glVertex2f(.5, .5);
+		glVertex2f(.5, -.5);
+		glEnd();
+	} else {
+		glColor3f(1, 1, 1);
+		img->bind();
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(-.5, -.5);
+		glTexCoord2f(0, photoHeight);
+		glVertex2f(-.5, .5);
+		glTexCoord2f(photoWidth, photoHeight);
+		glVertex2f(.5, .5);
+		glTexCoord2f(photoWidth, 0);
+		glVertex2f(.5, -.5);
+		glEnd();
+		img->unbind();
+	}
 
 	glPopMatrix();
 }

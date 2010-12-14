@@ -1,9 +1,12 @@
 #pragma once
 
-#include "SoftImage.h"
+#include "LazyImage.h"
 
 class PhotoManager {
 private:
-    vector<SoftImage> all;
+	static vector<LazyImage*> all;
 public:
+	static void setup(string path);
+	static void clear();
+	static LazyImage* randomPhoto();
 };

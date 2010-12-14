@@ -2,9 +2,13 @@
 
 #include "ControlSurface.h"
 #include "ControlPoint.h"
+#include "PhotoManager.h"
+#include "ofxMultiscreen.h"
 
 class Photo {
 protected:
+	static int photoWidth, photoHeight;
+
 	const ControlPoint *nw, *ne, *sw, *se;
 	float size;
 	ofxVec2f position;
@@ -12,6 +16,8 @@ protected:
 	float brightness;
 
 	ofColor baseColor;
+	
+	LazyImage* img;
 public:
 	void setup(const ControlSurface& surface, float x, float y);
 	void update();

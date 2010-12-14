@@ -10,11 +10,20 @@
 	<File name="src/ControlSurface.h" open="1" top="0" tabpos="8">
 		<Cursor position="1169" topLine="0" />
 	</File>
-	<File name="src/Photo.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="617" topLine="0" />
+	<File name="src/LazyImage.h" open="1" top="1" tabpos="16">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/Photo.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="400" topLine="0" />
 	</File>
 	<File name="src/Photo.h" open="1" top="0" tabpos="1">
 		<Cursor position="231" topLine="0" />
+	</File>
+	<File name="src/PhotoManager.cpp" open="1" top="0" tabpos="15">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/PhotoManager.h" open="1" top="0" tabpos="14">
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="src/PhotoWall.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="278" topLine="0" />

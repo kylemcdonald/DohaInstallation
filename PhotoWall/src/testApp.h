@@ -5,6 +5,7 @@
 #include "ofxOsc.h"
 #include "ControlSurface.h"
 #include "PhotoWall.h"
+#include "PhotoManager.h"
 
 class testApp : public ofxMultiscreen {
 public:

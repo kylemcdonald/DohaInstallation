@@ -1,16 +1,20 @@
 #include "testApp.h"
 
 void testApp::setup() {
+	ofSeedRandom(0);
+	
 	ofSetWindowTitle(appName);
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	drawRadius = 400;
 
+	PhotoManager::setup("~/Desktop/3rdiStream/resized/");
+	
 	setupOsc();
 
 	ofxVec2f size = getMaxSize();
-	surface.setup(size, ofxVec2f(190, 190));
+	surface.setup(size, ofxVec2f(80, 80));
 	wall.setup(surface);
 }
 
