@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+$source = "/home/kyle/Desktop/3rdiStream";
+$target = "/home/kyle/Desktop";
+
+for(1..5) {
+	$location = "3rdi$_.local";
+	$cmd = "rsync -aqr --delete $source $location:$target";
+	print "$cmd\n"; 
+	print `$cmd`;
+}

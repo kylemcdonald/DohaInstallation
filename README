@@ -69,7 +69,13 @@ master: download DohaInstallation
 $ cd ~/Desktop/openFrameworks/apps
 $ git clone git@github.com:kylemcdonald/DohaInstallation.git
 
-master: open PhotoWall.workspace and build
+master: create 3rdiStream directory on desktop
+master: install gnome-schedule and schedule for every minute:
+/home/kyle/Desktop/openFrameworks/apps/DohaInstallation/scripts/rsync-download.pl >/dev/null 2>&1
+master: add third room to startup applications:
+gnome-terminal -e /home/kyle/Desktop/openFrameworks/apps/DohaInstallation/scripts/start-third-room.sh
+
 slaves: install OF using rsync'd OF folder
+master: open PhotoWall.workspace, build and run
 
 master: get ptgrey SDK, install libusb and 10.04 SDK installer
