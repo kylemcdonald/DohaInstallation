@@ -10,7 +10,7 @@
 #include "Poco/DateTimeParser.h"
 #include "Poco/DateTimeFormatter.h"
 
-#define IMAGES_DIRECTORY "/Users/kyle/Desktop/3rdiStream/resized/"
+#define IMAGES_DIRECTORY "/home/kyle/Desktop/3rdiStream/resized/"
 #define UPDATE_DIRECTORY_RATE 5
 
 class testApp : public ofBaseApp{
@@ -27,19 +27,19 @@ class testApp : public ofBaseApp{
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
-	
+
 	// wow, private section in ofBaseApp. that's a first.
 	private:
-	
+
 		Poco::File currentDirectory;
 		Poco::File currentFile;
 		Poco::File parentDirectory;
 		ofImage mostRecentImage;
 		bool updateDirectory, currentDirAssigned;
 		int currentDay;
-		
+
 		string dateFormat, timeFormat;
-	
+
 		int lastSeconds;
 };
 
