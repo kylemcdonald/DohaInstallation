@@ -1,7 +1,7 @@
 #include "Photo.h"
 
-int Photo::photoWidth = 816;
-int Photo::photoHeight = 612;
+int Photo::photoWidth = 816 / 2;
+int Photo::photoHeight = 612 / 2;
 float Photo::aspectRatio = (float) Photo::photoWidth / Photo::photoHeight;
 
 void Photo::setup(const ControlSurface& surface, float x, float y) {

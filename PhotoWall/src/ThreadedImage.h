@@ -13,6 +13,7 @@ protected:
 		loadedCpu = false;
 		loadedGpu = false;
 		ofImage::loadImage(filename);
+		resize(816 / 2, 612 / 2);
 		loadedCpu = true;
 	}
 public:
