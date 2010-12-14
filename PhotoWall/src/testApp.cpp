@@ -15,6 +15,10 @@ void testApp::setup() {
 	wall.setup(surface);
 }
 
+testApp::~testApp() {
+	PhotoManager::clear();
+}
+
 void testApp::setupOsc() {
 	ofxXmlSettings settings;
 	if(!settings.loadFile("osc.xml")) {

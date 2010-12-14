@@ -2,7 +2,7 @@
 
 int Photo::photoWidth = 816;
 int Photo::photoHeight = 612;
-float Photo::aspectRatio = Photo::photoWidth / Photo::photoHeight;
+float Photo::aspectRatio = (float) Photo::photoWidth / Photo::photoHeight;
 
 void Photo::setup(const ControlSurface& surface, float x, float y) {
 	nw = &(surface.get(floor(x), floor(y)));
@@ -16,9 +16,6 @@ void Photo::setup(const ControlSurface& surface, float x, float y) {
 void Photo::update() {
 	size = nw->distance(*se) + ne->distance(*sw);
 	size /= 4;
-	size = fabsf(size);
-	//size = size * size;
-	//size /= 6 * 6;
 
 	position = *nw + *ne + *sw + *se;
 	position /= 4;
@@ -26,7 +23,6 @@ void Photo::update() {
 	ofxVec2f o1 = *sw - *se;
 	ofxVec2f o2 = *nw - *ne;
 	rotation = atan2f(o1.y, o1.x) + atan2f(o2.y, o2.x);
-	//rotation /= 2;
 
 	brightness = ofMap(size, 200, 400, 1, 0, true);
 }
@@ -52,9 +48,8 @@ void Photo::draw() const {
 	
 	// photo
 	//glColor3f(brightness * baseColor.r, brightness * baseColor.g, brightness * baseColor.b);
-	glScalef(.95, .95, 1);
 	
-	if(true || ofxMultiscreen::master) {
+	if(ofxMultiscreen::master) {
 		glBegin(GL_QUADS);
 		glColor3f(baseColor.r * .2, baseColor.g * .2, baseColor.b * .2);
 		glVertex2f(-.5, .5);
@@ -64,17 +59,20 @@ void Photo::draw() const {
 		glVertex2f(-.5, -.5);
 		glEnd();
 	} else {
-		glColor3f(1, 1, 1);
 		img->bind();
 		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2f(-.5, -.5);
+		
+		glColor3f(.8, .8, .8);
 		glTexCoord2f(0, photoHeight);
 		glVertex2f(-.5, .5);
 		glTexCoord2f(photoWidth, photoHeight);
 		glVertex2f(.5, .5);
+		
+		glColor3f(1, 1, 1);
 		glTexCoord2f(photoWidth, 0);
 		glVertex2f(.5, -.5);
+		glTexCoord2f(0, 0);
+		glVertex2f(-.5, -.5);
 		glEnd();
 		img->unbind();
 	}

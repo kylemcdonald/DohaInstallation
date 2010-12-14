@@ -10,6 +10,7 @@
 class testApp : public ofxMultiscreen {
 public:
 	void setup();
+	~testApp();
 	void setupOsc();
 	void update();
 
