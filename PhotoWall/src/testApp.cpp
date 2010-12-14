@@ -10,7 +10,7 @@ void testApp::setup() {
 	setupOsc();
 
 	ofxVec2f size = getMaxSize();
-	surface.setup(size, ofxVec2f(90, 90));
+	surface.setup(size, ofxVec2f(190, 190));
 	wall.setup(surface);
 }
 
@@ -25,7 +25,7 @@ void testApp::setupOsc() {
 	if(master) {
 		cout << "Broadcasting to " << address << ":" << port << endl;
 		oscSender.setup(address, port);
-		startScreens();
+        startScreens();
 	}
 
 	cout << "Listening on port " << port << endl;
@@ -93,11 +93,11 @@ void testApp::mouseMoved(int x, int y) {
 
 		message.addFloatArg(cur.x);
 		message.addFloatArg(cur.y);
-
+/*
 		cur += .1;
 		message.addFloatArg(cur.x);
 		message.addFloatArg(cur.y);
-
+*/
 		oscSender.sendMessage(message);
 	}
 }

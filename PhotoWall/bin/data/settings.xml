@@ -10,7 +10,7 @@
 </path>
 
 <defaults>
-	<screen width="1920" height="1080" bevel="100"/>
+	<screen width="1920" height="1080" bevelWidth="376" bevelHeight="1280"/>
 </defaults>
 
 <computers>
@@ -18,8 +18,8 @@
 		<card>
 			<screen x="0" y="4"/>
 			<screen x="1" y="12"/>
-			<screen x="0" y="10"/>
 			<screen x="0" y="9"/>
+			<screen x="0" y="10"/>
 		</card>
 		<card>
 			<screen x="2" y="10"/>
@@ -50,8 +50,8 @@
 			<screen x="5" y="10"/>
 		</card>
 		<card>
-			<screen x="2" y="4"/>
-			<screen x="2" y="5"/>
+			<screen x="5" y="9"/>
+			<screen x="6" y="11"/>
 			<screen x="5" y="9"/>
 			<screen x="5" y="5"/>
 		</card>

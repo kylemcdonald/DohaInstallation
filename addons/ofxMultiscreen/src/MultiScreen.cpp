@@ -1,12 +1,13 @@
 #include "MultiScreen.h"
 
 ofxVec2f MultiScreen::size;
-int MultiScreen::bevel;
+ofxVec2f MultiScreen::bevel;
 
 void MultiScreen::setDefaults(ofxXmlSettings& settings, int which) {
 	size.x = settings.getAttribute("screen", "width", 0, which);
 	size.y = settings.getAttribute("screen", "height", 0, which);
-	bevel = settings.getAttribute("screen", "bevel", 0, which);
+	bevel.x = settings.getAttribute("screen", "bevelWidth", 0, which);
+	bevel.y = settings.getAttribute("screen", "bevelHeight", 0, which);
 }
 
 MultiScreen::MultiScreen() {

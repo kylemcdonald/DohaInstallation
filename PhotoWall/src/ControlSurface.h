@@ -42,8 +42,8 @@ public:
 	}
 	void update(const vector<ofxVec2f>& positions) {
 		float forceShape = 1;
-		float forceMagnitude = 512;
-		
+		float forceMagnitude = 2048;
+
 		for(unsigned int i = 0; i < grid.size(); i++) {
 			grid[i].update(positions, forceShape, forceMagnitude);
 		}
