@@ -18,13 +18,14 @@ void testApp::setupOsc() {
 }
 
 void testApp::update() {
-    curPoint.set(ofNoise(ofGetElapsedTimef()), ofNoise(ofGetElapsedTimef() + 100));
+    t += ofGetLastFrameTime() * ofNoise(ofGetElapsedTimef());
+    curPoint.set(ofNoise(t), ofNoise(t + 100));
 
  	ofxOscMessage message;
     message.setAddress("mouse");
 
     message.addFloatArg(curPoint.x);
-    message.addFloatArg(.9);
+    message.addFloatArg(ofMap(curPoint.y, 0, 1, .8, .9));
 
     message.addFloatArg(curPoint.x);
     message.addFloatArg(curPoint.y);

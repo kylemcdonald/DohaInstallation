@@ -11,6 +11,8 @@ public:
 	void update();
 	void draw();
 
+	float t;
+
     ofxVec2f curPoint;
 	ofxOscSender oscSender;
 };
