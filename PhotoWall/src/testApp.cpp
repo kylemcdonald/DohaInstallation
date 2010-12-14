@@ -1,20 +1,17 @@
 #include "testApp.h"
 
 void testApp::setup() {
-	ofSeedRandom(0);
-	
 	ofSetWindowTitle(appName);
-
+	ofSetVerticalSync(true);
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
-	drawRadius = 400;
-
+	ofSeedRandom(0);
 	PhotoManager::setup("~/Desktop/3rdiStream/resized/");
 	
 	setupOsc();
 
 	ofxVec2f size = getMaxSize();
-	surface.setup(size, ofxVec2f(80, 80));
+	surface.setup(size, ofxVec2f(60, 100));
 	wall.setup(surface);
 }
 
@@ -43,7 +40,7 @@ void testApp::update() {
 		string address = message.getAddress();
 		if(address.compare("mouse") == 0) {
 			ofxVec2f maxSize = getMaxSize();
-			vector<ofxVec2f> forces;
+			forces.clear();
 			for(int i = 0; i < message.getNumArgs(); i += 2) {
 				float x = message.getArgAsFloat(i + 0);
 				float y = message.getArgAsFloat(i + 1);
@@ -62,17 +59,21 @@ void testApp::update() {
 
 void testApp::drawLocal() {
 	ofBackground(0, 0, 0);
-	glEnable(GL_DEPTH_TEST);
-
+	
+	//glEnable(GL_DEPTH_TEST);
 	ofxVec2f curPosition = localScreen.absolutePosition();
 	ofxVec2f curSize = MultiScreen::size;
-	curPosition -= drawRadius;
-	curSize += drawRadius * 2;
 	ofRectangle curWindow;
 	curWindow.set(curPosition, curSize.x, curSize.y);
-
 	wall.drawWindow(curWindow);
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
+	
+	/*
+	for(unsigned int i = 0; i < forces.size(); i++) {
+		ofSetColor(255);
+		ofFill();
+		ofCircle(forces[i], 2 * 1920);
+	}*/
 }
 
 void testApp::drawOverlay() {
@@ -97,11 +98,7 @@ void testApp::mouseMoved(int x, int y) {
 
 		message.addFloatArg(cur.x);
 		message.addFloatArg(cur.y);
-/*
-		cur += .1;
-		message.addFloatArg(cur.x);
-		message.addFloatArg(cur.y);
-*/
+		
 		oscSender.sendMessage(message);
 	}
 }

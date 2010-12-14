@@ -8,6 +8,7 @@
 class Photo {
 protected:
 	static int photoWidth, photoHeight;
+	static float aspectRatio;
 
 	const ControlPoint *nw, *ne, *sw, *se;
 	float size;

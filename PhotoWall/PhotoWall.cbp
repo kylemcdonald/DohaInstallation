@@ -75,6 +75,7 @@
 			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip/posix" />
 			<Add directory="../../../addons/ofxVectorMath/src" />
 			<Add directory="../addons/ofxMultiscreen/src" />
+			<Add directory="../../../addons/ofxThread/src" />
 		</Compiler>
 		<Linker>
 			<Add library="fmodex" />
@@ -105,6 +106,8 @@
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
 			<Add after="cd ../scripts; ./rsync-update.pl" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxThread/src/ofxThread.cpp" />
+		<Unit filename="../../../addons/ofxThread/src/ofxThread.h" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.cpp" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.h" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix4x4.cpp" />
@@ -135,6 +138,7 @@
 		<Unit filename="src/PhotoManager.h" />
 		<Unit filename="src/PhotoWall.cpp" />
 		<Unit filename="src/PhotoWall.h" />
+		<Unit filename="src/ThreadedImage.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />

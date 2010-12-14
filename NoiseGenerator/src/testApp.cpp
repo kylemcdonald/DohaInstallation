@@ -18,7 +18,7 @@ void testApp::setupOsc() {
 }
 
 void testApp::update() {
-    t += ofGetLastFrameTime() * ofNoise(ofGetElapsedTimef());
+    t += ofGetLastFrameTime() * ofNoise(ofGetElapsedTimef()) * .1;
     curPoint.set(ofNoise(t), ofNoise(t + 100));
 
  	ofxOscMessage message;

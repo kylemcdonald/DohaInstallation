@@ -23,6 +23,7 @@ public:
 	PhotoWall wall;
 	
 	float drawRadius;
+	vector<ofxVec2f> forces;
 
 	void keyPressed(int key);
 	void keyReleased(int key);

@@ -1,25 +1,28 @@
 #pragma once
 
-#include "ofMain.h"
+#include "ThreadedImage.h"
 
-class LazyImage : public ofImage {
+class LazyImage : public ThreadedImage {
 protected:
-	string filename;
-	bool loaded;
-public:
-	void setup(string filename) {
-		this->filename = filename;
-		loaded = false;
-	}
-	inline void load() {
-		if(!loaded) {
+	bool lazyLoaded;
+	inline void lazyLoad() {
+		if(!lazyLoaded) {
 			setUseTexture(true);
 			loadImage(filename);
-			loaded = true;
+			lazyLoaded = true;
 		}
 	}
+public:
+	void setup(string filename) {
+		lazyLoaded = false;
+		this->filename = filename;
+	}
 	void bind() {
-		load();
-		ofImage::bind();
+		/*
+		lazyLoad();
+		if(loaded) {
+			ofImage::bind();
+		}
+		*/
 	}
 };
