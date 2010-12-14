@@ -130,8 +130,11 @@
 		<Unit filename="src/ControlSurface.h" />
 		<Unit filename="src/Photo.cpp" />
 		<Unit filename="src/Photo.h" />
+		<Unit filename="src/PhotoManager.cpp" />
+		<Unit filename="src/PhotoManager.h" />
 		<Unit filename="src/PhotoWall.cpp" />
 		<Unit filename="src/PhotoWall.h" />
+		<Unit filename="src/SoftImage.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/testApp.cpp" />
 		<Unit filename="src/testApp.h" />
