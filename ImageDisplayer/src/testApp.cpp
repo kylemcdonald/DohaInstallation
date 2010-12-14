@@ -10,8 +10,10 @@ void testApp::setup()
 	updateDirectory = false;
 	parentDirectory = IMAGES_DIRECTORY;
 	updateDirectory = true;
-	currentDirAssigned = false;
+	currentDirAssigned = false;	
 	
+	// was causing lots of cpu usage
+	ofSetFrameRate(10);
 }
 
 
@@ -67,8 +69,10 @@ void testApp::update()
 		
 	}
 	
-	if(ofGetSeconds() % 30 == 0)
+	int curSeconds = ofGetSeconds();
+	if(curSeconds != lastSeconds && curSeconds % UPDATE_DIRECTORY_RATE == 0)
 	{
+		cout << "updating directory " << currentDirectory.path() << endl;
 		
 		// check the day
 		if(currentDay != ofGetDay()) updateDirectory = true;
@@ -94,14 +98,21 @@ void testApp::update()
 		
 		currentFile = Poco::DateTimeFormatter::format(imageFilenameTime, timeFormat);
 		string appended = currentFile.path()+".jpg"; // sleepy
-		mostRecentImage.loadImage(currentDirectory.path()+"/"+appended);
+		string imgPath = currentDirectory.path()+"/"+appended;
+		cout << "loading image from " << imgPath << endl;
+		mostRecentImage.loadImage(imgPath);
 	}
+	lastSeconds = curSeconds;
 }
 
 
 void testApp::draw()
 {
-	mostRecentImage.draw(0, 0, ofGetWidth(), ofGetHeight());
+	// span horizontally until filled
+	float w = mostRecentImage.getWidth();
+	float h = mostRecentImage.getHeight();
+	float s = ofGetWidth() / w;
+	mostRecentImage.draw(0, 0, w * s, h * s);
 }
 
 
