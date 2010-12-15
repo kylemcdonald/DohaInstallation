@@ -3,6 +3,35 @@
 int Photo::photoWidth = 816 / 2;
 int Photo::photoHeight = 612 / 2;
 float Photo::aspectRatio = (float) Photo::photoWidth / Photo::photoHeight;
+float Photo::rotationDamping = .6;
+
+float Photo::loopLerp(float from, float to, float min, float max, float t) {
+	float range = max - min;
+	float fromNorm = (from - min) / range;
+	float toNorm = (to - min) / range;
+	float between = fabsf(fromNorm - toNorm);
+	float edges;
+	if(from > to) {
+		edges = (1 - fromNorm) + toNorm;
+	} else {
+		edges = (1 - toNorm + fromNorm;
+	}
+	if(between < edges) {
+		return ofLerp(from, to, t);
+	} else {
+		if(toNorm < fromNorm) {
+			float lerpNorm = fromNorm + edges * t;
+			float lerpUnnorm = lerpNorm * range + min;
+			if(lerpUnnorm > max) {
+				return lerpUnnorm - range;
+			} else {
+				return lerpUnnorm;
+			}
+		} else {
+			
+		}
+	}
+}
 
 void Photo::setup(const ControlSurface& surface, float x, float y) {
 	nw = &(surface.get(floor(x), floor(y)));
@@ -22,7 +51,9 @@ void Photo::update() {
 
 	ofxVec2f o1 = *sw - *se;
 	ofxVec2f o2 = *nw - *ne;
-	rotation = atan2f(o1.y, o1.x) + atan2f(o2.y, o2.x);
+	float curRotation = atan2f(o1.y, o1.x) + atan2f(o2.y, o2.x);
+	//rotation = ofLerp(curRotation, rotation, rotationDamping);
+	rotation = curRotation;
 
 	brightness = ofMap(size, 200, 400, 1, 0, true);
 }
