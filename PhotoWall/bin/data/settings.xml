@@ -1,6 +1,6 @@
 <options>
 	<powersave>0</powersave>
-	<debug>1</debug>
+	<debug>0</debug>
 	<sendCommands>1</sendCommands>
 </options>
 
@@ -52,7 +52,7 @@
 		<card>
 			<screen x="5" y="9"/>
 			<screen x="6" y="11"/>
-			<screen x="5" y="9"/>
+			<screen x="6" y="10"/>
 			<screen x="5" y="5"/>
 		</card>
 	</computer>
