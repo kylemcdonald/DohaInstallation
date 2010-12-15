@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+#rsync -avz -e ssh thirdi@thirdiproject.electrawn.com:/home/thirdi/3rdiStream/resized /home/kyle/Desktop/3rdiStream/
+
 $source = "/home/kyle/Desktop/3rdiStream";
 $target = "/home/kyle/Desktop";
 
