@@ -34,6 +34,8 @@ void testApp::update() {
 		Poco::Path currentImage = getMostRecent(currentDirectory, timeFormat);
 		string curFilename = currentImage.toString();
 		cout << "Loading image from " << curFilename << endl;
+		// sleep for half a cycle to let the image download
+		ofSleepMillis(UPDATE_DIRECTORY_RATE * 1000 / 2);
 		mostRecentImage.loadImage(curFilename);
 	}
 	lastSeconds = curSeconds;
