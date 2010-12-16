@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
+	<File name="../../../addons/ofxVectorMath/src/ofxVec2f.h" open="1" top="0" tabpos="9">
+		<Cursor position="12902" topLine="535" />
+	</File>
 	<File name="src/ControlPoint.h" open="0" top="0" tabpos="4">
 		<Cursor position="354" topLine="0" />
 	</File>
@@ -13,11 +16,11 @@
 	<File name="src/LazyImage.h" open="1" top="0" tabpos="1">
 		<Cursor position="370" topLine="0" />
 	</File>
-	<File name="src/Photo.cpp" open="1" top="1" tabpos="7">
-		<Cursor position="831" topLine="0" />
+	<File name="src/Photo.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="892" topLine="58" />
 	</File>
 	<File name="src/Photo.h" open="1" top="0" tabpos="8">
-		<Cursor position="211" topLine="0" />
+		<Cursor position="194" topLine="0" />
 	</File>
 	<File name="src/PhotoManager.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="108" topLine="0" />
@@ -34,8 +37,8 @@
 	<File name="src/ThreadedImage.h" open="1" top="0" tabpos="2">
 		<Cursor position="693" topLine="0" />
 	</File>
-	<File name="src/testApp.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="516" topLine="0" />
+	<File name="src/testApp.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="2358" topLine="78" />
 	</File>
 	<File name="src/testApp.h" open="1" top="0" tabpos="6">
 		<Cursor position="216" topLine="0" />

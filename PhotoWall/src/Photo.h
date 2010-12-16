@@ -7,9 +7,9 @@
 
 class Photo {
 protected:
-	static float loopLerp(float from, float to, float min, float max, float t);
+	static float angleLerp(float from, float to, float t);
 
-	static float rotationDamping;
+	static float rotationDamping, maxSpeed, sizeDamping;
 	static int photoWidth, photoHeight;
 	static float aspectRatio;
 

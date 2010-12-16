@@ -87,6 +87,13 @@ void testApp::keyPressed(int key) {
 	if(key == 'f') {
 		ofToggleFullscreen();
 	}
+	if(key == ' ') {
+		if(master) {
+			ofxOscMessage message;
+			message.setAddress("debug");
+			oscSender.sendMessage(message);
+		}
+	}
 }
 
 void testApp::keyReleased(int key) {
@@ -111,11 +118,6 @@ void testApp::mouseDragged(int x, int y, int button) {
 }
 
 void testApp::mousePressed(int x, int y, int button) {
-	if(master) {
-		ofxOscMessage message;
-		message.setAddress("debug");
-		oscSender.sendMessage(message);
-	}
 }
 
 void testApp::mouseReleased(int x, int y, int button) {
