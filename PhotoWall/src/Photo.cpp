@@ -17,12 +17,12 @@ float Photo::angleLerp(float from, float to, float t) {
 }
 
 void Photo::setup(const ControlSurface& surface, float x, float y) {
+	img = PhotoManager::randomPhoto();
 	nw = &(surface.get(floor(x), floor(y)));
 	ne = &(surface.get(ceil(x), floor(y)));
 	sw = &(surface.get(floor(x), ceil(y)));
 	se = &(surface.get(ceil(x), ceil(y)));
 	baseColor.set(ofRandom(0, 1), ofRandom(0, 1), ofRandom(0, 1));
-	img = PhotoManager::randomPhoto();
 }
 
 void Photo::update() {

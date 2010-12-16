@@ -16,29 +16,29 @@
 	<File name="src/LazyImage.h" open="1" top="0" tabpos="1">
 		<Cursor position="370" topLine="0" />
 	</File>
-	<File name="src/Photo.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="892" topLine="58" />
+	<File name="src/Photo.cpp" open="1" top="1" tabpos="7">
+		<Cursor position="749" topLine="0" />
 	</File>
 	<File name="src/Photo.h" open="1" top="0" tabpos="8">
-		<Cursor position="194" topLine="0" />
+		<Cursor position="453" topLine="0" />
 	</File>
 	<File name="src/PhotoManager.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="108" topLine="0" />
+		<Cursor position="827" topLine="0" />
 	</File>
 	<File name="src/PhotoManager.h" open="1" top="0" tabpos="3">
 		<Cursor position="140" topLine="0" />
 	</File>
-	<File name="src/PhotoWall.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="702" topLine="0" />
+	<File name="src/PhotoWall.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="309" topLine="0" />
 	</File>
-	<File name="src/PhotoWall.h" open="0" top="0" tabpos="2">
+	<File name="src/PhotoWall.h" open="1" top="0" tabpos="10">
 		<Cursor position="13" topLine="0" />
 	</File>
 	<File name="src/ThreadedImage.h" open="1" top="0" tabpos="2">
 		<Cursor position="693" topLine="0" />
 	</File>
-	<File name="src/testApp.cpp" open="1" top="1" tabpos="5">
-		<Cursor position="2358" topLine="78" />
+	<File name="src/testApp.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1357" topLine="33" />
 	</File>
 	<File name="src/testApp.h" open="1" top="0" tabpos="6">
 		<Cursor position="216" topLine="0" />

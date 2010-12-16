@@ -20,6 +20,9 @@ $ ssh-copy-id 3rdi1.local
 $ ...
 $ ssh-copy-id 3rdi5.local
 
+all: allow all users to shutdown:
+sudo chmod u+x /sbin/shutdown
+
 all: system > preferences > screensaver, disable screensaver, disable screen lock
 all: system > preferences > power management, disable "turn off display"
 
