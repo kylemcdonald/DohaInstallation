@@ -15,4 +15,5 @@ class testApp : public ofBaseApp {
 		ofxKinect kinect;
 		vector<ofxVec3f> surface;
 		ofxAutoControlPanel panel;
+		vector<unsigned int> indices;
 };

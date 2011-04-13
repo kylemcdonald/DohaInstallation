@@ -9,8 +9,8 @@ const unsigned int Yres = 480;
 
 ofxVec3f ConvertProjectiveToRealWorld(float x, float y, float z) {
 	return ofxVec3f((x/Xres-.5f) * z * XtoZ,
-									(y/Yres-.5f) * z * YtoZ,
-									z);
+								 (y/Yres-.5f) * z * YtoZ,
+								 z);
 }
 
 //--------------------------------------------------------------
@@ -19,6 +19,8 @@ void testApp::setup() {
 	
 	panel.setup("Control Panel", 5, 5, 280, 600);
 	panel.addPanel("Camera");
+	panel.addSlider("maxLen", "maxLen", 8, 0, 20);
+	panel.addSlider("stepSize", "stepSize", 1, 1, 10, true);
 	panel.addSlider("nearClipping", "nearClipping", 380, 0, 1024);
 	panel.addSlider("farClipping", "farClipping", 600, 0, 1024);
 	panel.addSlider("orthoScale", "orthoScale", .66, 0, 2);
@@ -30,6 +32,7 @@ void testApp::setup() {
 	panel.addSlider("camrz", "camrz", 0, -180, 180);
 	
 	surface.resize(640 * 480);
+	indices.resize(640 * 480 * 3);
 	
 	kinect.init();
 	kinect.open();
@@ -40,11 +43,45 @@ void testApp::update() {
 	kinect.update();
 	if(kinect.isFrameNew()) {
 		float* z = kinect.getDistancePixels();
+		
 		int i = 0;
 		for(int y = 0; y < Yres; y++) {
 			for(int x = 0; x < Xres; x++) {
-				surface[i] = ConvertProjectiveToRealWorld(x, y, -z[i]);
+				if(z[i] != 0) {
+					surface[i] = ConvertProjectiveToRealWorld(x, y, -z[i]);
+				}
 				i++;
+			}
+		}
+		
+		indices.clear();
+		float maxLen = panel.getValueF("maxLen");
+		int stepSize = panel.getValueI("stepSize");
+		for(int y = 0; y < Yres - stepSize; y += stepSize) {
+			for(int x = 0; x < Xres - stepSize; x += stepSize) {
+				int i = y * Xres + x;
+				unsigned int nwi = i;
+				unsigned int nei = nwi + stepSize;
+				unsigned int swi = nwi + (stepSize * Xres);
+				unsigned int sei = swi + stepSize;
+				float nw = z[nwi];
+				float ne = z[nei];
+				float sw = z[swi];
+				float se = z[sei];
+				
+				if(nw != 0 && ne != 0 && sw != 0 &&
+					 abs(nw - ne) < maxLen && abs(nw - sw) < maxLen) {
+					indices.push_back(nwi);
+					indices.push_back(nei);
+					indices.push_back(swi);
+				}
+				
+				if(ne != 0 && se != 0 && sw != 0 &&
+					 abs(sw - se) < maxLen && abs(ne - se) < maxLen) {
+					indices.push_back(nei);
+					indices.push_back(sei);
+					indices.push_back(swi);
+				}
 			}
 		}
 	}
@@ -85,7 +122,7 @@ void testApp::draw() {
 	ofSetColor(255, 255, 255);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, sizeof(ofxVec3f), &(surface[0].x));
-	glDrawArrays(GL_POINTS, 0, surface.size());
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, &indices[0]);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	
 	ofPopMatrix();
