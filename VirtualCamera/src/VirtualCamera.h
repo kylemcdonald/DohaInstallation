@@ -37,4 +37,8 @@ private:
 	float nearClipping, farClipping;
 	float orthoScale;
 	ofxVec3f position, rotation;
+	
+	void updateSurface();
+	void updateMesh();
+	void renderCamera();
 };
