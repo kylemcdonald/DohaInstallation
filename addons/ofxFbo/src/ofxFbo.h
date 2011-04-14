@@ -50,8 +50,6 @@ public:
 
         int getWidth();
         int getHeight();
-				
-				void getPixels(unsigned char* pixels);
 
 protected:
         int width, height;

@@ -179,16 +179,3 @@ int ofxFbo::getWidth() {
 int ofxFbo::getHeight() {
 	return height;
 }
-
-void ofxFbo::getPixels(unsigned char* pixels) {
-	ofTexture& tex = *getAttachment();
-	tex.bind();
-	ofTextureData& data = tex.texData;
-	glGetTexImage(data.textureTarget,
-								0,
-								GL_RGB,//data.glType,
-								GL_UNSIGNED_BYTE,//data.pixelType,
-								pixels);
-	tex.unbind();
-}
-

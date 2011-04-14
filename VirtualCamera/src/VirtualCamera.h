@@ -28,7 +28,8 @@ private:
 	vector<unsigned int> indices;
 	
 	ofxFbo fbo;
-	ofImage fboPixels;
+	ofImage fboColorImage;
+	ofImage fboGrayImage;
 	
 	bool newFrame;
 	
@@ -41,4 +42,5 @@ private:
 	void updateSurface();
 	void updateMesh();
 	void renderCamera();
+	void updatePixels();
 };

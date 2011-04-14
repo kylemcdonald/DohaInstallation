@@ -36,8 +36,11 @@ void VirtualCamera::setup() {
 	kinect.open();
 	
 	fbo.setup(camWidth, camHeight);
-	fboPixels.allocate(camWidth, camHeight, OF_IMAGE_COLOR);
-	fboPixels.setUseTexture(false);
+	fboColorImage.allocate(camWidth, camHeight, OF_IMAGE_COLOR);
+	fbo.attach(fboColorImage.getTextureReference());
+	
+	fboGrayImage.allocate(camWidth, camHeight, OF_IMAGE_GRAYSCALE);
+	fboGrayImage.setUseTexture(false);
 }
 
 void VirtualCamera::updateSurface() {
@@ -127,9 +130,29 @@ void VirtualCamera::renderCamera() {
 	glDisable(GL_DEPTH_TEST);
 	
 	fbo.end();
-	
+}
+
+void VirtualCamera::updatePixels() {
 	fbo.clearAlpha();
-	fbo.getPixels(fboPixels.getPixels());
+	ofTexture& tex = fboColorImage.getTextureReference();
+	tex.bind();
+	ofTextureData& data = tex.texData;
+	glGetTexImage(data.textureTarget,
+								0,
+								GL_RGB,
+								GL_UNSIGNED_BYTE,
+								fboColorImage.getPixels());
+	tex.unbind();
+	
+	// fast color->gray conversion
+	unsigned char* grayPixels = fboGrayImage.getPixels();
+	unsigned char* colorPixels = fboColorImage.getPixels();
+	int n = camWidth * camHeight;
+	for(int i = 0; i < n; i++) {
+		*grayPixels = *colorPixels;
+		grayPixels += 1;
+		colorPixels += 3;
+	}
 }
 
 void VirtualCamera::update() {
@@ -140,6 +163,7 @@ void VirtualCamera::update() {
 		updateSurface();
 		updateMesh();
 		renderCamera();
+		updatePixels();
 	}
 }
 
@@ -150,7 +174,7 @@ bool VirtualCamera::isFrameNew() {
 }
 
 unsigned char* VirtualCamera::getPixels() {
-	return fboPixels.getPixels();
+	return fboGrayImage.getPixels();
 }
 
 void VirtualCamera::draw(float x, float y) {
