@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "VirtualCamera.h"
 #include "ofxAutoControlPanel.h"
+#include "ofxOpenCv.h"
 
 class testApp : public ofBaseApp {
 	public:
@@ -13,4 +14,6 @@ class testApp : public ofBaseApp {
 
 		ofxAutoControlPanel panel;
 		VirtualCamera cam;
+		ofxCvGrayscaleImage gray;
+		ofxCvContourFinder finder;
 };
