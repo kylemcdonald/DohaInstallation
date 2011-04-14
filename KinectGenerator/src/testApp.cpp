@@ -6,9 +6,11 @@ void testApp::setup() {
 	
 	panel.setup("Control Panel", 5, 5, 280, 600);
 	panel.addPanel("Contours");
+	panel.addSlider("alpha", "alpha", .2, 0, 1);
+	panel.addSlider("blurAmount", "blurAmount", 3, 0, 10, true);
 	panel.addSlider("threshLevel", "threshLevel", 128, 0, 255, true);
-	panel.addSlider("minArea", "minArea", 0, 0, 50, true);
-	panel.addSlider("maxArea", "maxArea", 240 * 240, 32 * 32, 240 * 240, true);
+	panel.addSlider("minArea", "minArea", 1000, 0, 100 * 100, true);
+	panel.addSlider("maxArea", "maxArea", 10000, 32 * 32, 240 * 240, true);
 	panel.addSlider("nConsidered", "nConsidered", 8, 1, 16, true);
 	
 	panel.addPanel("Camera");
@@ -26,7 +28,15 @@ void testApp::setup() {
 	
 	cam.setup();
 	
-	gray.allocate(640, 480);
+	blur.allocate(640, 480);
+	thresh.allocate(640, 480);
+}
+
+IplImage* toCv(unsigned char* pixels, int width, int height, int type) {
+	int channels = type == OF_IMAGE_COLOR ? 3 : 1;
+	IplImage* ipl = cvCreateImageHeader(cvSize(width, height), IPL_DEPTH_8U, channels);
+	cvSetData(ipl, pixels, channels * width);
+	return ipl;
 }
 
 //--------------------------------------------------------------
@@ -38,16 +48,24 @@ void testApp::update() {
 	cam.setPosition(ofxVec3f(panel.getValueF("camx"), panel.getValueF("camy"), panel.getValueF("camz")));
 	cam.setRotation(ofxVec3f(panel.getValueF("camrx"), panel.getValueF("camry"), panel.getValueF("camrz")));
 	
+	int blurAmount = panel.getValueI("blurAmount");
 	int threshLevel = panel.getValueI("threshLevel");
 	int minArea = panel.getValueI("minArea");
 	int maxArea = panel.getValueI("maxArea");
 	int nConsidered = panel.getValueI("nConsidered");
 	
 	cam.update();
-	if(cam.isFrameNew()) {
-		gray.setFromPixels(cam.getPixels(), 640, 480);
-		gray.threshold(threshLevel);
-		finder.findContours(gray, minArea, maxArea, nConsidered, false);
+	if(cam.isFrameNew()) {		
+		float alpha = panel.getValueF("alpha");
+		float beta = 1 - alpha;
+		IplImage* camIpl = toCv(cam.getPixels(), cam.getWidth(), cam.getHeight(), OF_IMAGE_GRAYSCALE);
+		cvAddWeighted(camIpl, alpha, blur.getCvImage(), beta, 0, blur.getCvImage());
+		blur.flagImageChanged();
+		blur.blur(blurAmount * 2 + 1);
+		
+		thresh = blur;
+		thresh.threshold(threshLevel);
+		finder.findContours(thresh, minArea, maxArea, nConsidered, false);
 	}
 }
 
@@ -56,7 +74,13 @@ void testApp::draw() {
 	ofBackground(0, 0, 0);
 	ofSetColor(255, 255, 255);
 	cam.draw(0, 0);
-	gray.draw(640, 0);
+	
+	blur.draw(640, 0);
+	ofEnableAlphaBlending();
+	ofSetColor(255, 0, 0, 128);
+	thresh.draw(640, 0);
+	ofDisableAlphaBlending();
+	
 	finder.draw(0, 0);
 }
 

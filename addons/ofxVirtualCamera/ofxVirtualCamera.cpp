@@ -1,4 +1,4 @@
-#include "VirtualCamera.h"
+#include "ofxVirtualCamera.h"
 
 const float fovWidth = 1.0144686707507438;
 const float fovHeight = 0.78980943449644714;
@@ -13,7 +13,7 @@ ofxVec3f ConvertProjectiveToRealWorld(float x, float y, float z) {
 									z);
 }
 
-VirtualCamera::VirtualCamera() :
+ofxVirtualCamera::ofxVirtualCamera() :
 newFrame(false),
 maxLen(1),
 stepSize(1),
@@ -24,11 +24,11 @@ position(ofxVec3f(0, 0, 0)),
 rotation(ofxVec3f(0, 0, 0)) {
 }
 
-VirtualCamera::~VirtualCamera() {
+ofxVirtualCamera::~ofxVirtualCamera() {
 	kinect.close();
 }
 
-void VirtualCamera::setup() {
+void ofxVirtualCamera::setup() {
 	surface.resize(camWidth * camHeight);
 	indices.resize(camWidth * camHeight * 3);
 	
@@ -43,7 +43,7 @@ void VirtualCamera::setup() {
 	fboGrayImage.setUseTexture(false);
 }
 
-void VirtualCamera::updateSurface() {
+void ofxVirtualCamera::updateSurface() {
 	float* z = kinect.getDistancePixels();
 	int i = 0;
 	for(int y = 0; y < camHeight; y++) {
@@ -56,7 +56,7 @@ void VirtualCamera::updateSurface() {
 	}
 }
 
-void VirtualCamera::updateMesh() {
+void ofxVirtualCamera::updateMesh() {
 	float* z = kinect.getDistancePixels();
 	indices.clear();
 	for(int y = 0; y < camHeight - stepSize; y += stepSize) {
@@ -88,7 +88,7 @@ void VirtualCamera::updateMesh() {
 	}
 }
 
-void VirtualCamera::renderCamera() {
+void ofxVirtualCamera::renderCamera() {
 	fbo.begin();
 	fbo.setBackground(0, 0, 0, 255);
 	
@@ -132,7 +132,7 @@ void VirtualCamera::renderCamera() {
 	fbo.end();
 }
 
-void VirtualCamera::updatePixels() {
+void ofxVirtualCamera::updatePixels() {
 	fbo.clearAlpha();
 	ofTexture& tex = fboColorImage.getTextureReference();
 	tex.bind();
@@ -155,7 +155,7 @@ void VirtualCamera::updatePixels() {
 	}
 }
 
-void VirtualCamera::update() {
+void ofxVirtualCamera::update() {
 	kinect.update();
 	if(kinect.isFrameNew()) {
 		newFrame = true;
@@ -167,41 +167,49 @@ void VirtualCamera::update() {
 	}
 }
 
-bool VirtualCamera::isFrameNew() {
+bool ofxVirtualCamera::isFrameNew() {
 	bool curNewFrame = newFrame;
 	newFrame = false;
 	return curNewFrame;
 }
 
-unsigned char* VirtualCamera::getPixels() {
+unsigned char* ofxVirtualCamera::getPixels() {
 	return fboGrayImage.getPixels();
 }
 
-void VirtualCamera::draw(float x, float y) {
+void ofxVirtualCamera::draw(float x, float y) {
 	fbo.draw(x, y);
 }
 
-void VirtualCamera::setMaxLen(float maxLen) {
+void ofxVirtualCamera::setMaxLen(float maxLen) {
 	this->maxLen = maxLen;
 }
 
-void VirtualCamera::setStepSize(int stepSize) {
+void ofxVirtualCamera::setStepSize(int stepSize) {
 	this->stepSize = stepSize;
 }
 
-void VirtualCamera::setClipping(float nearClipping, float farClipping) {
+void ofxVirtualCamera::setClipping(float nearClipping, float farClipping) {
 	this->nearClipping = nearClipping;
 	this->farClipping = farClipping;
 }
 
-void VirtualCamera::setOrthoScale(float orthoScale) {
+void ofxVirtualCamera::setOrthoScale(float orthoScale) {
 	this->orthoScale = orthoScale;
 }
 
-void VirtualCamera::setPosition(ofxVec3f position) {
+void ofxVirtualCamera::setPosition(ofxVec3f position) {
 	this->position = position;
 }
 
-void VirtualCamera::setRotation(ofxVec3f rotation) {
+void ofxVirtualCamera::setRotation(ofxVec3f rotation) {
 	this->rotation = rotation;
+}
+
+int ofxVirtualCamera::getWidth() const {
+	return camWidth;
+}
+
+int ofxVirtualCamera::getHeight() const {
+	return camHeight;
 }

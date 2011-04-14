@@ -4,10 +4,10 @@
 #include "ofxKinect.h"
 #include "ofxFbo.h"
 
-class VirtualCamera {
+class ofxVirtualCamera {
 public:
-	VirtualCamera();
-	~VirtualCamera();
+	ofxVirtualCamera();
+	~ofxVirtualCamera();
 	
 	void setup();
 	void update();
@@ -21,6 +21,9 @@ public:
 	void setOrthoScale(float orthoScale);
 	void setPosition(ofxVec3f position);
 	void setRotation(ofxVec3f rotation);
+	
+	int getWidth() const;
+	int getHeight() const;
 private:
 	ofxKinect kinect;
 	
