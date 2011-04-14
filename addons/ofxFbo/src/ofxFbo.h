@@ -2,6 +2,7 @@
 
 #include "ofAppRunner.h"
 #include "ofGraphics.h"
+#include "ofTexture.h"
 
 /*
         push/pop to be renamed
@@ -49,6 +50,8 @@ public:
 
         int getWidth();
         int getHeight();
+				
+				void getPixels(unsigned char* pixels);
 
 protected:
         int width, height;
