@@ -30,6 +30,20 @@ void testApp::setup() {
 	
 	blur.allocate(640, 480);
 	thresh.allocate(640, 480);
+	
+	setupOsc();
+}
+
+void testApp::setupOsc() {
+	ofxXmlSettings settings;
+	if(!settings.loadFile("osc.xml")) {
+		ofLog(OF_LOG_ERROR, "testApp::setupOsc(): couldn't load osc.xml");
+	}
+	string address = settings.getValue("address", "255.255.255.255");
+	int port = settings.getValue("port", 8888);
+	
+	cout << "Broadcasting to " << address << ":" << port << endl;
+	oscSender.setup(address, port);
 }
 
 IplImage* toCv(unsigned char* pixels, int width, int height, int type) {
@@ -37,6 +51,24 @@ IplImage* toCv(unsigned char* pixels, int width, int height, int type) {
 	IplImage* ipl = cvCreateImageHeader(cvSize(width, height), IPL_DEPTH_8U, channels);
 	cvSetData(ipl, pixels, channels * width);
 	return ipl;
+}
+
+void testApp::updateOsc() {
+	ofxOscMessage message;
+	message.setAddress("mouse");
+	
+	vector<ofxCvBlob>& blobs = finder.blobs;
+	for(int i = 0; i < blobs.size(); i++) {
+		ofxVec2f curPoint(blobs[i].centroid);
+	
+		message.addFloatArg(curPoint.x);
+		message.addFloatArg(ofMap(curPoint.y, 0, 1, .8, .9));
+		
+		message.addFloatArg(curPoint.x);
+		message.addFloatArg(curPoint.y);
+	}
+	
+	oscSender.sendMessage(message);
 }
 
 //--------------------------------------------------------------
@@ -66,6 +98,8 @@ void testApp::update() {
 		thresh = blur;
 		thresh.threshold(threshLevel);
 		finder.findContours(thresh, minArea, maxArea, nConsidered, false);
+		
+		updateOsc();
 	}
 }
 

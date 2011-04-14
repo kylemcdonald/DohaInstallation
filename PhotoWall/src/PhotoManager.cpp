@@ -6,7 +6,7 @@
 vector<LazyImage*> PhotoManager::all;
 
 void PhotoManager::setup(string path) {
-	Poco::File resizedPath("~/Desktop/3rdiStream/resized/");
+	Poco::File resizedPath(path);
 	
 	vector<Poco::File> dateDirs;
 	resizedPath.list(dateDirs);

@@ -29,7 +29,7 @@ public:
 		// consider changing this to if(loadedCpu) and then setUseTexture to false to unload every frame
 		if(lastCpu != loadedCpu) {
 			setUseTexture(true);
-			tex.allocate(myPixels.width, myPixels.height, myPixels.glDataType);
+			tex.allocate(getWidth(), getHeight(), pixels.getGlDataType());
 			update();
 		}
 		lastCpu = loadedCpu;
