@@ -72,12 +72,13 @@ void testApp::drawLocal() {
 	wall.drawWindow(curWindow);
 	//glDisable(GL_DEPTH_TEST);
 	
-	/*
-	for(unsigned int i = 0; i < forces.size(); i++) {
-		ofSetColor(255);
-		ofFill();
-		ofCircle(forces[i], 2 * 1920);
-	}*/
+	if(ofxMultiscreen::debug) {
+		for(unsigned int i = 0; i < forces.size(); i++) {
+			ofSetColor(255);
+			ofFill();
+			ofCircle(forces[i], 1920);
+		}
+	}
 }
 
 void testApp::drawOverlay() {

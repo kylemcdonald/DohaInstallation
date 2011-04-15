@@ -6,23 +6,23 @@ void testApp::setup() {
 	
 	panel.setup("Control Panel", 5, 5, 280, 600);
 	panel.addPanel("Contours");
-	panel.addSlider("alpha", "alpha", .2, 0, 1);
-	panel.addSlider("blurAmount", "blurAmount", 3, 0, 10, true);
-	panel.addSlider("threshLevel", "threshLevel", 128, 0, 255, true);
-	panel.addSlider("minArea", "minArea", 1000, 0, 100 * 100, true);
+	panel.addSlider("alpha", "alpha", .05, 0, 1);
+	panel.addSlider("blurAmount", "blurAmount", 4, 0, 10, true);
+	panel.addSlider("threshLevel", "threshLevel", 64, 0, 255, true);
+	panel.addSlider("minArea", "minArea", 200, 0, 100 * 100, true);
 	panel.addSlider("maxArea", "maxArea", 10000, 32 * 32, 240 * 240, true);
 	panel.addSlider("nConsidered", "nConsidered", 8, 1, 16, true);
 	
 	panel.addPanel("Camera");
 	panel.addSlider("maxLen", "maxLen", 8, 0, 20);
 	panel.addSlider("stepSize", "stepSize", 1, 1, 10, true);
-	panel.addSlider("nearClipping", "nearClipping", 380, 0, 1024);
-	panel.addSlider("farClipping", "farClipping", 600, 0, 1024);
-	panel.addSlider("orthoScale", "orthoScale", .66, 0, 2);
+	panel.addSlider("nearClipping", "nearClipping", 320, 0, 1024);
+	panel.addSlider("farClipping", "farClipping", 350, 0, 1024);
+	panel.addSlider("orthoScale", "orthoScale", .65, 0, 2);
 	panel.addSlider("camx", "camx", 0, -1024, 1024);
-	panel.addSlider("camy", "camy", -240, -1024, 1024);
-	panel.addSlider("camz", "camz", -500, -1024, 1024);
-	panel.addSlider("camrx", "camrx", 90, -180, 180);
+	panel.addSlider("camy", "camy", -148, -1024, 1024);
+	panel.addSlider("camz", "camz", 0, -1024, 1024);
+	panel.addSlider("camrx", "camrx", 20.2, -180, 180);
 	panel.addSlider("camry", "camry", 0, -180, 180);
 	panel.addSlider("camrz", "camrz", 0, -180, 180);
 	
@@ -60,12 +60,17 @@ void testApp::updateOsc() {
 	vector<ofxCvBlob>& blobs = finder.blobs;
 	for(int i = 0; i < blobs.size(); i++) {
 		ofxVec2f curPoint(blobs[i].centroid);
+		// squeeze because the floor has a different aspect ratio than the camera
+		curPoint.x = ofMap(curPoint.x, 0, 640, .2, .8);
+		curPoint.y = ofMap(curPoint.y, 0, 480, 0, 1);
 	
+		//project forward
 		message.addFloatArg(curPoint.x);
-		message.addFloatArg(ofMap(curPoint.y, 0, 1, .8, .9));
+		message.addFloatArg(.8);
 		
+		// project upward
 		message.addFloatArg(curPoint.x);
-		message.addFloatArg(curPoint.y);
+		message.addFloatArg(ofMap(curPoint.y, 0, 1, 0, .6));
 	}
 	
 	oscSender.sendMessage(message);
@@ -87,7 +92,7 @@ void testApp::update() {
 	int nConsidered = panel.getValueI("nConsidered");
 	
 	cam.update();
-	if(cam.isFrameNew()) {		
+	if(cam.isFrameNew()) {
 		float alpha = panel.getValueF("alpha");
 		float beta = 1 - alpha;
 		IplImage* camIpl = toCv(cam.getPixels(), cam.getWidth(), cam.getHeight(), OF_IMAGE_GRAYSCALE);
@@ -97,7 +102,21 @@ void testApp::update() {
 		
 		thresh = blur;
 		thresh.threshold(threshLevel);
-		finder.findContours(thresh, minArea, maxArea, nConsidered, false);
+		finder.findContours(thresh, minArea, maxArea, nConsidered, false, false);
+		
+		// make the average the centroid
+		// should be more stable than the moments
+		vector<ofxCvBlob>& blobs = finder.blobs;
+		for(int i = 0; i < blobs.size(); i++) {
+			ofxCvBlob& cur = blobs[i];
+			vector<ofPoint>& pts = cur.pts;
+			ofPoint& centroid = cur.centroid;
+			centroid.set(0, 0);
+			for(int j = 0; j < pts.size(); j++) {
+				centroid += pts[i];
+			}
+			centroid /= pts.size();
+		}
 		
 		updateOsc();
 	}
@@ -116,6 +135,18 @@ void testApp::draw() {
 	ofDisableAlphaBlending();
 	
 	finder.draw(0, 0);
+	
+	vector<ofxCvBlob>& blobs = finder.blobs;
+	for(int i = 0; i < blobs.size(); i++) {
+		ofPoint& cur = blobs[i].centroid;
+		ofCircle(cur.x, cur.y, 5);
+	}
+	
+	ofSetColor(255, 0, 0);
+	ofLine(320, 0, 320, 480);
+	ofLine(0, 240, 640, 240);
+	ofNoFill();
+	ofRect(0, 0, 640, 480);
 }
 
 void testApp::keyPressed(int key) {

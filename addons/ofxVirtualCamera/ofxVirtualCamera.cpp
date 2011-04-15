@@ -8,7 +8,7 @@ const unsigned int camWidth = 640;
 const unsigned int camHeight = 480;
 
 ofxVec3f ConvertProjectiveToRealWorld(float x, float y, float z) {
-	return ofxVec3f((x/camWidth-.5f) * z * XtoZ,
+	return ofxVec3f(-(x/camWidth-.5f) * z * XtoZ, // -x for front-mounted cameras
 									(y/camHeight-.5f) * z * YtoZ,
 									z);
 }

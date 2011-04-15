@@ -5,7 +5,6 @@
 		<Option title="kinectExample" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="src/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
@@ -69,8 +68,8 @@
 			<Add directory="../../../libs/poco/include" />
 			<Add directory="../../../addons/ofxNetwork/src" />
 			<Add directory="../../../addons/ofxOsc/src" />
-			<Add directory="../../../addons/ofxOsc/libs/oscpack/include/ip" />
-			<Add directory="../../../addons/ofxOsc/libs/oscpack/include/osc" />
+			<Add directory="../addons/ofxOsc/libs/oscpack/src" />
+			<Add directory="../addons/ofxOsc/src" />
 			<Add directory="../../../addons/ofxVectorMath/src" />
 			<Add directory="../../../addons/ofxVectorGraphics/src" />
 			<Add directory="../../../addons/ofxVectorGraphics/libs" />
@@ -82,6 +81,12 @@
 			<Add directory="../../../addons/ofxXmlSettings/libs" />
 			<Add directory="../../../addons/ofxKinect/src" />
 			<Add directory="../../../addons/ofxKinect/libs/libfreenect" />
+			<Add directory="../addons/ofxVirtualCamera" />
+			<Add directory="../addons/ofxFbo/src" />
+			<Add directory="../../../addons/ofxControlPanel/src" />
+			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip/posix" />
+			<Add directory="../addons/ofxOsc/libs/oscpack/src/ip" />
+			<Add directory="../addons/ofxOsc/libs/oscpack/src/osc" />
 		</Compiler>
 		<Linker>
 			<Add library="fmodex" />
@@ -97,8 +102,8 @@
 			<Add library="RtAudio" />
 			<Add library="GLee" />
 			<Add library="oFappsink" />
-			<Add library="../../../addons/ofxOsc/libs/oscpack/lib/linux64/liboscpack.a" />
 			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcv.a" />
+			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcvaux.a" />
 			<Add library="../../../addons/ofxOpenCv/libs/opencv/lib/linux64/libcxcore.a" />
 			<Add directory="../../../libs/freetype/lib/linux64" />
 			<Add directory="../../../libs/FreeImage/lib/linux64" />
@@ -115,6 +120,66 @@
 			<Add after="#" />
 			<Add after="cp -r ../../../export/linux64/libs $(PROJECT_DIR)bin/" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxControlPanel/src/guiBaseObject.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiBaseObject.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiCallback.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiCallback.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiCallbackValue.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiCallbackValue.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiColor.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiColor.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiCustomImpl.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiIncludes.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTextBase.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTextBase.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiType2DSlider.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiType2DSlider.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeButtonSlider.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeButtonSlider.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeChartPlotter.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeChartPlotter.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeCustom.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeCustom.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeDrawable.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeDrawable.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeFileLister.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeFileLister.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeLabel.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeLabel.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeLogger.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeLogger.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeMultiToggle.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeMultiToggle.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypePanel.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypePanel.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeSlider.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeSlider.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeText.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeText.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeTextDropDown.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeTextDropDown.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeTextInput.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeTextInput.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeToggle.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeToggle.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeVairableLister.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeVairableLister.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeVideo.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiTypeVideo.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiValue.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiValue.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiVariablePointer.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/guiXmlValue.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/ofxControlPanel.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/ofxControlPanel.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleColor.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleColor.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleFileLister.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleFileLister.h" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleLogger.cpp" />
+		<Unit filename="../../../addons/ofxControlPanel/src/simpleLogger.h" />
+		<Unit filename="../../../addons/ofxDirList/src/ofxDirList.cpp" />
+		<Unit filename="../../../addons/ofxDirList/src/ofxDirList.h" />
 		<Unit filename="../../../addons/ofxKinect/libs/libfreenect/cameras.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -155,16 +220,6 @@
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp" />
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxCvShortImage.h" />
 		<Unit filename="../../../addons/ofxOpenCv/src/ofxOpenCv.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOsc.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscArg.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscBundle.cpp" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscBundle.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscMessage.cpp" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscMessage.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscReceiver.cpp" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscReceiver.h" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscSender.cpp" />
-		<Unit filename="../../../addons/ofxOsc/src/ofxOscSender.h" />
 		<Unit filename="../../../addons/ofxThread/src/ofxThread.cpp" />
 		<Unit filename="../../../addons/ofxThread/src/ofxThread.h" />
 		<Unit filename="../../../addons/ofxVectorMath/src/ofxMatrix3x3.cpp" />
@@ -186,15 +241,44 @@
 		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp" />
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h" />
-		<Unit filename="src/main.cpp">
-			<Option virtualFolder="src/" />
-		</Unit>
-		<Unit filename="src/testApp.cpp">
-			<Option virtualFolder="src/" />
-		</Unit>
-		<Unit filename="src/testApp.h">
-			<Option virtualFolder="src/" />
-		</Unit>
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/ofxAutoControlPanel.h" />
+		<Unit filename="src/testApp.cpp" />
+		<Unit filename="src/testApp.h" />
+		<Unit filename="../addons/ofxFbo/src/ofxFbo.cpp" />
+		<Unit filename="../addons/ofxFbo/src/ofxFbo.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/NetworkingUtils.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/PacketListener.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/TimerListener.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/UdpSocket.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/posix/NetworkingUtils.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/ip/posix/UdpSocket.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/MessageMappingOscPacketListener.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscException.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscHostEndianness.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscPacketListener.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.h" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.cpp" />
+		<Unit filename="../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOsc.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscArg.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscBundle.cpp" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscBundle.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscMessage.cpp" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscMessage.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscReceiver.cpp" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscReceiver.h" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscSender.cpp" />
+		<Unit filename="../addons/ofxOsc/src/ofxOscSender.h" />
+		<Unit filename="../addons/ofxVirtualCamera/ofxVirtualCamera.cpp" />
+		<Unit filename="../addons/ofxVirtualCamera/ofxVirtualCamera.h" />
 		<Extensions>
 			<lib_finder>
 				<lib name="gstreamer-0.10" />
