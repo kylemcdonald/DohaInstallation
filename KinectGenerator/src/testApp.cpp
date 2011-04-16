@@ -7,8 +7,8 @@ void testApp::setup() {
 
 	panel.setup("Control Panel", 5, 5, 280, 600);
 	panel.addPanel("Contours");
-	panel.addSlider("alpha", "alpha", .05, 0, 1);
-	panel.addSlider("blurAmount", "blurAmount", 8, 0, 16, true);
+	panel.addSlider("alpha", "alpha", .1, 0, 1);
+	panel.addSlider("blurAmount", "blurAmount", 4, 0, 16, true);
 	panel.addSlider("threshLevel", "threshLevel", 64, 0, 255, true);
 	panel.addSlider("minArea", "minArea", 200, 0, 100 * 100, true);
 	panel.addSlider("maxArea", "maxArea", 10000, 32 * 32, 240 * 240, true);
@@ -148,7 +148,7 @@ void testApp::update() {
 			ofPoint& centroid = cur.centroid;
 			centroid.set(0, 0);
 			for(int j = 0; j < pts.size(); j++) {
-				centroid += pts[i];
+				centroid += pts[j];
 			}
 			centroid /= pts.size();
 		}
