@@ -5,7 +5,7 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
 
-	panel.setup("Control Panel", 5, 5, 280, 600);
+	panel.setup("Control Panel", 640 - 140, 240, 280, 600);
 	panel.addPanel("Contours");
 	panel.addSlider("alpha", "alpha", .1, 0, 1);
 	panel.addSlider("blurAmount", "blurAmount", 4, 0, 16, true);
@@ -62,7 +62,7 @@ void testApp::updateOsc() {
 	for(int i = 0; i < blobs.size(); i++) {
 		ofxVec2f curPoint(blobs[i].centroid);
 		// squeeze because the floor has a different aspect ratio than the camera
-		curPoint.x = ofMap(curPoint.x, 0, 640, .2, .8);
+		curPoint.x = ofMap(curPoint.x, 0, 640, .15, .85);
 		curPoint.y = ofMap(curPoint.y, 0, 480, 0, 1);
  
 		//project forward
